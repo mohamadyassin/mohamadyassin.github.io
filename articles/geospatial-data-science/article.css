@@ -32,6 +32,7 @@
 .hero h1{ margin: 10px 0 6px; font-size: 40px; }
 .section{ margin: 22px 0; }
 .section h2{ margin: 0 0 8px; font-size: 22px; }
+.h3{ margin: 12px 0 6px; font-size: 16px; color: var(--text); }
 
 .backlink{
   display:inline-block;
@@ -42,6 +43,14 @@
   margin-top: 8px;
 }
 .backlink:hover{ color: var(--text); }
+
+.note{
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(226,232,240,.06);
+  padding: 10px 12px;
+}
 
 .map-block{ margin: 18px 0 8px; }
 
@@ -91,6 +100,40 @@
   margin-top: 28px;
   border-top: 1px solid var(--border);
   padding-top: 14px;
+}
+
+/* =========================
+   Hover tooltip (MapLibre)
+   ========================= */
+.map-hover{
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  max-width: 340px;
+  background: rgba(15,23,42,.92);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+.map-hover .title{
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.map-hover .row{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.map-hover .row b{
+  color: var(--text);
+  font-weight: 700;
 }
 
 @media (max-width: 980px){
