@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Geospatial Data Science | Mohamad Yassin</title>
+  <meta name="description" content="Geospatial Data Science — MapLibre scrollytelling article." />
+
+  <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="stylesheet" href="./app.css" />
+
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.min.js"></script>
+</head>
+
+<body class="article-body">
+  <header class="nav">
+    <a class="brand" href="/">Mohamad Yassin</a>
+    <nav class="links" aria-label="Primary navigation">
+      <a href="/projects/">Projects</a>
+      <a href="/articles/">Articles</a>
+      <a href="/videos/">Videos</a>
+      <a href="/repos/">Repos</a>
+      <a class="cta" href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="article-layout">
+    <section class="map-col" aria-label="Interactive map">
+      <div id="map"></div>
+
+      <div class="legend" id="legend" aria-label="Map legend">
+        <div class="legend-title">Legend</div>
+        <div class="legend-body" id="legendBody"></div>
+      </div>
+    </section>
+
+    <section class="story-col" aria-label="Article content">
+      <div class="prose">
+        <a class="backlink" href="/articles/">← Back to Articles</a>
+        <h1>Geospatial Data Science</h1>
+        <p class="muted">
+          A modern geodatabase case study with a walkways network, POIs, rides, amenities, and event polygons —
+          rendered as an interactive MapLibre story.
+        </p>
+      </div>
+
+      <div id="scrolly">
+        <div class="step" data-chapter="intro">
+          <h2>Overview</h2>
+          <p>Start with the base walkways network and then layer on feature classes.</p>
+        </div>
+
+        <div class="step" data-chapter="walkways">
+          <h2>Walkways network</h2>
+          <p>Park circulation network (polylines).</p>
+        </div>
+
+        <div class="step" data-chapter="nodes">
+          <h2>Nodes / junctions</h2>
+          <p>Junctions useful for navigation/network thinking.</p>
+        </div>
+
+        <div class="step" data-chapter="poi">
+          <h2>Points of Interest</h2>
+          <p>Landmarks and services.</p>
+        </div>
+
+        <div class="step" data-chapter="events">
+          <h2>Stadiums & encounters</h2>
+          <p>Polygon venues for shows/encounters.</p>
+        </div>
+
+        <div class="step" data-chapter="rides">
+          <h2>Rides</h2>
+          <p>Point layer with themed symbology potential.</p>
+        </div>
+
+        <div class="step" data-chapter="fnb">
+          <h2>Food & beverage</h2>
+          <p>Dining options and categories.</p>
+        </div>
+
+        <div class="step" data-chapter="restrooms">
+          <h2>Restrooms</h2>
+          <p>Amenities matter in real mapping products.</p>
+        </div>
+      </div>
+
+      <footer class="article-footer">
+        <div class="muted">© <span id="y"></span> Mohamad Yassin</div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="/assets/site.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
