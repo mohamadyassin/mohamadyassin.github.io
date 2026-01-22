@@ -1,356 +1,350 @@
-/* ============================================================
-   Geospatial Data Science — MapLibre Story Article (Stable)
-   - PRIMARY: repo-hosted GeoJSON (works with GitHub Pages)
-   - FALLBACK: GitHub Release URLs (validated as real JSON)
-   - Hover tooltips for attributes
-   - Auto-fit bounds per map
-   - Lazy init maps when visible
-   ============================================================ */
+(() => {
+  const YEAR_EL = document.getElementById("y");
+  if (YEAR_EL) YEAR_EL.textContent = new Date().getFullYear();
 
-   const REPO_BASE    = "/data/geospatial-data-science/";
-   const RELEASE_BASE = "https://github.com/mohamadyassin/myst_airc/releases/download/data/"; // MyST pattern :contentReference[oaicite:17]{index=17}
-   
-   const FILES = {
-     walkways:  "Walkways.geojson",
-     nodes:     "Nodes.geojson",
-     poi:       "PointsofInterest.geojson",
-     events:    "StadiumsandEncounters.geojson",
-     rides:     "Rides_JSON.geojson",
-     fnb:       "FoodandBeverage.geojson",
-     restrooms: "Restrooms.geojson",
-   };
-   
-   const META = {
-     walkways:  { label:"Walkways",            color:"#7CFF6B", kind:"line" },
-     nodes:     { label:"Nodes",               color:"#FDE047", kind:"circle" },
-     poi:       { label:"POI",                 color:"#60A5FA", kind:"circle" },
-     events:    { label:"Stadiums/Encounters", color:"#F472B6", kind:"polygon" },
-     rides:     { label:"Rides",               color:"#FB7185", kind:"circle" },
-     fnb:       { label:"Food & Beverage",     color:"#34D399", kind:"circle" },
-     restrooms: { label:"Restrooms",           color:"#A78BFA", kind:"circle" },
-   };
-   
-   // Esri World Imagery basemap
-   function makeStyle(){
-     return {
-       version: 8,
-       sources: {
-         esri: {
-           type: "raster",
-           tiles: [
-             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-           ],
-           tileSize: 256,
-           attribution: "Tiles © Esri"
-         }
-       },
-       layers: [{ id: "esri", type: "raster", source: "esri" }]
-     };
-   }
-   
-   /* ---------- Robust GeoJSON fetch ----------
-      - Always try REPO first (fast + reliable on GitHub Pages)
-      - Then try RELEASE
-      - Validate "looks like JSON" before accepting
-   ------------------------------------------ */
-   
-   async function fetchText(url){
-     const r = await fetch(url, { cache: "no-store" });
-     if (!r.ok) throw new Error(`Fetch failed ${r.status}: ${url}`);
-     return r.text();
-   }
-   
-   function looksLikeJson(text){
-     const s = (text || "").trim();
-     return s.startsWith("{") || s.startsWith("[");
-   }
-   
-   async function fetchGeoJSONSmart(key){
-     const fname = FILES[key];
-     if (!fname) throw new Error(`Unknown dataset key: ${key}`);
-   
-     const repoURL = `${REPO_BASE}${fname}`;
-     const relURL  = `${RELEASE_BASE}${fname}`;
-   
-     // 1) Repo first (stable)
-     try {
-       const t = await fetchText(repoURL);
-       if (!looksLikeJson(t)) throw new Error("Repo content not JSON");
-       return JSON.parse(t);
-     } catch (e) {
-       console.warn("Repo fetch failed, will try release:", key, e);
-     }
-   
-     // 2) Release fallback (validated)
-     const t2 = await fetchText(relURL);
-     if (!looksLikeJson(t2)) {
-       throw new Error(`Release did not return JSON for ${key}. It returned non-JSON content.`);
-     }
-     return JSON.parse(t2);
-   }
-   
-   /* ---------- Bounds helpers ---------- */
-   
-   function geojsonBounds(gj){
-     let minLng=Infinity, minLat=Infinity, maxLng=-Infinity, maxLat=-Infinity;
-   
-     function push(c){
-       const x=c[0], y=c[1];
-       if (!Number.isFinite(x) || !Number.isFinite(y)) return;
-       minLng = Math.min(minLng, x); maxLng = Math.max(maxLng, x);
-       minLat = Math.min(minLat, y); maxLat = Math.max(maxLat, y);
-     }
-     function walk(coords){
-       if (!coords) return;
-       if (typeof coords[0] === "number") { push(coords); return; }
-       coords.forEach(walk);
-     }
-   
-     if (gj?.type === "FeatureCollection") gj.features?.forEach(f => walk(f?.geometry?.coordinates));
-     else if (gj?.type === "Feature") walk(gj?.geometry?.coordinates);
-     else walk(gj?.coordinates);
-   
-     if (!Number.isFinite(minLng)) return null;
-     return [[minLng,minLat],[maxLng,maxLat]];
-   }
-   
-   function mergeBounds(a,b){
-     if (!a) return b;
-     if (!b) return a;
-     return [
-       [Math.min(a[0][0], b[0][0]), Math.min(a[0][1], b[0][1])],
-       [Math.max(a[1][0], b[1][0]), Math.max(a[1][1], b[1][1])]
-     ];
-   }
-   
-   /* ---------- Layers ---------- */
-   
-   function addLayers(map, key){
-     const m = META[key];
-     if (!m) return;
-   
-     if (m.kind === "line"){
-       map.addLayer({
-         id: `${key}-line`,
-         type: "line",
-         source: key,
-         paint: { "line-color": m.color, "line-width": 3.0, "line-opacity": 0.9 }
-       });
-       return;
-     }
-   
-     if (m.kind === "circle"){
-       map.addLayer({
-         id: `${key}-pts`,
-         type: "circle",
-         source: key,
-         paint: {
-           "circle-radius": 6,
-           "circle-color": m.color,
-           "circle-stroke-color": "rgba(0,0,0,.35)",
-           "circle-stroke-width": 1.2,
-           "circle-opacity": 0.95
-         }
-       });
-       return;
-     }
-   
-     if (m.kind === "polygon"){
-       map.addLayer({
-         id: `${key}-fill`,
-         type: "fill",
-         source: key,
-         paint: { "fill-color": m.color, "fill-opacity": 0.25 }
-       });
-       map.addLayer({
-         id: `${key}-outline`,
-         type: "line",
-         source: key,
-         paint: { "line-color": m.color, "line-width": 2.0, "line-opacity": 0.75 }
-       });
-     }
-   }
-   
-   function layerIdsForKey(key){
-     const m = META[key];
-     if (!m) return [];
-     if (m.kind === "line") return [`${key}-line`];
-     if (m.kind === "circle") return [`${key}-pts`];
-     if (m.kind === "polygon") return [`${key}-fill`, `${key}-outline`];
-     return [];
-   }
-   
-   /* ---------- Legend ---------- */
-   
-   function setLegend(legendEl, keys){
-     if (!legendEl) return;
-     const body = legendEl.querySelector(".map-legend-body");
-     if (!body) return;
-     body.innerHTML = "";
-     keys.forEach(k => {
-       const m = META[k];
-       if (!m) return;
-       const row = document.createElement("div");
-       row.className = "legend-row";
-       row.innerHTML = `<span class="swatch" style="background:${m.color}"></span><span>${m.label}</span>`;
-       body.appendChild(row);
-     });
-   }
-   
-   /* ---------- Hover tooltip ---------- */
-   
-   function escapeHtml(s){
-     return String(s).replace(/[&<>"']/g, (c) => ({
-       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-     }[c]));
-   }
-   
-   function formatProps(props){
-     const skip = new Set(["OBJECTID", "Shape__Length", "Shape__Area"]);
-     const entries = Object.entries(props || {})
-       .filter(([k,v]) => v !== null && v !== "" && typeof v !== "object" && !skip.has(k));
-     return entries.slice(0, 12);
-   }
-   
-   function findHoverEl(mapEl){
-     // Prefer the closest hover box in this block
-     const frame = mapEl.closest(".map-frame");
-     if (frame) {
-       const h = frame.querySelector("[data-hover]");
-       if (h) return h;
-     }
-     // For inline maps: hover is sibling inside .map-inline
-     const inline = mapEl.closest(".map-inline");
-     if (inline) {
-       const h2 = inline.querySelector("[data-hover]");
-       if (h2) return h2;
-     }
-     return null;
-   }
-   
-   function bindHover(map, mapEl, keys){
-     const hoverEl = findHoverEl(mapEl);
-     if (!hoverEl) return;
-   
-     const hoverLayers = keys.flatMap(layerIdsForKey);
-   
-     function hide(){
-       hoverEl.hidden = true;
-       hoverEl.innerHTML = "";
-       map.getCanvas().style.cursor = "";
-     }
-   
-     function show(point, feature){
-       const props = feature?.properties || {};
-       const rows = formatProps(props);
-   
-       hoverEl.innerHTML = `
-         <div class="title">${escapeHtml(META_FROM_LAYER(feature.layer?.id))}</div>
-         ${rows.map(([k,v]) =>
-           `<div class="row"><b>${escapeHtml(k)}</b><span>${escapeHtml(v)}</span></div>`
-         ).join("")}
-         ${rows.length ? "" : `<div class="row"><span class="muted">No attributes found.</span></div>`}
-       `;
-   
-       const host = mapEl.closest(".map-frame") || mapEl.closest(".map-inline") || mapEl.parentElement;
-       const rect = host.getBoundingClientRect();
-   
-       const pad = 10;
-       const x = Math.min(rect.width - pad, Math.max(pad, point.x));
-       const y = Math.min(rect.height - pad, Math.max(pad, point.y));
-   
-       hoverEl.style.left = `${x + 14}px`;
-       hoverEl.style.top  = `${y + 14}px`;
-       hoverEl.hidden = false;
-       map.getCanvas().style.cursor = "pointer";
-     }
-   
-     map.on("mousemove", (e) => {
-       const feats = map.queryRenderedFeatures(e.point, { layers: hoverLayers });
-       if (!feats || feats.length === 0) return hide();
-       show(e.point, feats[0]);
-     });
-   
-     map.on("mouseleave", hide);
-     map.on("dragstart", hide);
-     map.on("zoomstart", hide);
-   }
-   
-   function META_FROM_LAYER(layerId){
-     // Turn "walkways-line" -> "Walkways"
-     if (!layerId) return "Feature";
-     const key = layerId.split("-")[0];
-     return META[key]?.label || "Feature";
-   }
-   
-   /* ---------- Build a map ---------- */
-   
-   async function buildMap(mapEl){
-     const keys = (mapEl.dataset.layers || "walkways")
-       .split(",").map(s => s.trim()).filter(Boolean);
-   
-     const map = new maplibregl.Map({
-       container: mapEl,
-       style: makeStyle(),
-       center: [-117.213, 32.764],
-       zoom: 15,
-       pitch: 35,
-       bearing: -10
-     });
-   
-     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
-   
-     map.on("load", async () => {
-       let boundsAll = null;
-   
-       for (const key of keys){
-         const gj = await fetchGeoJSONSmart(key);
-         const b = geojsonBounds(gj);
-         boundsAll = mergeBounds(boundsAll, b);
-   
-         map.addSource(key, { type: "geojson", data: gj });
-         addLayers(map, key);
-       }
-   
-       const block = mapEl.closest(".map-block");
-       if (block){
-         const legendEl = block.querySelector("[data-legend]");
-         if (legendEl) setLegend(legendEl, keys);
-       }
-   
-       if (boundsAll){
-         map.fitBounds(boundsAll, { padding: 40, animate: false });
-       }
-   
-       bindHover(map, mapEl, keys);
-   
-       requestAnimationFrame(() => map.resize());
-       setTimeout(() => map.resize(), 120);
-     });
-   
-     return map;
-   }
-   
-   /* ---------- Lazy init ---------- */
-   
-   const maps = [...document.querySelectorAll("[data-map]")];
-   
-   const io = new IntersectionObserver((entries) => {
-     entries.forEach(e => {
-       if (!e.isIntersecting) return;
-       const el = e.target;
-       if (el._built) return;
-       el._built = true;
-   
-       buildMap(el).catch(err => {
-         console.error(err);
-         el.innerHTML = `<div style="padding:14px;color:#94a3b8">Map failed to load. Check console.</div>`;
-       });
-     });
-   }, { threshold: 0.2 });
-   
-   maps.forEach(el => io.observe(el));
-   
-   const y = document.getElementById("y");
-   if (y) y.textContent = String(new Date().getFullYear());
-   
+  // 1) DATA SOURCES (EDIT THESE ONCE)
+  // Put your GeoJSON in /articles/geospatial-data-science/data/*.geojson
+  // OR point to your existing repo location that already works.
+  //
+  // Tip: repo raw is most stable on Pages:
+  //   "/articles/geospatial-data-science/data/walkways.geojson"
+  //
+  // Release assets MUST be a direct downloadable URL that returns JSON,
+  // not a GitHub HTML page.
+  const DATA_SOURCES = {
+    walkways: {
+      repo: "/articles/geospatial-data-science/data/walkways.geojson",
+      release: null,
+      // Optional: show these attributes first in hover
+      hoverKeys: ["Name", "Type", "ID", "Description"]
+    },
+    nodes: {
+      repo: "/articles/geospatial-data-science/data/nodes.geojson",
+      release: null,
+      hoverKeys: ["Name", "ID", "Type"]
+    },
+    poi: {
+      repo: "/articles/geospatial-data-science/data/poi.geojson",
+      release: null,
+      hoverKeys: ["Name", "Type", "Description", "ID"]
+    }
+    // Add more when you wire stadiums/bathrooms/rides/fnb:
+    // , stadiums: { repo:"...", release:null, hoverKeys:[...] }
+  };
+
+  // 2) MAP STYLE (Esri imagery via raster tiles)
+  const ESRI_IMAGERY = {
+    version: 8,
+    sources: {
+      esri: {
+        type: "raster",
+        tiles: [
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        tileSize: 256,
+        attribution: "Tiles © Esri"
+      }
+    },
+    layers: [
+      { id: "esri", type: "raster", source: "esri" }
+    ]
+  };
+
+  // ------------ helpers ------------
+  async function fetchGeoJSON(url) {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}`);
+    const txt = await res.text();
+
+    // Fail fast if GitHub returned HTML (classic release mistake)
+    if (txt.trim().startsWith("<!doctype") || txt.includes("<html")) {
+      throw new Error(`Not JSON (looks like HTML): ${url}`);
+    }
+    const json = JSON.parse(txt);
+
+    // Basic GeoJSON sanity checks
+    const isFeatureCollection =
+      json &&
+      json.type === "FeatureCollection" &&
+      Array.isArray(json.features);
+
+    if (!isFeatureCollection) {
+      throw new Error(`Not a FeatureCollection GeoJSON: ${url}`);
+    }
+    return json;
+  }
+
+  async function loadLayerData(layerKey) {
+    const cfg = DATA_SOURCES[layerKey];
+    if (!cfg) throw new Error(`Unknown layer key: ${layerKey}`);
+
+    // Try release first if present, but only if it parses as GeoJSON
+    if (cfg.release) {
+      try {
+        return await fetchGeoJSON(cfg.release);
+      } catch (e) {
+        console.warn(`[${layerKey}] release failed, falling back to repo`, e);
+      }
+    }
+    return await fetchGeoJSON(cfg.repo);
+  }
+
+  function bboxFromGeoJSON(fc) {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+    const walk = (coords) => {
+      if (!coords) return;
+      if (typeof coords[0] === "number" && typeof coords[1] === "number") {
+        const x = coords[0], y = coords[1];
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      } else if (Array.isArray(coords)) {
+        for (const c of coords) walk(c);
+      }
+    };
+
+    for (const f of fc.features) {
+      if (!f || !f.geometry) continue;
+      walk(f.geometry.coordinates);
+    }
+
+    if (!isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) {
+      return null;
+    }
+    return [minX, minY, maxX, maxY];
+  }
+
+  function fitToData(map, collections) {
+    const boxes = collections
+      .map(bboxFromGeoJSON)
+      .filter(Boolean);
+
+    if (!boxes.length) return;
+
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const b of boxes) {
+      minX = Math.min(minX, b[0]);
+      minY = Math.min(minY, b[1]);
+      maxX = Math.max(maxX, b[2]);
+      maxY = Math.max(maxY, b[3]);
+    }
+
+    map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 50, duration: 600 });
+  }
+
+  function geomType(fc) {
+    for (const f of fc.features) {
+      const t = f?.geometry?.type;
+      if (t) return t;
+    }
+    return null;
+  }
+
+  function addLegend(el, items) {
+    if (!el) return;
+    const html = [
+      `<div class="lg-title">Legend</div>`,
+      ...items.map(i => `
+        <div class="lg-item">
+          <div class="lg-swatch" style="background:${i.color}"></div>
+          <div>${i.label}</div>
+        </div>
+      `)
+    ].join("");
+    el.innerHTML = html;
+  }
+
+  function showHover(hoverEl, x, y, title, props, preferKeys) {
+    if (!hoverEl) return;
+    const keys = Object.keys(props || {});
+    if (!keys.length) return;
+
+    const order = [];
+    for (const k of (preferKeys || [])) if (k in props) order.push(k);
+    for (const k of keys) if (!order.includes(k)) order.push(k);
+
+    const rows = order.slice(0, 8).map(k => {
+      const v = props[k];
+      if (v === null || v === undefined || v === "") return "";
+      return `<div class="h-row"><div class="h-k">${escapeHtml(k)}</div><div>${escapeHtml(String(v))}</div></div>`;
+    }).join("");
+
+    hoverEl.innerHTML = `<div class="h-title">${escapeHtml(title)}</div>${rows}`;
+    hoverEl.hidden = false;
+
+    const pad = 14;
+    hoverEl.style.left = `${x + pad}px`;
+    hoverEl.style.top = `${y + pad}px`;
+  }
+
+  function hideHover(hoverEl) {
+    if (!hoverEl) return;
+    hoverEl.hidden = true;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+  }
+
+  // 3) BUILD MAPS
+  async function initMapBlock(mapEl) {
+    const layerKeys = (mapEl.dataset.layers || "")
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const mapId = mapEl.dataset.mapId || "map";
+    mapEl.id = mapEl.id || `map_${mapId}`;
+
+    const shell = mapEl.closest(".map-shell");
+    const legendEl = shell?.querySelector("[data-legend]");
+    const hoverEl = shell?.querySelector("[data-hover]");
+
+    const map = new maplibregl.Map({
+      container: mapEl.id,
+      style: ESRI_IMAGERY,
+      center: [-117.1625, 32.7355], // fallback
+      zoom: 14,
+      attributionControl: true
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
+
+    // Load all requested layers
+    const collections = {};
+    for (const k of layerKeys) {
+      try {
+        collections[k] = await loadLayerData(k);
+      } catch (e) {
+        console.error(`Layer failed: ${k}`, e);
+      }
+    }
+
+    map.on("load", () => {
+      const legendItems = [];
+
+      for (const k of layerKeys) {
+        const fc = collections[k];
+        if (!fc) continue;
+
+        const srcId = `src_${mapId}_${k}`;
+        const baseId = `lyr_${mapId}_${k}`;
+
+        map.addSource(srcId, { type: "geojson", data: fc });
+
+        const gt = geomType(fc);
+
+        // Styling choices (simple & clean)
+        if (gt === "LineString" || gt === "MultiLineString") {
+          map.addLayer({
+            id: baseId,
+            type: "line",
+            source: srcId,
+            paint: {
+              "line-color": "#7CFF6B",
+              "line-width": 4,
+              "line-opacity": 0.9
+            }
+          });
+          legendItems.push({ label: k, color: "#7CFF6B" });
+
+        } else if (gt === "Point" || gt === "MultiPoint") {
+          map.addLayer({
+            id: baseId,
+            type: "circle",
+            source: srcId,
+            paint: {
+              "circle-color": "#FFD84A",
+              "circle-radius": 6,
+              "circle-stroke-color": "rgba(0,0,0,.65)",
+              "circle-stroke-width": 1.5,
+              "circle-opacity": 0.95
+            }
+          });
+          legendItems.push({ label: k, color: "#FFD84A" });
+
+        } else {
+          // Polygons if/when you add stadiums, etc.
+          map.addLayer({
+            id: baseId,
+            type: "fill",
+            source: srcId,
+            paint: {
+              "fill-color": "rgba(124,255,107,.22)",
+              "fill-outline-color": "rgba(124,255,107,.85)"
+            }
+          });
+          legendItems.push({ label: k, color: "rgba(124,255,107,.35)" });
+        }
+      }
+
+      addLegend(legendEl, legendItems);
+
+      // Fit to data (all collections)
+      fitToData(map, Object.values(collections).filter(Boolean));
+
+      // Hover behavior: query features on mousemove
+      map.on("mousemove", (e) => {
+        const queryLayers = layerKeys.map(k => `lyr_${mapId}_${k}`);
+        const feats = map.queryRenderedFeatures(e.point, { layers: queryLayers });
+
+        if (!feats.length) {
+          hideHover(hoverEl);
+          map.getCanvas().style.cursor = "";
+          return;
+        }
+
+        const f = feats[0];
+        map.getCanvas().style.cursor = "pointer";
+
+        const layerKeyGuess = (f.layer.id.split("_").slice(-1)[0]) || "feature";
+        const prefer = DATA_SOURCES[layerKeyGuess]?.hoverKeys || [];
+
+        const title = (f.properties?.Name || f.properties?.name || f.properties?.TITLE || layerKeyGuess);
+        showHover(hoverEl, e.point.x, e.point.y, title, f.properties || {}, prefer);
+      });
+
+      map.on("mouseleave", () => {
+        hideHover(hoverEl);
+        map.getCanvas().style.cursor = "";
+      });
+    });
+  }
+
+  async function boot() {
+    const mapEls = document.querySelectorAll("[data-map]");
+    for (const el of mapEls) {
+      await initMapBlock(el);
+    }
+
+    // Scrollspy-ish: underline active tab
+    const tabs = Array.from(document.querySelectorAll(".story-tabs .tab"));
+    const sections = tabs
+      .map(t => document.querySelector(t.getAttribute("href")))
+      .filter(Boolean);
+
+    const setActive = () => {
+      const y = window.scrollY + 160;
+      let active = sections[0]?.id;
+
+      for (const s of sections) {
+        if (s.offsetTop <= y) active = s.id;
+      }
+
+      for (const t of tabs) {
+        const id = (t.getAttribute("href") || "").replace("#", "");
+        if (id === active) t.style.boxShadow = `inset 0 -2px 0 ${"rgba(239,68,68,.9)"}`;
+        else t.style.boxShadow = "none";
+      }
+    };
+
+    window.addEventListener("scroll", setActive, { passive: true });
+    setActive();
+  }
+
+  boot().catch(console.error);
+})();
