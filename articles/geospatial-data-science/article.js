@@ -1,29 +1,53 @@
 /* ============================================================
-   Embedded Leaflet Maps (Folium-style)
-   - Basemap: Esri World Imagery (like your MyST/Folium examples)
-   - Loads GeoJSON from /data/geospatial-data-science/
-   - If GeoJSON coordinates look like EPSG:3857 (meters),
-     reproject to EPSG:4326 (lon/lat) client-side via proj4.
-   - Auto-fit bounds to loaded layers
+   MapLibre embedded maps (StoryMap-style)
+   Fixes for "map 2+ broken / missing basemap":
+   - Each map gets its own STYLE object (not shared/mutated)
+   - Wait for map 'load' event before adding sources/layers
+   - Resize after visible + after load
+   - Auto-fit camera to GeoJSON bounds
    ============================================================ */
 
    const DATA_DIR = "/data/geospatial-data-science/";
 
-   // Esri World Imagery tiles (Leaflet)
-   const ESRI_IMAGERY = L.tileLayer(
-     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-     { maxZoom: 20, attribution: "Tiles © Esri" }
-   );
+   // Your filenames (adjust here if needed)
+   const SOURCES = {
+     walkways:  `${DATA_DIR}Walkways.geojson`,
+     nodes:     `${DATA_DIR}Nodes.geojson`,
+     poi:       `${DATA_DIR}PointsofInterest.geojson`,
+     events:    `${DATA_DIR}StadiumsandEncounters.geojson`,
+     rides:     `${DATA_DIR}Rides_JSON.geojson`,
+     fnb:       `${DATA_DIR}FoodandBeverage.geojson`,
+     restrooms: `${DATA_DIR}Restrooms.geojson`,
+   };
    
-   // layer registry (style + file names)
-   const LAYERS = {
-     walkways:  { file: "Walkways.geojson",              kind: "line",    color: "#7CFF6B" },
-     nodes:     { file: "Nodes.geojson",                 kind: "circle",  color: "#FDE047" },
-     poi:       { file: "PointsofInterest.geojson",      kind: "circle",  color: "#60A5FA" },
-     events:    { file: "StadiumsandEncounters.geojson", kind: "polygon", color: "#F472B6" },
-     rides:     { file: "Rides_JSON.geojson",            kind: "circle",  color: "#FB7185" },
-     fnb:       { file: "FoodandBeverage.geojson",       kind: "circle",  color: "#34D399" },
-     restrooms: { file: "Restrooms.geojson",             kind: "circle",  color: "#A78BFA" },
+   // Esri World Imagery for MapLibre (raster tiles)
+   function makeStyle(){
+     return {
+       version: 8,
+       sources: {
+         esri: {
+           type: "raster",
+           tiles: [
+             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+           ],
+           tileSize: 256,
+           attribution: "Tiles © Esri"
+         }
+       },
+       layers: [
+         { id: "esri", type: "raster", source: "esri" }
+       ]
+     };
+   }
+   
+   const LAYER_META = {
+     walkways:  { label:"Walkways",           color:"#7CFF6B", kind:"line" },
+     nodes:     { label:"Nodes",              color:"#FDE047", kind:"circle" },
+     poi:       { label:"POI",                color:"#60A5FA", kind:"circle" },
+     events:    { label:"Stadiums/Encounters",color:"#F472B6", kind:"polygon" },
+     rides:     { label:"Rides",              color:"#FB7185", kind:"circle" },
+     fnb:       { label:"Food & Beverage",    color:"#34D399", kind:"circle" },
+     restrooms: { label:"Restrooms",          color:"#A78BFA", kind:"circle" },
    };
    
    function setLegend(legendEl, items){
@@ -41,25 +65,22 @@
    
    async function fetchJSON(url){
      const r = await fetch(url, { cache: "no-store" });
-     if (!r.ok) throw new Error(`Failed ${url}: ${r.status}`);
+     if (!r.ok) throw new Error(`Fetch failed ${r.status}: ${url}`);
      return r.json();
    }
    
-   // Compute bounds and detect if coordinates look projected
-   function geojsonBoundsAndMaxAbs(gj){
+   function geojsonBounds(gj){
      let minLng=Infinity, minLat=Infinity, maxLng=-Infinity, maxLat=-Infinity;
-     let maxAbs = 0;
    
-     function pushCoord(c){
-       const x = c[0], y = c[1];
+     function push(c){
+       const x=c[0], y=c[1];
        if (!Number.isFinite(x) || !Number.isFinite(y)) return;
-       maxAbs = Math.max(maxAbs, Math.abs(x), Math.abs(y));
        minLng = Math.min(minLng, x); maxLng = Math.max(maxLng, x);
        minLat = Math.min(minLat, y); maxLat = Math.max(maxLat, y);
      }
      function walk(coords){
        if (!coords) return;
-       if (typeof coords[0] === "number") { pushCoord(coords); return; }
+       if (typeof coords[0] === "number") { push(coords); return; }
        coords.forEach(walk);
      }
    
@@ -67,158 +88,138 @@
      else if (gj?.type === "Feature") walk(gj?.geometry?.coordinates);
      else walk(gj?.coordinates);
    
-     if (!Number.isFinite(minLng)) return { bounds: null, maxAbs: 0 };
-     return { bounds: [[minLng, minLat],[maxLng, maxLat]], maxAbs };
+     if (!Number.isFinite(minLng)) return null;
+     return [[minLng,minLat],[maxLng,maxLat]];
    }
    
-   // Reproject GeoJSON coordinates from EPSG:3857 -> EPSG:4326
-   // Leaflet wants 4326-ish GeoJSON (lon/lat)
-   function reproject3857to4326(gj){
-     const from = proj4("EPSG:3857");
-     const to   = proj4("EPSG:4326");
-   
-     function mapCoord(c){
-       const p = proj4(from, to, [c[0], c[1]]);
-       return [p[0], p[1]];
-     }
-   
-     function walk(coords){
-       if (!coords) return coords;
-       if (typeof coords[0] === "number") return mapCoord(coords);
-       return coords.map(walk);
-     }
-   
-     // deep copy minimal
-     if (gj.type === "FeatureCollection"){
-       return {
-         type: "FeatureCollection",
-         features: gj.features.map(f => ({
-           ...f,
-           geometry: f.geometry ? { ...f.geometry, coordinates: walk(f.geometry.coordinates) } : f.geometry
-         }))
-       };
-     }
-     if (gj.type === "Feature"){
-       return {
-         ...gj,
-         geometry: gj.geometry ? { ...gj.geometry, coordinates: walk(gj.geometry.coordinates) } : gj.geometry
-       };
-     }
-     return { ...gj, coordinates: walk(gj.coordinates) };
+   function mergeBounds(a,b){
+     if (!a) return b;
+     if (!b) return a;
+     return [
+       [Math.min(a[0][0], b[0][0]), Math.min(a[0][1], b[0][1])],
+       [Math.max(a[1][0], b[1][0]), Math.max(a[1][1], b[1][1])]
+     ];
    }
    
-   function styleFor(kind, color){
-     if (kind === "line"){
-       return { color, weight: 4, opacity: 0.9 };
+   function addLayerFor(map, key){
+     const meta = LAYER_META[key];
+     if (!meta) return;
+   
+     if (meta.kind === "line"){
+       map.addLayer({
+         id: `${key}-line`,
+         type: "line",
+         source: key,
+         paint: {
+           "line-color": meta.color,
+           "line-width": 3.0,
+           "line-opacity": 0.9
+         }
+       });
+     } else if (meta.kind === "circle"){
+       map.addLayer({
+         id: `${key}-pts`,
+         type: "circle",
+         source: key,
+         paint: {
+           "circle-radius": 6,
+           "circle-color": meta.color,
+           "circle-stroke-color": "rgba(0,0,0,.35)",
+           "circle-stroke-width": 1.2,
+           "circle-opacity": 0.95
+         }
+       });
+     } else if (meta.kind === "polygon"){
+       map.addLayer({
+         id: `${key}-fill`,
+         type: "fill",
+         source: key,
+         paint: { "fill-color": meta.color, "fill-opacity": 0.25 }
+       });
+       map.addLayer({
+         id: `${key}-outline`,
+         type: "line",
+         source: key,
+         paint: { "line-color": meta.color, "line-width": 2.0, "line-opacity": 0.75 }
+       });
      }
-     if (kind === "polygon"){
-       return { color, weight: 2, opacity: 0.8, fillColor: color, fillOpacity: 0.25 };
-     }
-     return { color };
    }
    
-   function pointToLayerFactory(kind, color){
-     if (kind !== "circle") return undefined;
-     return (feature, latlng) => L.circleMarker(latlng, {
-       radius: 6,
-       color: "rgba(0,0,0,.35)",
-       weight: 1.2,
-       fillColor: color,
-       fillOpacity: 0.95
-     });
-   }
-   
-   async function buildLeafletMap(el){
+   async function buildMap(el){
      const wanted = (el.dataset.layers || "walkways")
        .split(",").map(s => s.trim()).filter(Boolean);
    
-     // Create map
-     const map = L.map(el, {
-       zoomControl: true,
+     const map = new maplibregl.Map({
+       container: el,
+       style: makeStyle(),                 // IMPORTANT: new object per map
+       center: [-117.213, 32.764],         // fallback
+       zoom: 14.5,
+       pitch: 35,
+       bearing: -10,
        attributionControl: true
      });
    
-     ESRI_IMAGERY.addTo(map);
+     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
    
-     const legendItems = [];
-     const group = L.featureGroup().addTo(map);
+     map.on("load", async () => {
+       let boundsAll = null;
+       const legendItems = [];
    
-     for (const key of wanted){
-       const meta = LAYERS[key];
-       if (!meta) continue;
+       // Load each requested dataset, add source + layer
+       for (const key of wanted){
+         const url = SOURCES[key];
+         if (!url) continue;
    
-       const url = DATA_DIR + meta.file;
-       let gj = await fetchJSON(url);
+         const gj = await fetchJSON(url);
+         const b = geojsonBounds(gj);
+         boundsAll = mergeBounds(boundsAll, b);
    
-       // Detect projected coordinates
-       const { bounds, maxAbs } = geojsonBoundsAndMaxAbs(gj);
-       // If huge numbers, it’s probably meters (EPSG:3857)
-       if (maxAbs > 400){
-         gj = reproject3857to4326(gj);
+         map.addSource(key, { type: "geojson", data: gj });
+         addLayerFor(map, key);
+   
+         const meta = LAYER_META[key];
+         if (meta) legendItems.push({ label: meta.label, color: meta.color });
        }
    
-       const layer = L.geoJSON(gj, {
-         style: () => styleFor(meta.kind, meta.color),
-         pointToLayer: pointToLayerFactory(meta.kind, meta.color),
-       });
+       // Legend only for the big map-block
+       const block = el.closest(".map-block");
+       if (block){
+         const legendEl = block.querySelector("[data-legend]");
+         if (legendEl) setLegend(legendEl, legendItems);
+       }
    
-       layer.addTo(group);
-       legendItems.push({ label: metaLabel(key), color: meta.color });
-     }
+       // Fit bounds (the big “make it always right” move)
+       if (boundsAll){
+         map.fitBounds(boundsAll, { padding: 40, animate: false });
+       }
    
-     // Fit to data
-     const b = group.getBounds();
-     if (b.isValid()){
-       map.fitBounds(b, { padding: [30, 30] });
-     } else {
-       // fallback center (SeaWorld-ish)
-       map.setView([32.764, -117.213], 15);
-     }
+       // Resize fixes for embedded maps
+       requestAnimationFrame(() => map.resize());
+       setTimeout(() => map.resize(), 100);
+     });
    
-     // Legend only for big map-blocks
-     const block = el.closest(".map-block");
-     if (block){
-       const legendEl = block.querySelector("[data-legend]");
-       setLegend(legendEl, legendItems);
-     }
-   
-     // Fix sizing glitches when created in a flowing layout
-     setTimeout(() => map.invalidateSize(true), 50);
      return map;
    }
    
-   function metaLabel(key){
-     if (key === "walkways") return "Walkways";
-     if (key === "nodes") return "Nodes";
-     if (key === "poi") return "POI";
-     if (key === "events") return "Stadiums/Encounters";
-     if (key === "rides") return "Rides";
-     if (key === "fnb") return "Food & Beverage";
-     if (key === "restrooms") return "Restrooms";
-     return key;
-   }
-   
    // Lazy init when visible
-   const els = [...document.querySelectorAll("[data-map]")];
+   const maps = [...document.querySelectorAll("[data-map]")];
    const io = new IntersectionObserver((entries) => {
-     entries.forEach(async (e) => {
+     entries.forEach(e => {
        if (!e.isIntersecting) return;
        const el = e.target;
        if (el._built) return;
        el._built = true;
    
-       try {
-         await buildLeafletMap(el);
-       } catch (err){
+       buildMap(el).catch(err => {
          console.error(err);
          el.innerHTML = `<div style="padding:14px;color:#94a3b8">
-           Map failed to load. Check console.
+           Map failed to load. Open console for details.
          </div>`;
-       }
+       });
      });
    }, { threshold: 0.2 });
    
-   els.forEach(el => io.observe(el));
+   maps.forEach(el => io.observe(el));
    
    // Footer year
    const y = document.getElementById("y");
