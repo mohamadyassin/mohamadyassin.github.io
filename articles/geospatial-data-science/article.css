@@ -44,14 +44,6 @@
 }
 .backlink:hover{ color: var(--text); }
 
-.note{
-  margin-top: 12px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgba(226,232,240,.06);
-  padding: 10px 12px;
-}
-
 .map-block{ margin: 18px 0 8px; }
 
 .map-frame{
@@ -86,7 +78,7 @@
 .legend-row{ display:flex; gap:10px; align-items:center; margin: 6px 0; color: var(--muted); }
 .swatch{ width:14px; height:14px; border-radius:4px; border:1px solid rgba(255,255,255,.25); }
 
-.map-inline{ margin: 14px 0; }
+.map-inline{ margin: 14px 0; position: relative; }
 .map-inline .map-embed{
   height: 420px;
   border-radius: 16px;
@@ -102,14 +94,12 @@
   padding-top: 14px;
 }
 
-/* =========================
-   Hover tooltip (MapLibre)
-   ========================= */
+/* Hover tooltip */
 .map-hover{
   position: absolute;
   z-index: 5;
   pointer-events: none;
-  max-width: 340px;
+  max-width: 360px;
   background: rgba(15,23,42,.92);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -124,7 +114,7 @@
 
 .map-hover .row{
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 130px 1fr;
   gap: 8px;
   padding: 3px 0;
   font-size: 12px;
