@@ -18,6 +18,7 @@
 }
 
 .toc-title{ font-weight: 700; margin-bottom: 10px; }
+
 .toc a{
   display: block;
   color: var(--muted);
@@ -26,9 +27,7 @@
 }
 .toc a:hover{ color: var(--text); background: rgba(226,232,240,.08); }
 
-.content{
-  max-width: 820px;
-}
+.content{ max-width: 820px; }
 
 .hero h1{ margin: 10px 0 6px; font-size: 40px; }
 .section{ margin: 22px 0; }
@@ -45,6 +44,7 @@
 .backlink:hover{ color: var(--text); }
 
 .map-block{ margin: 18px 0 8px; }
+
 .map-frame{
   position: relative;
   border: 1px solid var(--border);
@@ -52,7 +52,12 @@
   overflow: hidden;
   background: rgba(15,23,42,.25);
 }
-.map-embed{ height: 520px; } /* explicit height = no “blank map” */
+
+.map-embed{
+  height: 520px;
+  width: 100%;
+}
+
 .map-caption{ margin-top: 10px; }
 
 .map-legend{
@@ -65,13 +70,21 @@
   border:1px solid var(--border);
   border-radius: 14px;
   padding: 10px 12px;
+  z-index: 500;
 }
+
 .map-legend-title{ font-weight: 700; margin-bottom: 6px; }
 .legend-row{ display:flex; gap:10px; align-items:center; margin: 6px 0; color: var(--muted); }
 .swatch{ width:14px; height:14px; border-radius:4px; border:1px solid rgba(255,255,255,.25); }
 
 .map-inline{ margin: 14px 0; }
-.map-inline .map-embed{ height: 420px; border-radius: 16px; overflow: hidden; }
+.map-inline .map-embed{
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(15,23,42,.25);
+}
 .map-inline-caption{ margin-top: 8px; }
 
 .article-footer{

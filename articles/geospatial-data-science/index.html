@@ -9,8 +9,12 @@
   <link rel="stylesheet" href="/assets/site.css" />
   <link rel="stylesheet" href="./article.css" />
 
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.css">
-  <script src="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.js"></script>
+  <!-- Leaflet (Folium uses Leaflet under the hood) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Proj4 for client-side reprojection (EPSG:3857 -> EPSG:4326) -->
+  <script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
 </head>
 
 <body>
@@ -18,7 +22,7 @@
     <a class="brand" href="/">Mohamad Yassin</a>
     <nav class="links" aria-label="Primary navigation">
       <a href="/projects/">Projects</a>
-      <a href="/articles/">Articles</a>
+      <a href="/articles/" class="active">Articles</a>
       <a href="/videos/">Videos</a>
       <a href="/repos/">Repos</a>
       <a class="cta" href="/#contact">Contact</a>
@@ -45,21 +49,17 @@
       <header class="hero">
         <h1>Geospatial Data Science</h1>
         <p class="muted">
-          A modern geodatabase case study with a walkways network, POIs, rides, amenities, and event polygons —
-          presented as a clean narrative with embedded interactive maps.
+          StoryMap-style narrative with embedded interactive maps (Leaflet + Esri imagery).
+          This matches the mapping approach used in the MyST version (Folium/Leaflet).
         </p>
       </header>
 
-      <!-- MAP BLOCK 1 -->
+      <!-- MAP BLOCK: Overview -->
       <section class="map-block" aria-label="Interactive map: overview">
         <div class="map-frame">
           <div
             class="map-embed"
             data-map
-            data-center="-117.213,32.764"
-            data-zoom="14.8"
-            data-pitch="45"
-            data-bearing="-20"
             data-layers="walkways"
           ></div>
 
@@ -68,14 +68,14 @@
             <div class="map-legend-body"></div>
           </div>
         </div>
-        <div class="map-caption muted">Overview map (walkways). Scroll down to reveal more layers.</div>
+        <div class="map-caption muted">Overview map (walkways). Auto-fits to data.</div>
       </section>
 
       <section id="overview" class="section">
         <h2>Overview</h2>
         <p class="muted">
-          This article mirrors the MyST structure: headings, sources, and a clear narrative flow.
-          Maps are embedded where they belong, like a StoryMap.
+          Each map block is embedded like a StoryMap. Layers are loaded on demand and the camera fits to the data.
+          If a dataset is in EPSG:3857 (meters), it is reprojected in-browser to EPSG:4326 (lat/lon) so Leaflet can render it.
         </p>
       </section>
 
@@ -88,17 +88,8 @@
         <h2>Nodes / junctions</h2>
         <p class="muted">Junction visualization for network thinking.</p>
 
-        <!-- MAP BLOCK 2 -->
-        <div class="map-inline">
-          <div
-            class="map-embed"
-            data-map
-            data-center="-117.213,32.764"
-            data-zoom="15.2"
-            data-pitch="40"
-            data-bearing="-10"
-            data-layers="walkways,nodes"
-          ></div>
+        <div class="map-inline" aria-label="Interactive map: walkways and nodes">
+          <div class="map-embed" data-map data-layers="walkways,nodes"></div>
           <div class="muted map-inline-caption">Walkways + nodes.</div>
         </div>
       </section>
@@ -106,34 +97,59 @@
       <section id="poi" class="section">
         <h2>Points of Interest</h2>
         <p class="muted">Landmarks and services.</p>
+
+        <div class="map-inline" aria-label="Interactive map: POI">
+          <div class="map-embed" data-map data-layers="walkways,poi"></div>
+          <div class="muted map-inline-caption">Walkways + POI.</div>
+        </div>
       </section>
 
       <section id="events" class="section">
         <h2>Stadiums & encounters</h2>
         <p class="muted">Polygon venues for shows/encounters.</p>
+
+        <div class="map-inline" aria-label="Interactive map: stadiums and encounters">
+          <div class="map-embed" data-map data-layers="walkways,events"></div>
+          <div class="muted map-inline-caption">Walkways + event polygons.</div>
+        </div>
       </section>
 
       <section id="rides" class="section">
         <h2>Rides</h2>
         <p class="muted">Point layer with themed symbology potential.</p>
+
+        <div class="map-inline" aria-label="Interactive map: rides">
+          <div class="map-embed" data-map data-layers="walkways,rides"></div>
+          <div class="muted map-inline-caption">Walkways + rides.</div>
+        </div>
       </section>
 
       <section id="fnb" class="section">
         <h2>Food & beverage</h2>
         <p class="muted">Dining options and categories.</p>
+
+        <div class="map-inline" aria-label="Interactive map: food and beverage">
+          <div class="map-embed" data-map data-layers="walkways,fnb"></div>
+          <div class="muted map-inline-caption">Walkways + food & beverage.</div>
+        </div>
       </section>
 
       <section id="restrooms" class="section">
         <h2>Restrooms</h2>
         <p class="muted">Amenities matter in real mapping products.</p>
+
+        <div class="map-inline" aria-label="Interactive map: restrooms">
+          <div class="map-embed" data-map data-layers="walkways,restrooms"></div>
+          <div class="muted map-inline-caption">Walkways + restrooms.</div>
+        </div>
       </section>
 
       <section id="sources" class="section">
         <h2>Sources</h2>
         <ul class="muted">
-          <li>Original StoryMap: (link it)</li>
-          <li>MyST draft: (link it)</li>
-          <li>Datasets: GeoJSON served from this site repo under <code>/data/geospatial-data-science/</code></li>
+          <li>Original StoryMap: add link</li>
+          <li>MyST draft: add link</li>
+          <li>Datasets: <code>/data/geospatial-data-science/</code></li>
         </ul>
       </section>
 
