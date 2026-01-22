@@ -192,7 +192,7 @@
     }[c]));
   }
 
-  // 3) BUILD MAPS
+  // 3) BUILD MAPS (FIXED)
   async function initMapBlock(mapEl) {
     const layerKeys = (mapEl.dataset.layers || "")
       .split(",")
@@ -204,10 +204,10 @@
 
     const shell = mapEl.closest(".map-shell");
     const legendEl = shell?.querySelector("[data-legend]");
-    const hoverEl = shell?.querySelector("[data-hover]");
+    const hoverEl  = shell?.querySelector("[data-hover]");
 
     const map = new maplibregl.Map({
-      container: mapEl.id,
+      container: mapEl,          // ✅ more robust than passing string id
       style: ESRI_IMAGERY,
       center: [-117.1625, 32.7355],
       zoom: 14,
@@ -216,21 +216,30 @@
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
 
-    const collections = {};
-    for (const k of layerKeys) {
-      try {
-        collections[k] = await loadLayerData(k);
-      } catch (e) {
-        console.error(`Layer failed: ${k}`, e);
-      }
-    }
+    // small resize kicks to avoid hidden-layout / sticky header sizing issues
+    const kickResize = () => { try { map.resize(); } catch {} };
+    setTimeout(kickResize, 50);
+    setTimeout(kickResize, 250);
+    setTimeout(kickResize, 1000);
 
     map.getCanvas().addEventListener("mouseleave", () => {
       hideHover(hoverEl);
       map.getCanvas().style.cursor = "";
     });
 
-    map.on("load", () => {
+    // ✅ critical fix: register load handler immediately
+    map.on("load", async () => {
+      const collections = {};
+
+      // load GeoJSON AFTER style is ready (no missed 'load' race)
+      for (const k of layerKeys) {
+        try {
+          collections[k] = await loadLayerData(k);
+        } catch (e) {
+          console.error(`Layer failed: ${k}`, e);
+        }
+      }
+
       const legendItems = [];
       const layerIdsForQuery = [];
 
@@ -238,10 +247,12 @@
         const fc = collections[k];
         if (!fc) continue;
 
-        const srcId = `src_${mapId}_${k}`;
+        const srcId  = `src_${mapId}_${k}`;
         const baseId = `lyr_${mapId}_${k}`;
 
-        map.addSource(srcId, { type: "geojson", data: fc });
+        if (!map.getSource(srcId)) {
+          map.addSource(srcId, { type: "geojson", data: fc });
+        }
 
         const gt = geomType(fc);
 
@@ -317,7 +328,11 @@
         const title = (f.properties?.Name || f.properties?.name || f.properties?.TITLE || layerKeyGuess);
         showHover(hoverEl, e.point.x, e.point.y, title, f.properties || {}, prefer);
       });
+
+      kickResize();
     });
+
+    return map;
   }
 
   async function boot() {
