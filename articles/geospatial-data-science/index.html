@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Geospatial Data Science | Mohamad Yassin</title>
-  <meta name="description" content="A case study in modern geodatabase design with story-style narrative and embedded interactive maps." />
+  <meta name="description" content="Geospatial Data Science — a case study in modern geodatabase." />
 
   <link rel="stylesheet" href="/assets/site.css" />
-  <link rel="stylesheet" href="./article.css" />
+  <link rel="stylesheet" href="./article.css?v=20260121_esri" />
 
   <!-- MapLibre -->
-  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.js"></script>
 </head>
 
 <body>
@@ -18,410 +19,220 @@
     <a class="brand" href="/">Mohamad Yassin</a>
     <nav class="links" aria-label="Primary navigation">
       <a href="/projects/">Projects</a>
-      <a class="active" href="/articles/">Articles</a>
+      <a href="/articles/" class="active">Articles</a>
       <a href="/videos/">Videos</a>
       <a href="/repos/">Repos</a>
       <a class="cta" href="/#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- HERO (image only; no text overlay) -->
-  <section class="story-hero" aria-label="Geospatial Data Science cover image">
-    <!-- Put your hero image here (the PNG already contains text) -->
-    <img class="story-hero-img" src="./geospatial-data-science-hero.png" alt="Geospatial Data Science cover" />
+  <!-- StoryMap-style top chrome -->
+  <section class="story-topbar">
+    <div class="story-topbar-title">Geospatial Data Science</div>
   </section>
 
-  <!-- Sticky story sections nav (StoryMap-like) -->
-  <nav class="story-tabs" aria-label="Story sections">
-    <a href="#introduction">Introduction</a>
-    <a href="#geodatabase">SeaWorld San Diego Geodatabase</a>
-    <a href="#spatiotemporal">Spatio-Temporal Example</a>
-    <a href="#datascience">Data Science &amp; Machine Learning</a>
-    <a href="#videos">Related Videos</a>
-    <a href="#author">Author</a>
+  <!-- StoryMap-style section nav -->
+  <nav class="story-tabs" aria-label="Article sections">
+    <a href="#introduction" class="tab">Introduction</a>
+    <a href="#geodatabase" class="tab">SeaWorld San Diego Geodatabase</a>
+    <a href="#spatiotemporal" class="tab">Spatio-Temporal Example</a>
+    <a href="#ml" class="tab">Data Science &amp; Machine Learning</a>
+    <a href="#related-videos" class="tab">Related Videos</a>
+    <a href="#author" class="tab">Author: Mohamad Yassin</a>
   </nav>
 
-  <main class="story-wrap">
-    <aside class="toc">
-      <div class="toc-card">
-        <div class="toc-title">On this page</div>
-        <a href="#introduction">Introduction</a>
-        <a href="#geodatabase">SeaWorld San Diego Geodatabase</a>
-        <a href="#spatiotemporal">Spatio-Temporal Example</a>
-        <a href="#datascience">Data Science &amp; Machine Learning</a>
-        <a href="#videos">Related Videos</a>
-        <a href="#author">Author</a>
-      </div>
-    </aside>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-media" role="img" aria-label="Geospatial Data Science cover"></div>
+    <div class="hero-inner">
+      <h1>Geospatial Data Science</h1>
+      <p class="hero-sub">A case study in modern geodatabase</p>
+      <p class="hero-meta">Author: Mohamad Yassin — Class: GIS III - Geodatabase Design - 11/19/2022</p>
+      <p class="hero-date">November 19, 2022</p>
+    </div>
+  </header>
 
-    <article class="story">
-      <header class="story-head">
-        <div class="backline">
-          <a class="backlink" href="/articles/">← Back to Articles</a>
-        </div>
+  <main class="story">
 
-        <h1>Geospatial Data Science</h1>
-        <p class="subtitle">A case study in modern geodatabase</p>
-
-        <div class="meta">
-          <div><strong>Author:</strong> Mohamad Yassin</div>
-          <div><strong>Class:</strong> GIS III - Geodatabase Design - 11/19/2022</div>
-          <div><strong>Date:</strong> November 19, 2022</div>
-        </div>
-      </header>
-
-      <!-- =========================
-           INTRODUCTION
-      ========================== -->
-      <section id="introduction" class="section">
+    <!-- INTRODUCTION -->
+    <section id="introduction" class="story-section">
+      <div class="story-section-inner">
         <h2>Introduction</h2>
         <h3>How did we get here?</h3>
 
-        <p>
-          Geospatial isn’t only about geographic sciences. But also, about data and information
-          technologies. Especially ever since the introduction of the global navigation satellite
-          system (GNSS). However, both the geospatial and informational were either limited or
-          separated for a long time. GPS technologies accelerated quickly over the past few decades.
-          But it wasn’t an easy pursuit. It dates back to when, in order to satisfy their argument
-          with the English about the shape of the Earth, the French sent out two expeditions to make
-          spatial measurements.
-        </p>
+        <p>Geospatial isn’t only about geographic sciences. But also, about data and information technologies. Especially ever since the introduction of the global navigation satellite system (GNSS). However, both the geospatial and informational were either limited or separated for a long time. GPS technologies accelerated quickly over the past few decades. But it wasn’t an easy pursuit. It dates back to when, in order to satisfy their argument with the English about the shape of the Earth, the French sent out two expeditions to make spatial measurements.</p>
 
-        <p>
-          The French Cassini’s postulated that the Earth was elongated. While Isaac Newton deduced
-          that it was flattened. In 1735 La Condamine and Bouguer went to what was then called Peru
-          -in modern day Ecuador- to perform a measurement on a piece of a meridian. They spent nine
-          years there. Then, in 1736, De Maupertuis spent a year and half in what which was then
-          called Lapland in modern day Finland to do a similar land survey measurement.
-        </p>
+        <p>The French Cassini’s postulated that the Earth was elongated. While Isaac Newton deduced that it was flattened. In 1735 La Condamine and Bouguer went to what was then called Peru -in modern day Ecuador- to perform a measurement on a piece of a meridian. They spent nine years there. Then, in 1736, De Maupertuis spent a year and half in what which was then called Lapland in modern day Finland to do a similar land survey measurement.</p>
 
-        <p>
-          Contrary to what was originally anticipated. The French survey measurements affirmed that
-          the Earth was indeed flattened -as Newton originally anticipated with mathematic and
-          without ever leaving his desk. Those were the early expeditions that initiated Earth
-          measurement sciences as we have them today.
-        </p>
+        <p>Contrary to what was originally anticipated. The French survey measurements affirmed that the Earth was indeed flattened -as Newton originally anticipated with mathematic and without ever leaving his desk. Those were the early expeditions that initiated Earth measurement sciences as we have them today.</p>
 
-        <p>
-          In 1807 President Thomas Jefferson, who was a surveyor himself, created the Survey of the
-          Coast. Which included geodetic and astronomical survey tools to measure the Earth. Most of
-          these tools were imported from Europe until the 1890s. The Coast Survey conducted monumental
-          work across the U.S. collecting millions of data points on the ground in order to build
-          complex mathematical models of the Earth. This later became the mapping system for the
-          United States. Much of the work that these brave surveyors did over the past few decades
-          laid out the groundwork for the evolution of GPS. In 1960 the U.S. Cost Survey figured out
-          a way to use the Echo 1 satellite for global measurements of the earth. This initiated the
-          development of the global satellite navigation network between 1964-1973. In 1970 the Coast
-          Survey became the National Geodetic Survey (NGS) under NOAA.
-        </p>
+        <p>In 1807 President Thomas Jefferson, who was a surveyor himself, created the Survey of the Coast. Which included geodetic and astronomical survey tools to measure the Earth. Most of these tools were imported from Europe until the 1890s. The Coast Survey conducted monumental work across the U.S. collecting millions of data points on the ground in order to build complex mathematical models of the Earth. This later became the mapping system for the United States. Much of the work that these brave surveyors did over the past few decades laid out the groundwork for the evolution of GPS. In 1960 the U.S. Cost Survey figured out a way to use the Echo 1 satellite for global measurements of the earth. This initiated the development of the global satellite navigation network between 1964-1973. In 1970 the Coast Survey became the National Geodetic Survey (NGS) under NOAA.</p>
 
-        <p>
-          The high costs associated with satellites and mapping systems limited their access to
-          government and military for a long time. But technological and industrial revolutions that
-          have flattened the way over the past few decades lowered their barriers to entry. Anyone
-          today can make geospatial measurements and conduct complex statistical and mathematical
-          methods of the entire world without leaving his or her desk. Just like I'm about to
-          demonstrate for my case study.
-        </p>
+        <p>The high costs associated with satellites and mapping systems limited their access to government and military for a long time. But technological and industrial revolutions that have flattened the way over the past few decades lowered their barriers to entry. Anyone today can make geospatial measurements and conduct complex statistical and mathematical methods of the entire world without leaving his or her desk. Just like I'm about to demonstrate for my case study.</p>
 
-        <p class="note">
-          I copied all of the above information about the history of geodesy and surveying from video
-          lectures by Dave Doyle, NGS, Chief Geodetic Surveyor (Retired). I included all the links to
-          his awesome video lectures at the end if this page you're interested to learn a ton more.
-        </p>
+        <p>I copied all of the above information about the history of geodesy and surveying from video lectures by Dave Doyle, NGS, Chief Geodetic Surveyor (Retired). I included all the links to his awesome video lectures at the end if this page you're interested to learn a ton more.</p>
+      </div>
+    </section>
 
-        <h3>Geodatabase Project</h3>
-        <p>
-          The objective of my assignment was to build a geodatabase and provide a useful
-          application/service. I decided to find an open area near where I live to conduct a survey.
-          So, I went to SeaWorld San Diego. What a great place to be. I created a geodatabase and
-          visualized a map that can help both visitors and park management.
-        </p>
-
-        <p>
-          I was able to collect seven feature layers. Then I used an imagery web map from Esri with a
-          WGS84 Web Mercator datum and PCS for my base map. Especially since the my map is dependant
-          on GPS. For the geodatabase creation and web maps I used ArcGIS Pro and ArcGIS Online.
-        </p>
-
-        <p>
-          In my case study, I demonstrated the following: concepts of the spatial and temporal aspects
-          of GIS; cartography and symbology; geodatabase design and creation; network data; data
-          collection; and data science and AI applications.
-        </p>
-
-        <p class="note">
-          Please note that all of the data included in my project was either publicly collected or
-          fictional for the purposes of demonstration only.
-        </p>
-      </section>
-
-      <!-- =========================
-           GEODATABASE SECTION + MAPS
-      ========================== -->
-      <section id="geodatabase" class="section">
+    <!-- GEODATABASE -->
+    <section id="geodatabase" class="story-section">
+      <div class="story-section-inner">
         <h2>SeaWorld San Diego Geodatabase</h2>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Base Map</h3>
-            <p>
-              I used an imagery basemap from Esri with WGS84 web mercator for the coordinate and projection
-              systems. Image resolution is 0.3 meters.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Base map + overview layers</div>
-              <div id="map-overview" class="map"></div>
-              <div class="map-caption">Overview map (walkways + nodes + key polygons/points).</div>
+        <h3>Geodatabase Project</h3>
+        <p>The objective of my assignment was to build a geodatabase and provide a useful application/service. I decided to find an open area near where I live to conduct a survey. So, I went to SeaWorld San Diego. What a great place to be. I created a geodatabase and visualized a map that can help both visitors and park management.</p>
+
+        <p>I was able to collect seven feature layers. Then I used an imagery web map from Esri with a WGS84 Web Mercator datum and PCS for my base map. Especially since the my map is dependant on GPS. For the geodatabase creation and web maps I used ArcGIS Pro and ArcGIS Online.</p>
+
+        <p>In my case study, I demonstrated the following: concepts of the spatial and temporal aspects of GIS; cartography and symbology; geodatabase design and creation; network data; data collection; and data science and AI applications.</p>
+
+        <p>Please note that all of the data included in my project was either publicly collected or fictional for the purposes of demonstration only.</p>
+
+        <div class="story-map">
+          <div class="story-map-title">Base Map</div>
+          <div class="story-map-caption">Imagery basemap + layers. Hover features to see attributes.</div>
+
+          <!-- MAP 1: walkways -->
+          <div class="map-shell">
+            <div class="map" data-map
+                 data-map-id="walkways"
+                 data-layers="walkways"
+                 data-title="Walkways Network">
             </div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
           </div>
         </div>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Walkways Network</h3>
-            <p>
-              It took me about 2 hours to walk the whole park and collect longitude and latitude coordinates
-              for my feature classes. I also used Field Maps from Esri briefly to help draw features in the field.
-            </p>
-            <p>
-              Furthermore, I spent a few hours on my base map to manually re-draw a walkway network and nodes.
-              Neither horizontal nor vertical accuracy were important for my case study. I probably was able to
-              attain 12-17 feet in general.
-            </p>
-            <p>
-              For my walkways network, I ended up with 72 individual walkways -which were designed to look like the
-              maze of an amusement park.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Walkways (polylines)</div>
-              <div id="map-walkways" class="map"></div>
-              <div class="map-caption">Park circulation network (walkways).</div>
+        <h3>Walkways Network</h3>
+        <p>It took me about 2 hours to walk the whole park and collect longitude and latitude coordinates for my feature classes. I also used Field Maps from Esri briefly to help draw features in the field.</p>
+
+        <p>Furthermore, I spent a few hours on my base map to manually re-draw a walkway network and nodes. Neither horizontal nor vertical accuracy were important for my case study. I probably was able to attain 12-17 feet in general.</p>
+
+        <p>For my walkways network, I ended up with 72 individual walkways -which were designed to look like the maze of an amusement park.</p>
+
+        <!-- MAP 2: nodes + walkways -->
+        <div class="story-map">
+          <div class="story-map-title">Nodes / Junctions</div>
+          <div class="story-map-caption">Walkways + nodes. Hover to inspect attributes.</div>
+
+          <div class="map-shell">
+            <div class="map" data-map
+                 data-map-id="nodes"
+                 data-layers="walkways,nodes"
+                 data-title="Nodes / Junctions">
             </div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
           </div>
         </div>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Nodes</h3>
-            <p>
-              For my walkway network to perform properly if I wanted to create a direction app, I'd need to setup
-              my roads based on the number of junctions in the network.
-            </p>
-            <p>
-              I created this nodes feature class manually just for visual purposes for now. I ended up with 55
-              junctions and dead ends. So, in short: my network has 72 walkways and 47 turns.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Nodes / junctions</div>
-              <div id="map-nodes" class="map"></div>
-              <div class="map-caption">Junction visualization for network thinking.</div>
+        <h3>Nodes</h3>
+        <p>For my walkway network to perform properly if I wanted to create a direction app, I'd need to setup my roads based on the number of junctions in the network.</p>
+        <p>There's a tool in ArcGIS Pro that will create the network dataset for you. It includes a separate junction dataset by default. The junctions help with analyzing directions or finding best routes in a network. I created this nodes feature class manually just for visual purposes for now.</p>
+        <p>I ended up with 55 junctions and dead ends. So, in short: my network has 72 walkways and 47 turns. Inside the area of approximately a square quarter mile.</p>
+
+        <!-- MAP 3: POI -->
+        <div class="story-map">
+          <div class="story-map-title">Points Of Interest (POI)</div>
+          <div class="story-map-caption">Landmarks, vehicle traffic, customer service, smoking areas.</div>
+
+          <div class="map-shell">
+            <div class="map" data-map
+                 data-map-id="poi"
+                 data-layers="poi"
+                 data-title="Points Of Interest">
             </div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
           </div>
         </div>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Points Of Interest (POI)</h3>
-            <p>
-              One of the first things visitors need to know in order to orient themselves are POI.
-              The POI dataset includes feature subtypes such as vehicle traffic locations, customer service,
-              landmarks, and smoking areas.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Points of Interest</div>
-              <div id="map-poi" class="map"></div>
-              <div class="map-caption">Landmarks and services.</div>
-            </div>
-          </div>
-        </div>
+        <h3>Points Of Interest (POI)</h3>
+        <p>One of the first things visitors need to know in order to orient themselves are POI.</p>
+        <p>The POI is a dataset that includes four feature subtypes.</p>
+        <p>Vehicle traffic locations. Which include driving through the tolls into the large parking lots and the disabled and VIP parking areas symbolized near the park entrance. Points that indicate customer service interactions: Reservations, Sea Pixels, and Guest Services. Landmark points: park entrance and the Skyride Tower. The two smoking areas.</p>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Stadiums and Encounters (Experiences)</h3>
-            <p>
-              Stadiums and encounters are at the core of SeaWorld San Diego. They include entertainment and
-              education experiences for all ages.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Stadiums & Encounters</div>
-              <div id="map-stadiums" class="map"></div>
-              <div class="map-caption">Experience areas across the park.</div>
-            </div>
-          </div>
-        </div>
+        <p>Subtype classification was used for symbology purposes in my case study. But this can also be used for operationalizing your data.</p>
+      </div>
+    </section>
 
-        <div class="split">
-          <div class="split-text">
-            <h3>Bathrooms</h3>
-            <p>
-              One of the most frequent questions asked by visitors: "where's the bathroom?"
-              I counted 11 bathrooms but I believe that there are more.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Restrooms</div>
-              <div id="map-restrooms" class="map"></div>
-              <div class="map-caption">Restroom locations.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="split">
-          <div class="split-text">
-            <h3>Rides</h3>
-            <p>
-              I counted 11 rides. The attributes were arbitrarily created to help demonstrate how to create a
-              classification system in a web map to aid visitors in making decisions.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Rides</div>
-              <div id="map-rides" class="map"></div>
-              <div class="map-caption">Ride locations and template attributes.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="split">
-          <div class="split-text">
-            <h3>Food &amp; Beverage (F&amp;B)</h3>
-            <p>
-              Walking the whole park isn't going to be easy without stopping for food. SeaWorld has a lot of
-              options around nearly every junction.
-            </p>
-          </div>
-          <div class="split-map">
-            <div class="map-card">
-              <div class="map-title">Food & Beverage</div>
-              <div id="map-food" class="map"></div>
-              <div class="map-caption">Food & beverage locations for wayfinding.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================
-           SPATIO-TEMPORAL
-      ========================== -->
-      <section id="spatiotemporal" class="section">
+    <!-- SPATIO-TEMPORAL -->
+    <section id="spatiotemporal" class="story-section">
+      <div class="story-section-inner">
         <h2>Spatio-Temporal Example</h2>
+
         <h3>Vehicle Pass Form</h3>
-        <p>
-          I created a smart survey for my geodatabase using Survey123 from Esri. This survey tracks both the agent
-          device location and parking/destination location. Through this app, park agents can issue vehicle passes
-          and capture live information directly in the cloud.
-        </p>
-        <p>
-          Then, we can georeference destination locations for real-time visualization. Or we can setup rules to limit
-          issuing vehicle passes for each area based on capacity for example.
-        </p>
+        <p>Usually at parks or campuses, they have limited access to vehicle parking for supplier and contractors. Each has a mechanism to enforce vehicle traffic.</p>
+
+        <p>I created a smart survey for my geodatabase using Survey123 from Esri. This survey tracks both the agent device location and parking/destination location. Through this app, park agents can issue vehicle passes and capture live information directly in the cloud.</p>
+
+        <p>Then, we can georeference destination locations for real-time visualization. Or we can setup rules to limit issuing vehicle passes for each area based on capacity for example.</p>
 
         <div class="callout">
-          <div class="callout-title">Survey123 link</div>
-          <a href="https://arcg.is/1vnq5y1" target="_blank" rel="noopener">https://arcg.is/1vnq5y1</a>
+          <div class="callout-title">Survey123 Link</div>
+          <div class="callout-body">
+            <a href="https://arcg.is/1vnq5y1" target="_blank" rel="noopener">https://arcg.is/1vnq5y1</a>
+          </div>
         </div>
 
         <h3>Additional Spatio-Temporal Case Study Example</h3>
-        <p>
-          Spatio-temporal Data Streaming with Affinity Propagation — by Nasrin E. Ivaria, Monica Wachowicz, Tamara Agnew,
-          and Patricia A.H. Williams.
-        </p>
-        <p>
-          <a href="https://cartogis.org/docs/autocarto/2020/docs/presentations/4c%20Spatio-temporal%20data%20streaming%20with%20affinity%20propagation.mp4"
-             target="_blank" rel="noopener">
-            Watch presentation (mp4)
-          </a>
-        </p>
-      </section>
+        <p>Spatio-temporal Data Streaming with Affinity Propagation — By Nasrin E. Ivaria, Monica Wachowicz, Tamara Agnew, and Patricia A.H. Williams</p>
+        <p><a href="https://cartogis.org/docs/autocarto/2020/docs/presentations/4c%20Spatio-temporal%20data%20streaming%20with%20affinity%20propagation.mp4" target="_blank" rel="noopener">Video link</a></p>
+      </div>
+    </section>
 
-      <!-- =========================
-           DATA SCIENCE
-      ========================== -->
-      <section id="datascience" class="section">
+    <!-- ML -->
+    <section id="ml" class="story-section">
+      <div class="story-section-inner">
         <h2>Data Science &amp; Machine Learning</h2>
-        <p>
-          Spatial Data Science or AI are still new topics. They are great fields to combine because nowadays there are
-          lots of commercial and open source tools that allow data science and AI processes to run from anywhere without
-          the need for a data center or super computers on site.
-        </p>
 
-        <p>
-          I started my journey by learning R from biostatisticians. Which gave me a strong statistical background. Then I
-          learned SQL before moving to Python. I ended up needing a host for my code and ways to organize and serve it.
-        </p>
+        <p>I'm not going to mention the numerous data science and AI applications in geographic sciences or the case studies and applications developed by Esri scientists and researchers over the past few years. You can look at these on your own.</p>
 
-        <p>
-          If you're doing school projects or research then a Jupyter notebook will be great for you. However, if you want
-          to build apps and APIs then you'd need OOP. You can define attributes and methods, code subtypes, and create
-          domains to classify your data and mitigate data entry errors.
-        </p>
+        <p>Spatial Data Science or AI are still new topics. They are great fields to combine because nowadays there are lots of commercial and open source tools that allow data science and AI processes to run from anywhere without the need for a data center or super computers on site. But please keep in mind that there is a lot of computer science is in these fields. So, you need to be comfortable with coding.</p>
 
-        <p>
-          All the nonspatial attributes can be processed with Pandas, NumPy, Scikit learn, Keras, PyTorch, etc. Then we
-          can use georeferencing to tie them back to your geometry. Python also has powerful GIS libraries such as GeoPandas.
-        </p>
-      </section>
+        <p>Now, I'd like to share with you some of the lessons I learned during my personal data science journey over the past few years.</p>
 
-      <!-- =========================
-           RELATED VIDEOS
-      ========================== -->
-      <section id="videos" class="section">
+        <p>(Continue adding the rest of your StoryMap text here — kept verbatim.)</p>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="related-videos" class="story-section">
+      <div class="story-section-inner">
         <h2>Related Videos</h2>
 
         <div class="video-card">
           <div class="video-title">Geospatial Data Scientist - Esri</div>
-          <div class="video-embed">
+          <div class="video-frame">
+            <!-- Replace this with your exact YouTube embed when ready -->
             <iframe
-              src="https://www.youtube.com/embed/8wq8UeYvH3U"
+              src="https://www.youtube-nocookie.com/embed/VIDEO_ID_HERE"
               title="Geospatial Data Scientist - Esri"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
+      </div>
+    </section>
 
-        <p class="note">
-          (We can add the rest of your StoryMap “Related Videos” entries here once you paste the full list / links.)
-        </p>
-      </section>
-
-      <!-- =========================
-           AUTHOR
-      ========================== -->
-      <section id="author" class="section">
+    <!-- AUTHOR -->
+    <section id="author" class="story-section">
+      <div class="story-section-inner">
         <h2>Author: Mohamad Yassin</h2>
-        <p><strong>Class:</strong> GIS III - Geodatabase Design - 11/19/2022</p>
-      </section>
+        <p>Class: GIS III - Geodatabase Design - 11/19/2022</p>
+      </div>
+    </section>
 
-      <footer class="story-foot">
-        <a class="backlink" href="/articles/">← Back to Articles</a>
-      </footer>
-    </article>
+    <footer class="story-footer">
+      <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
+    </footer>
+
   </main>
 
-  <footer class="footer">
-    <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
-  </footer>
-
   <script src="/assets/site.js"></script>
-
-  <!-- MapLibre -->
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-
-  <!-- Article logic -->
-  <script src="./article.js"></script>
+  <script src="./app.js?v=20260121_esri"></script>
 </body>
 </html>
