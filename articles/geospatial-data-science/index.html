@@ -7,9 +7,9 @@
   <meta name="description" content="Geospatial Data Science — narrative article with embedded interactive maps." />
 
   <link rel="stylesheet" href="/assets/site.css" />
-  <link rel="stylesheet" href="./article.css" />
+  <link rel="stylesheet" href="./article.css?v=20260121b" />
 
-  <!-- MapLibre -->
+  <!-- MapLibre (NOT Leaflet) -->
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.css">
   <script src="https://unpkg.com/maplibre-gl@5.16.0/dist/maplibre-gl.js"></script>
 </head>
@@ -46,12 +46,10 @@
       <header class="hero">
         <h1>Geospatial Data Science</h1>
         <p class="muted">
-          StoryMap-style narrative with embedded interactive maps (MapLibre). Each map block loads only the layers it needs,
-          and auto-fits to the data so you don’t fight camera settings.
+          StoryMap-style narrative with embedded interactive maps (MapLibre). Each map auto-fits to data.
         </p>
       </header>
 
-      <!-- MAP BLOCK 1 -->
       <section class="map-block" aria-label="Interactive map: overview">
         <div class="map-frame">
           <div class="map-embed" data-map data-layers="walkways"></div>
@@ -66,9 +64,7 @@
 
       <section id="overview" class="section">
         <h2>Overview</h2>
-        <p class="muted">
-          Narrative-first page. Maps appear inline where they matter, similar to Esri StoryMaps, but hosted fully on GitHub Pages.
-        </p>
+        <p class="muted">Narrative-first page with embedded map blocks.</p>
       </section>
 
       <section id="walkways" class="section">
@@ -80,7 +76,7 @@
         <h2>Nodes / junctions</h2>
         <p class="muted">Junction visualization for network thinking.</p>
 
-        <div class="map-inline" aria-label="Interactive map: walkways and nodes">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,nodes"></div>
           <div class="muted map-inline-caption">Walkways + nodes.</div>
         </div>
@@ -90,7 +86,7 @@
         <h2>Points of Interest</h2>
         <p class="muted">Landmarks and services.</p>
 
-        <div class="map-inline" aria-label="Interactive map: POI">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,poi"></div>
           <div class="muted map-inline-caption">Walkways + POI.</div>
         </div>
@@ -100,7 +96,7 @@
         <h2>Stadiums & encounters</h2>
         <p class="muted">Polygon venues for shows/encounters.</p>
 
-        <div class="map-inline" aria-label="Interactive map: stadiums and encounters">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,events"></div>
           <div class="muted map-inline-caption">Walkways + event polygons.</div>
         </div>
@@ -110,7 +106,7 @@
         <h2>Rides</h2>
         <p class="muted">Point layer with themed symbology potential.</p>
 
-        <div class="map-inline" aria-label="Interactive map: rides">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,rides"></div>
           <div class="muted map-inline-caption">Walkways + rides.</div>
         </div>
@@ -120,7 +116,7 @@
         <h2>Food & beverage</h2>
         <p class="muted">Dining options and categories.</p>
 
-        <div class="map-inline" aria-label="Interactive map: food and beverage">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,fnb"></div>
           <div class="muted map-inline-caption">Walkways + food & beverage.</div>
         </div>
@@ -130,7 +126,7 @@
         <h2>Restrooms</h2>
         <p class="muted">Amenities matter in real mapping products.</p>
 
-        <div class="map-inline" aria-label="Interactive map: restrooms">
+        <div class="map-inline">
           <div class="map-embed" data-map data-layers="walkways,restrooms"></div>
           <div class="muted map-inline-caption">Walkways + restrooms.</div>
         </div>
@@ -139,8 +135,6 @@
       <section id="sources" class="section">
         <h2>Sources</h2>
         <ul class="muted">
-          <li>Original StoryMap: add link</li>
-          <li>MyST draft: add link</li>
           <li>Datasets: <code>/data/geospatial-data-science/</code></li>
         </ul>
       </section>
@@ -152,6 +146,6 @@
   </main>
 
   <script src="/assets/site.js"></script>
-  <script src="./article.js"></script>
+  <script src="./article.js?v=20260121b"></script>
 </body>
 </html>
