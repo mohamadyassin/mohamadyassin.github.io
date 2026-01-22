@@ -26,12 +26,10 @@
     </nav>
   </header>
 
-  <!-- StoryMap-style top chrome -->
   <section class="story-topbar">
     <div class="story-topbar-title">Geospatial Data Science</div>
   </section>
 
-  <!-- StoryMap-style section nav -->
   <nav class="story-tabs" aria-label="Article sections">
     <a href="#introduction" class="tab">Introduction</a>
     <a href="#geodatabase" class="tab">SeaWorld San Diego Geodatabase</a>
@@ -41,15 +39,9 @@
     <a href="#author" class="tab">Author: Mohamad Yassin</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO (image only; text is in PNG already) -->
   <header class="hero">
     <div class="hero-media" role="img" aria-label="Geospatial Data Science cover"></div>
-    <div class="hero-inner">
-      <h1>Geospatial Data Science</h1>
-      <p class="hero-sub">A case study in modern geodatabase</p>
-      <p class="hero-meta">Author: Mohamad Yassin — Class: GIS III - Geodatabase Design - 11/19/2022</p>
-      <p class="hero-date">November 19, 2022</p>
-    </div>
   </header>
 
   <main class="story">
@@ -84,21 +76,16 @@
 
         <p>I was able to collect seven feature layers. Then I used an imagery web map from Esri with a WGS84 Web Mercator datum and PCS for my base map. Especially since the my map is dependant on GPS. For the geodatabase creation and web maps I used ArcGIS Pro and ArcGIS Online.</p>
 
-        <p>In my case study, I demonstrated the following: concepts of the spatial and temporal aspects of GIS; cartography and symbology; geodatabase design and creation; network data; data collection; and data science and AI applications.</p>
+        <p>I contributed concepts of spatial and temporal aspects of GIS; cartography and symbology; geodatabase design and creation; network data; data collection; and data science and AI applications.</p>
 
         <p>Please note that all of the data included in my project was either publicly collected or fictional for the purposes of demonstration only.</p>
 
+        <!-- MAP 1: walkways -->
         <div class="story-map">
           <div class="story-map-title">Base Map</div>
           <div class="story-map-caption">Imagery basemap + layers. Hover features to see attributes.</div>
-
-          <!-- MAP 1: walkways -->
           <div class="map-shell">
-            <div class="map" data-map
-                 data-map-id="walkways"
-                 data-layers="walkways"
-                 data-title="Walkways Network">
-            </div>
+            <div class="map" data-map data-map-id="walkways" data-layers="walkways"></div>
             <div class="legend" data-legend></div>
             <div class="hover" data-hover hidden></div>
           </div>
@@ -106,22 +93,15 @@
 
         <h3>Walkways Network</h3>
         <p>It took me about 2 hours to walk the whole park and collect longitude and latitude coordinates for my feature classes. I also used Field Maps from Esri briefly to help draw features in the field.</p>
-
         <p>Furthermore, I spent a few hours on my base map to manually re-draw a walkway network and nodes. Neither horizontal nor vertical accuracy were important for my case study. I probably was able to attain 12-17 feet in general.</p>
-
         <p>For my walkways network, I ended up with 72 individual walkways -which were designed to look like the maze of an amusement park.</p>
 
         <!-- MAP 2: nodes + walkways -->
         <div class="story-map">
           <div class="story-map-title">Nodes / Junctions</div>
           <div class="story-map-caption">Walkways + nodes. Hover to inspect attributes.</div>
-
           <div class="map-shell">
-            <div class="map" data-map
-                 data-map-id="nodes"
-                 data-layers="walkways,nodes"
-                 data-title="Nodes / Junctions">
-            </div>
+            <div class="map" data-map data-map-id="nodes" data-layers="walkways,nodes"></div>
             <div class="legend" data-legend></div>
             <div class="hover" data-hover hidden></div>
           </div>
@@ -136,13 +116,8 @@
         <div class="story-map">
           <div class="story-map-title">Points Of Interest (POI)</div>
           <div class="story-map-caption">Landmarks, vehicle traffic, customer service, smoking areas.</div>
-
           <div class="map-shell">
-            <div class="map" data-map
-                 data-map-id="poi"
-                 data-layers="poi"
-                 data-title="Points Of Interest">
-            </div>
+            <div class="map" data-map data-map-id="poi" data-layers="poi"></div>
             <div class="legend" data-legend></div>
             <div class="hover" data-hover hidden></div>
           </div>
@@ -150,10 +125,51 @@
 
         <h3>Points Of Interest (POI)</h3>
         <p>One of the first things visitors need to know in order to orient themselves are POI.</p>
-        <p>The POI is a dataset that includes four feature subtypes.</p>
-        <p>Vehicle traffic locations. Which include driving through the tolls into the large parking lots and the disabled and VIP parking areas symbolized near the park entrance. Points that indicate customer service interactions: Reservations, Sea Pixels, and Guest Services. Landmark points: park entrance and the Skyride Tower. The two smoking areas.</p>
 
-        <p>Subtype classification was used for symbology purposes in my case study. But this can also be used for operationalizing your data.</p>
+        <!-- MAP 4: Stadiums & Encounters -->
+        <div class="story-map">
+          <div class="story-map-title">Stadiums and Encounters (Experiences)</div>
+          <div class="story-map-caption">Stadiums, presentations, events, and encounters.</div>
+          <div class="map-shell">
+            <div class="map" data-map data-map-id="stadiums" data-layers="stadiums"></div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
+          </div>
+        </div>
+
+        <!-- MAP 5: Restrooms -->
+        <div class="story-map">
+          <div class="story-map-title">Bathrooms</div>
+          <div class="story-map-caption">Restroom locations for visitor wayfinding.</div>
+          <div class="map-shell">
+            <div class="map" data-map data-map-id="restrooms" data-layers="restrooms"></div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
+          </div>
+        </div>
+
+        <!-- MAP 6: Rides -->
+        <div class="story-map">
+          <div class="story-map-title">Rides</div>
+          <div class="story-map-caption">Ride locations and attributes template.</div>
+          <div class="map-shell">
+            <div class="map" data-map data-map-id="rides" data-layers="rides"></div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
+          </div>
+        </div>
+
+        <!-- MAP 7: Food & Beverage -->
+        <div class="story-map">
+          <div class="story-map-title">Food &amp; Beverage (F&amp;B)</div>
+          <div class="story-map-caption">Food and beverage options around the park.</div>
+          <div class="map-shell">
+            <div class="map" data-map data-map-id="food" data-layers="food"></div>
+            <div class="legend" data-legend></div>
+            <div class="hover" data-hover hidden></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -163,11 +179,7 @@
         <h2>Spatio-Temporal Example</h2>
 
         <h3>Vehicle Pass Form</h3>
-        <p>Usually at parks or campuses, they have limited access to vehicle parking for supplier and contractors. Each has a mechanism to enforce vehicle traffic.</p>
-
-        <p>I created a smart survey for my geodatabase using Survey123 from Esri. This survey tracks both the agent device location and parking/destination location. Through this app, park agents can issue vehicle passes and capture live information directly in the cloud.</p>
-
-        <p>Then, we can georeference destination locations for real-time visualization. Or we can setup rules to limit issuing vehicle passes for each area based on capacity for example.</p>
+        <p>I created a smart survey for my geodatabase using Survey123 from Esri. This survey tracks both the agent device location and parking/destination location.</p>
 
         <div class="callout">
           <div class="callout-title">Survey123 Link</div>
@@ -177,7 +189,6 @@
         </div>
 
         <h3>Additional Spatio-Temporal Case Study Example</h3>
-        <p>Spatio-temporal Data Streaming with Affinity Propagation — By Nasrin E. Ivaria, Monica Wachowicz, Tamara Agnew, and Patricia A.H. Williams</p>
         <p><a href="https://cartogis.org/docs/autocarto/2020/docs/presentations/4c%20Spatio-temporal%20data%20streaming%20with%20affinity%20propagation.mp4" target="_blank" rel="noopener">Video link</a></p>
       </div>
     </section>
@@ -186,13 +197,6 @@
     <section id="ml" class="story-section">
       <div class="story-section-inner">
         <h2>Data Science &amp; Machine Learning</h2>
-
-        <p>I'm not going to mention the numerous data science and AI applications in geographic sciences or the case studies and applications developed by Esri scientists and researchers over the past few years. You can look at these on your own.</p>
-
-        <p>Spatial Data Science or AI are still new topics. They are great fields to combine because nowadays there are lots of commercial and open source tools that allow data science and AI processes to run from anywhere without the need for a data center or super computers on site. But please keep in mind that there is a lot of computer science is in these fields. So, you need to be comfortable with coding.</p>
-
-        <p>Now, I'd like to share with you some of the lessons I learned during my personal data science journey over the past few years.</p>
-
         <p>(Continue adding the rest of your StoryMap text here — kept verbatim.)</p>
       </div>
     </section>
@@ -201,11 +205,9 @@
     <section id="related-videos" class="story-section">
       <div class="story-section-inner">
         <h2>Related Videos</h2>
-
         <div class="video-card">
           <div class="video-title">Geospatial Data Scientist - Esri</div>
           <div class="video-frame">
-            <!-- Replace this with your exact YouTube embed when ready -->
             <iframe
               src="https://www.youtube-nocookie.com/embed/VIDEO_ID_HERE"
               title="Geospatial Data Scientist - Esri"

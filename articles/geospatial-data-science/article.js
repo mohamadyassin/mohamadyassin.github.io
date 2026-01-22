@@ -3,33 +3,45 @@
   if (YEAR_EL) YEAR_EL.textContent = new Date().getFullYear();
 
   // 1) DATA SOURCES (EDIT THESE ONCE)
-  // Put your GeoJSON in /articles/geospatial-data-science/data/*.geojson
-  // OR point to your existing repo location that already works.
-  //
-  // Tip: repo raw is most stable on Pages:
-  //   "/articles/geospatial-data-science/data/walkways.geojson"
-  //
-  // Release assets MUST be a direct downloadable URL that returns JSON,
-  // not a GitHub HTML page.
+  // GeoJSON is in: /articles/geospatial-data-science/data/*.geojson
+  // IMPORTANT: GitHub Pages is CASE-SENSITIVE.
   const DATA_SOURCES = {
     walkways: {
-      repo: "/articles/geospatial-data-science/data/walkways.geojson",
+      repo: "./data/Walkways.geojson",
       release: null,
-      // Optional: show these attributes first in hover
-      hoverKeys: ["Name", "Type", "ID", "Description"]
+      hoverKeys: ["Name", "Type", "ID", "Description"],
     },
     nodes: {
-      repo: "/articles/geospatial-data-science/data/nodes.geojson",
+      repo: "./data/Nodes.geojson",
       release: null,
-      hoverKeys: ["Name", "ID", "Type"]
+      hoverKeys: ["Name", "ID", "Type"],
     },
     poi: {
-      repo: "/articles/geospatial-data-science/data/poi.geojson",
+      repo: "./data/PointsofInterest.geojson",
       release: null,
-      hoverKeys: ["Name", "Type", "Description", "ID"]
-    }
-    // Add more when you wire stadiums/bathrooms/rides/fnb:
-    // , stadiums: { repo:"...", release:null, hoverKeys:[...] }
+      hoverKeys: ["Name", "Type", "Description", "ID"],
+    },
+
+    stadiums: {
+      repo: "./data/StadiumsandEncounters.geojson",
+      release: null,
+      hoverKeys: ["Name", "Type", "TypeCode", "Description", "Duration", "WaitTime", "VIP", "ID"],
+    },
+    restrooms: {
+      repo: "./data/Restrooms.geojson",
+      release: null,
+      hoverKeys: ["Name", "Type", "ID", "Description"],
+    },
+    rides: {
+      repo: "./data/Rides_JSON.geojson",
+      release: null,
+      hoverKeys: ["Name", "Type", "AgeGroup", "AverageTime", "ID", "Description"],
+    },
+    food: {
+      repo: "./data/FoodandBeverage.geojson",
+      release: null,
+      hoverKeys: ["Name", "Type", "Price Range", "PriceType", "Veg", "ID", "Description"],
+    },
   };
 
   // 2) MAP STYLE (Esri imagery via raster tiles)
@@ -39,15 +51,13 @@
       esri: {
         type: "raster",
         tiles: [
-          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         ],
         tileSize: 256,
-        attribution: "Tiles © Esri"
-      }
+        attribution: "Tiles © Esri",
+      },
     },
-    layers: [
-      { id: "esri", type: "raster", source: "esri" }
-    ]
+    layers: [{ id: "esri", type: "raster", source: "esri" }],
   };
 
   // ------------ helpers ------------
@@ -56,17 +66,13 @@
     if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}`);
     const txt = await res.text();
 
-    // Fail fast if GitHub returned HTML (classic release mistake)
     if (txt.trim().startsWith("<!doctype") || txt.includes("<html")) {
       throw new Error(`Not JSON (looks like HTML): ${url}`);
     }
     const json = JSON.parse(txt);
 
-    // Basic GeoJSON sanity checks
     const isFeatureCollection =
-      json &&
-      json.type === "FeatureCollection" &&
-      Array.isArray(json.features);
+      json && json.type === "FeatureCollection" && Array.isArray(json.features);
 
     if (!isFeatureCollection) {
       throw new Error(`Not a FeatureCollection GeoJSON: ${url}`);
@@ -78,7 +84,6 @@
     const cfg = DATA_SOURCES[layerKey];
     if (!cfg) throw new Error(`Unknown layer key: ${layerKey}`);
 
-    // Try release first if present, but only if it parses as GeoJSON
     if (cfg.release) {
       try {
         return await fetchGeoJSON(cfg.release);
@@ -117,10 +122,7 @@
   }
 
   function fitToData(map, collections) {
-    const boxes = collections
-      .map(bboxFromGeoJSON)
-      .filter(Boolean);
-
+    const boxes = collections.map(bboxFromGeoJSON).filter(Boolean);
     if (!boxes.length) return;
 
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -185,7 +187,7 @@
   }
 
   function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({
+    return String(s).replace(/[&<>"']/g, (c) => ({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
     }[c]));
   }
@@ -207,14 +209,13 @@
     const map = new maplibregl.Map({
       container: mapEl.id,
       style: ESRI_IMAGERY,
-      center: [-117.1625, 32.7355], // fallback
+      center: [-117.1625, 32.7355],
       zoom: 14,
       attributionControl: true
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
 
-    // Load all requested layers
     const collections = {};
     for (const k of layerKeys) {
       try {
@@ -224,8 +225,14 @@
       }
     }
 
+    map.getCanvas().addEventListener("mouseleave", () => {
+      hideHover(hoverEl);
+      map.getCanvas().style.cursor = "";
+    });
+
     map.on("load", () => {
       const legendItems = [];
+      const layerIdsForQuery = [];
 
       for (const k of layerKeys) {
         const fc = collections[k];
@@ -238,7 +245,6 @@
 
         const gt = geomType(fc);
 
-        // Styling choices (simple & clean)
         if (gt === "LineString" || gt === "MultiLineString") {
           map.addLayer({
             id: baseId,
@@ -251,6 +257,7 @@
             }
           });
           legendItems.push({ label: k, color: "#7CFF6B" });
+          layerIdsForQuery.push(baseId);
 
         } else if (gt === "Point" || gt === "MultiPoint") {
           map.addLayer({
@@ -266,9 +273,9 @@
             }
           });
           legendItems.push({ label: k, color: "#FFD84A" });
+          layerIdsForQuery.push(baseId);
 
         } else {
-          // Polygons if/when you add stadiums, etc.
           map.addLayer({
             id: baseId,
             type: "fill",
@@ -279,18 +286,20 @@
             }
           });
           legendItems.push({ label: k, color: "rgba(124,255,107,.35)" });
+          layerIdsForQuery.push(baseId);
         }
+
+        map.on("mouseleave", baseId, () => {
+          hideHover(hoverEl);
+          map.getCanvas().style.cursor = "";
+        });
       }
 
       addLegend(legendEl, legendItems);
-
-      // Fit to data (all collections)
       fitToData(map, Object.values(collections).filter(Boolean));
 
-      // Hover behavior: query features on mousemove
       map.on("mousemove", (e) => {
-        const queryLayers = layerKeys.map(k => `lyr_${mapId}_${k}`);
-        const feats = map.queryRenderedFeatures(e.point, { layers: queryLayers });
+        const feats = map.queryRenderedFeatures(e.point, { layers: layerIdsForQuery });
 
         if (!feats.length) {
           hideHover(hoverEl);
@@ -301,16 +310,12 @@
         const f = feats[0];
         map.getCanvas().style.cursor = "pointer";
 
-        const layerKeyGuess = (f.layer.id.split("_").slice(-1)[0]) || "feature";
+        const parts = (f.layer.id || "").split("_");
+        const layerKeyGuess = parts.length ? parts[parts.length - 1] : "feature";
         const prefer = DATA_SOURCES[layerKeyGuess]?.hoverKeys || [];
 
         const title = (f.properties?.Name || f.properties?.name || f.properties?.TITLE || layerKeyGuess);
         showHover(hoverEl, e.point.x, e.point.y, title, f.properties || {}, prefer);
-      });
-
-      map.on("mouseleave", () => {
-        hideHover(hoverEl);
-        map.getCanvas().style.cursor = "";
       });
     });
   }
@@ -321,7 +326,6 @@
       await initMapBlock(el);
     }
 
-    // Scrollspy-ish: underline active tab
     const tabs = Array.from(document.querySelectorAll(".story-tabs .tab"));
     const sections = tabs
       .map(t => document.querySelector(t.getAttribute("href")))
