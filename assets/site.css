@@ -93,7 +93,12 @@
     gap:10px;
     margin:14px 0;
   }
-  
+  /* --- Custom tweaks --- */
+  .hero-title span {
+    display: inline-block;
+    margin-bottom: 0.15em;
+  }  
+
   .button{
     display:inline-flex;
     align-items:center;
