@@ -94,7 +94,21 @@
     margin:14px 0;
   }
   
+  .hero-title{
+    margin: 0;
+    line-height: 1.05;
+    font-size: clamp(2.6rem, 6vw, 5.2rem); /* responsive so it doesn't squeeze weird */
+    font-weight: 800;
+  }
   
+  .hero-line{
+    display: block;        /* makes 3 lines */
+    white-space: nowrap;   /* prevents "Optimization •" from splitting */
+  }
+  
+  .dot{
+    margin-left: .25em;    /* optional: spacing before bullet */
+  }
 
   .button{
     display:inline-flex;
