@@ -95,12 +95,12 @@ a:focus-visible, .button:focus-visible{
 .hero-title{
   margin: 0;
   line-height: 1.05;
-  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  font-size: 40px;   
   font-weight: 800;
 }
 
 .hero-line{
-  display: block;
+  display:block;
   white-space: nowrap;
 }
 
