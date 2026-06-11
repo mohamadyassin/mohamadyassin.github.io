@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Videos | Mohamad Yassin</title>
+<meta name="description" content="Talks, events, teaching, and field stories — videos by Mohamad Yassin." />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<style>
+:root{
+  --bg:#0b1020; --panel:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
+  --border: rgba(148,163,184,.25);
+}
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; background:var(--bg); color:var(--text);
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+a:focus-visible{ outline:2px solid rgba(226,232,240,.55); outline-offset:2px; border-radius:12px; }
+
+.nav{ position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between;
+  padding:12px 18px; background:rgba(15,23,42,.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+.brand{ font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:9px; }
+.brand-logo{ width:26px; height:26px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+.links{ display:flex; gap:14px; align-items:center; }
+.links a{ color:var(--muted); padding-bottom:2px; transition:color .15s ease; }
+.links a:hover{ color:var(--text); }
+.links a.active{ color:var(--text); border-bottom:2px solid rgba(226,232,240,.35); }
+.cta{ padding:7px 10px; border:1px solid var(--border); border-radius:999px; }
+
+.container{ max-width:1100px; margin:0 auto; padding:26px 18px 50px; }
+.page-head h1{ margin:0 0 8px; font-size:30px; }
+.page-head p{ color:var(--muted); margin:0; font-size:14.5px; line-height:1.7; }
+
+.vgroup{ margin-top:28px; }
+.vgroup h2{ font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:#93c5fd;
+  margin:0 0 12px; font-weight:800; }
+.vgrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.vcard{ border:1px solid var(--border); border-radius:16px; background:rgba(15,23,42,.35);
+  overflow:hidden; cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease; }
+.vcard:hover{ background:rgba(15,23,42,.6); transform:translateY(-2px); border-color:rgba(147,197,253,.35); }
+.vthumb{ position:relative; aspect-ratio:16/9; background:#000; }
+.vthumb img{ width:100%; height:100%; object-fit:cover; opacity:.88; }
+.vplay{ position:absolute; inset:0; display:grid; place-items:center; }
+.vplay span{ width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(2,6,16,.65); border:1px solid rgba(226,232,240,.35); font-size:17px; color:#e5e7eb;
+  backdrop-filter:blur(2px); }
+.vmeta{ padding:11px 13px 12px; }
+.vyear{ font-size:11.5px; font-weight:800; letter-spacing:.12em; color:#93c5fd; text-transform:uppercase; }
+.vtitle{ font-size:14px; font-weight:700; margin:3px 0 3px; line-height:1.35; }
+.vdesc{ font-size:12.5px; color:var(--muted); line-height:1.55; margin:0; }
+
+.footer{ border-top:1px solid var(--border); padding:14px 18px; text-align:center; margin-top:34px; }
+.muted{ color:var(--muted); }
+
+/* media popup (same pattern as homepage) */
+.modal{ border:1px solid var(--border); border-radius:16px; background:#0f172a; color:var(--text);
+  padding:0; max-width:960px; width:92vw; max-height:88vh; box-shadow:0 30px 90px rgba(0,0,0,.5); }
+.modal::backdrop{ background:rgba(2,6,16,.72); backdrop-filter:blur(3px); }
+.modal-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  padding:14px 18px; border-bottom:1px solid var(--border); }
+.modal-title{ font-weight:800; font-size:15px; }
+.modal-close{ background:transparent; border:1px solid var(--border); color:var(--muted);
+  border-radius:10px; padding:6px 11px; cursor:pointer; font-size:13px; flex-shrink:0; }
+.modal-close:hover{ color:var(--text); background:rgba(226,232,240,.08); }
+.media-body{ padding:14px; display:grid; place-items:center; }
+.media-frame{ width:min(86vw,900px); aspect-ratio:16/9; border:0; border-radius:10px; background:#000; }
+
+@media (max-width:860px){ .vgrid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .vgrid{ grid-template-columns:1fr; } .links{ gap:10px; } }
+</style>
+</head>
+
+<body>
+<header class="nav">
+  <a class="brand" href="/"><img class="brand-logo" src="/assets/img/mo.png" alt="" onerror="this.style.display='none'">Mohamad Yassin</a>
+  <nav class="links" aria-label="Primary navigation">
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/articles/">Articles</a>
+    <a href="/videos/" class="active">Videos</a>
+    <a href="/repos/">Repos</a>
+    <a class="cta" href="/#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <h1>Videos</h1>
+    <p>Talks, events, teaching, and field stories — click any card to watch.</p>
+  </div>
+
+  <!-- ============================================================
+       HOW TO ADD A VIDEO
+       Copy a .vcard, set: data-src (youtube-nocookie embed URL),
+       data-title, thumbnail (https://i.ytimg.com/vi/VIDEOID/hqdefault.jpg),
+       year, title, one-line description.
+       ============================================================ -->
+
+  <section class="vgroup" aria-label="Talks and presentations">
+    <h2>Talks &amp; Presentations</h2>
+    <div class="vgrid">
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/QTQCfywuUJY" data-title="Geospatial Data Science on a Budget — ASPRS @ SDSU" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/QTQCfywuUJY/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">2026 · ASPRS @ SDSU</div>
+          <div class="vtitle">Geospatial Data Science on a Budget</div>
+          <p class="vdesc">Cloud-native geospatial without the enterprise price tag.</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/w4CSijizYbs" data-title="Solid-Waste GIS" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/w4CSijizYbs/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">2025</div>
+          <div class="vtitle">Solid-Waste GIS</div>
+          <p class="vdesc">Spatial data + operational intelligence in a 700-route municipal operation.</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/idNEOk3xzw8" data-title="GIS Day 2024" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/idNEOk3xzw8/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">2024</div>
+          <div class="vtitle">GIS Day 2024</div>
+          <p class="vdesc">How geospatial transforms government operations.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="vgroup" aria-label="Events">
+    <h2>Events &amp; Community</h2>
+    <div class="vgrid">
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/VJAmxOyGm1s" data-title="GIS Day 2025 — AIRC × Ecologik" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/VJAmxOyGm1s/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">2025 · Organizer</div>
+          <div class="vtitle">GIS Day 2025 — AIRC × Ecologik</div>
+          <p class="vdesc">A GIS Day event I organized, featuring a GeoAI professor.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="vgroup" aria-label="Teaching and mentorship">
+    <h2>Teaching &amp; Mentorship</h2>
+    <div class="vgrid">
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/SSWI1qkzzY4" data-title="QGIS Training — High School Apprenticeship I" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/SSWI1qkzzY4/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">AIRC</div>
+          <div class="vtitle">QGIS Training — Apprenticeship I</div>
+          <p class="vdesc">Hands-on GIS for high-school apprentices.</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/aeR8MCSEwCE" data-title="QGIS Training — High School Apprenticeship II" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/aeR8MCSEwCE/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">AIRC</div>
+          <div class="vtitle">QGIS Training — Apprenticeship II</div>
+          <p class="vdesc">Second hands-on session with the apprentices.</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/Fuh7PWc7Pz4" data-title="With Ecologik research students" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/Fuh7PWc7Pz4/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">AIRC × Ecologik</div>
+          <div class="vtitle">Research Students Session</div>
+          <p class="vdesc">Fieldwork and mentorship with a group of research students.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="vgroup" aria-label="Mission and field">
+    <h2>Mission &amp; Field</h2>
+    <div class="vgrid">
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/7MFvTMtv8fc" data-title="AI Research Corps — Overview" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/7MFvTMtv8fc/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">AIRC</div>
+          <div class="vtitle">AI Research Corps — Overview</div>
+          <p class="vdesc">The mission: AI, open data, and geospatial tools for public institutions.</p>
+        </div>
+      </div>
+
+      <div class="vcard" data-media="video" data-src="https://www.youtube-nocookie.com/embed/a8JKg42rqCI" data-title="From the lookout tower — Palomar Mountain" role="button" tabindex="0">
+        <div class="vthumb">
+          <img src="https://i.ytimg.com/vi/a8JKg42rqCI/hqdefault.jpg" alt="" loading="lazy">
+          <div class="vplay"><span>▶</span></div>
+        </div>
+        <div class="vmeta">
+          <div class="vyear">2023 · Volunteer</div>
+          <div class="vtitle">From the Fire Lookout Tower</div>
+          <p class="vdesc">Summers scanning the backcountry for smoke on Palomar Mountain.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
+</footer>
+
+<dialog class="modal" id="mediaModal" aria-label="Media viewer">
+  <div class="modal-head">
+    <div class="modal-title"></div>
+    <button class="modal-close" type="button" onclick="document.getElementById('mediaModal').close()">Close ✕</button>
+  </div>
+  <div class="media-body"></div>
+</dialog>
+
+<script>
+(function(){var y=document.getElementById("y");if(y)y.textContent=new Date().getFullYear();})();
+(function(){
+  var mm = document.getElementById('mediaModal');
+  if(!mm) return;
+  var body = mm.querySelector('.media-body');
+  var title = mm.querySelector('.modal-title');
+  function openMedia(el){
+    title.textContent = el.getAttribute('data-title') || '';
+    body.innerHTML = '<iframe class="media-frame" src="' + el.getAttribute('data-src') +
+      '?autoplay=1" title="" allow="accelerometer; autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    mm.showModal();
+  }
+  document.querySelectorAll('[data-media="video"]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openMedia(el); });
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openMedia(el); }
+    });
+  });
+  mm.addEventListener('close', function(){ body.innerHTML = ''; });
+  mm.addEventListener('click', function(e){ if(e.target === mm) mm.close(); });
+})();
+</script>
+</body>
+</html>

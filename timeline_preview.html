@@ -1,0 +1,938 @@
+<!-- /index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mohamad Yassin</title>
+  <meta name="description" content="GIS • Routing • Geospatial Data Science — portfolio, projects, articles, and demos." />
+
+  <style>
+/* /assets/site.css */
+:root{
+  --bg:#0b1020;
+  --panel:#0f172a;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --border: rgba(148,163,184,.25);
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  height: 100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+
+a:focus-visible, .button:focus-visible{
+  outline: 2px solid rgba(226,232,240,.55);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Nav */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 18px;
+  background: rgba(15,23,42,.86);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--border);
+}
+
+.brand{ font-weight:800; letter-spacing:.3px; }
+
+.links{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.links a{
+  color:var(--muted);
+  padding-bottom: 2px; /* prevents active underline from shifting layout */
+  transition: color .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.links a:hover{ color:var(--text); }
+
+.links a.active{
+  color: var(--text);
+  border-bottom: 2px solid rgba(226,232,240,.35);
+}
+
+.cta{
+  padding:7px 10px;
+  border:1px solid var(--border);
+  border-radius:999px;
+}
+
+/* Layout */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px 18px 44px;
+}
+
+/* Hero */
+.hero{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:18px;
+  align-items:start;
+}
+
+.muted{ color:var(--muted); }
+
+.hero-actions{
+  display:flex;
+  gap:10px;
+  margin:14px 0;
+}
+
+.hero-title{
+  margin: 0;
+  line-height: 1.05;
+  font-size: 40px;   
+  font-weight: 800;
+}
+
+.hero-line{
+  display:block;
+  white-space: nowrap;
+}
+
+.dot{
+  margin-left: .15em;
+}
+
+/* Buttons */
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius:12px;
+  background: rgba(226,232,240,.12);
+  border:1px solid var(--border);
+  transition: background .15s ease, transform .15s ease;
+}
+
+.button:hover{
+  background: rgba(226,232,240,.18);
+}
+
+.ghost{
+  background:transparent;
+}
+
+/* Chips */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.chips span{
+  font-size:12px;
+  color:var(--muted);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  border-radius:999px;
+}
+
+/* Featured card */
+.card{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background: rgba(15,23,42,.55);
+  padding:12px;
+}
+
+.card-title{
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.card-item{
+  display:block;
+  padding:10px;
+  border-radius:12px;
+  transition: background .15s ease, transform .15s ease;
+}
+
+.card-item:hover{
+  background: rgba(226,232,240,.08);
+}
+
+.kicker{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.name{
+  font-weight:700;
+  margin-top:2px;
+}
+
+.desc{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+/* Tiles grid */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
+.tile{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background: rgba(15,23,42,.35);
+  padding:14px;
+  transition: background .15s ease, transform .15s ease;
+}
+
+.tile:hover{
+  background: rgba(15,23,42,.55);
+  transform: translateY(-1px);
+}
+
+.tile h2{
+  margin:0 0 6px;
+  font-size:16px;
+}
+
+/* ============================================================
+   Timeline
+   ============================================================ */
+
+.timeline{
+  margin-top: 22px;
+  border-top:1px solid var(--border);
+  padding-top: 18px;
+}
+
+.section-head{
+  display:grid;
+  gap:.35rem;
+  margin-bottom: 12px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size: 18px;
+}
+
+.timeline-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  position:relative;
+  display:grid;
+  gap:12px;
+}
+
+/* spine */
+.timeline-list::before{
+  content:"";
+  position:absolute;
+  left:16px;
+  top:8px;
+  bottom:8px;
+  width:2px;
+  border-radius:2px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+
+.timeline-item{
+  position:relative;
+  display:grid;
+  grid-template-columns: 34px 1fr;
+  gap:12px;
+  align-items:start;
+}
+
+.timeline-marker{
+  width:14px;
+  height:14px;
+  border-radius:999px;
+  margin-left:9px;   /* centers on spine */
+  margin-top:18px;   /* aligns to card header area */
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,0.03),
+    0 0 18px rgba(255,255,255,0.06);
+}
+
+.timeline-card{
+  border-radius:16px;
+  padding: 14px 14px 12px;
+  background: rgba(15,23,42,.35);
+  border:1px solid rgba(148,163,184,.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.timeline-card:hover{
+  transform: translateY(-2px);
+  background: rgba(15,23,42,.55);
+  border-color: rgba(226,232,240,.18);
+}
+
+.timeline-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom: 6px;
+}
+
+.timeline-date{
+  font-size:12px;
+  color: var(--muted);
+  border: 1px solid rgba(148,163,184,.22);
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(226,232,240,.05);
+}
+
+.timeline-pill{
+  font-size:12px;
+  color: var(--muted);
+  border: 1px solid rgba(148,163,184,.22);
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.timeline-title{
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.timeline-title a{
+  display:inline-block;
+  border-bottom: 1px solid rgba(226,232,240,.18);
+  padding-bottom: 2px;
+}
+
+.timeline-title a:hover{
+  border-bottom-color: rgba(226,232,240,.38);
+}
+
+.timeline-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 10px;
+}
+
+.chip-link{
+  font-size:12px;
+  color: var(--muted);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  border-radius:999px;
+  background: rgba(226,232,240,.05);
+  transition: background .15s ease, transform .15s ease, color .15s ease;
+}
+
+.chip-link:hover{
+  background: rgba(226,232,240,.10);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* Contact + footer */
+.contact{
+  margin-top:22px;
+  border-top:1px solid var(--border);
+  padding-top:18px;
+}
+
+.contact-actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.footer{
+  border-top:1px solid var(--border);
+  padding:14px 18px;
+  text-align:center;
+}
+
+/* Responsive */
+@media (max-width: 920px){
+  .hero{ grid-template-columns: 1fr; }
+  .grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px){
+  .grid{ grid-template-columns: 1fr; }
+  .links{ gap:10px; }
+
+  .timeline-item{
+    grid-template-columns: 26px 1fr;
+    gap:10px;
+  }
+  .timeline-list::before{
+    left: 12px;
+  }
+  .timeline-marker{
+    margin-left: 5px;
+  }
+}
+/* ============================================================
+   Timeline — Narrative / Career Story extensions
+   (additive; works with existing .timeline-* classes)
+   ============================================================ */
+
+/* Intro lead under the section heading */
+.timeline-lead{
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14.5px;
+  margin: 2px 0 4px;
+}
+
+/* Slightly more readable than .muted for longer story text */
+.timeline-narrative{
+  color:#c7d0dd;
+  font-size:14.5px;
+  line-height:1.72;
+  margin:0;
+}
+.timeline-narrative + .timeline-narrative{ margin-top:10px; }
+
+/* Optional media slot inside a card (logos, certs, screenshots) */
+.timeline-media{
+  margin:12px 0 2px;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background: rgba(226,232,240,.04);
+}
+.timeline-media img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+/* Small inline logo (e.g. cafe logo) — sits left, text wraps */
+.timeline-logo{
+  float:left;
+  width:64px;
+  height:64px;
+  margin:2px 14px 8px 0;
+  border-radius:12px;
+  object-fit:contain;
+  background: rgba(226,232,240,.06);
+  border:1px solid var(--border);
+  padding:6px;
+}
+
+/* A subtle "chapter" label that can ride above a card */
+.timeline-chapter{
+  grid-column: 2 / 3;
+  margin: 8px 0 -2px;
+  font-size: 11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color: var(--muted);
+  font-weight:700;
+  opacity:.9;
+}
+
+/* Make the very first/last markers feel intentional */
+.timeline-item:first-child .timeline-marker{
+  background: rgba(125,211,160,.18);
+  border-color: rgba(125,211,160,.45);
+  box-shadow:0 0 0 6px rgba(125,211,160,.05), 0 0 18px rgba(125,211,160,.12);
+}
+.timeline-item.is-now .timeline-marker{
+  background: rgba(96,165,250,.22);
+  border-color: rgba(96,165,250,.5);
+  box-shadow:0 0 0 6px rgba(96,165,250,.06), 0 0 18px rgba(96,165,250,.16);
+}
+
+/* "Now" pill accent */
+.timeline-pill.now{
+  color:#bfdbfe;
+  border-color: rgba(96,165,250,.4);
+  background: rgba(96,165,250,.08);
+}
+
+</style>
+</head>
+
+<body>
+  <header class="nav">
+    <a class="brand" href="/">Mohamad Yassin</a>
+
+    <nav class="links" aria-label="Primary navigation">
+      <a href="/projects/">Projects</a>
+      <a href="/articles/">Articles</a>
+      <a href="/videos/">Videos</a>
+      <a href="/repos/">Repos</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">
+          <span class="hero-line">Geospatial <span class="dot">•</span></span>
+          <span class="hero-line">Data Science <span class="dot">•</span></span>
+          <span class="hero-line">Route Optimization <span class="dot">•</span></span>
+        </h1>
+
+        <p class="muted">
+          I build decision tools: routing, operational analytics, open-source, cloud-native geospatial apps,
+          and research-driven prototypes.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button" href="/projects/">View projects</a>
+          <a class="button ghost" href="/articles/">Read articles</a>
+        </div>
+
+        <div class="chips" aria-label="Skill tags">
+          <span>MapLibre</span>
+          <span>Python</span>
+          <span>GeoParquet</span>
+          <span>DuckDB</span>
+          <span>PostGIS</span>
+          <span>STAC</span>
+        </div>
+      </div>
+
+      <aside class="card" aria-label="Featured work">
+        <div class="card-title">Featured</div>
+
+        <a class="card-item" href="/articles/geospatial-data-science/">
+          <div class="kicker">Article</div>
+          <div class="name">Geospatial Data Science (MapLibre Story)</div>
+          <div class="desc">Interactive map + scrollytelling, GitHub-hosted datasets.</div>
+        </a>
+
+        <a class="card-item" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">
+          <div class="kicker">App</div>
+          <div class="name">RouteView</div>
+          <div class="desc">Map-first operational viewer (GitHub Pages).</div>
+        </a>
+
+        <a class="card-item" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">
+          <div class="kicker">GitHub</div>
+          <div class="name">Open-source repos</div>
+          <div class="desc">Code, demos, and data releases.</div>
+        </a>
+      </aside>
+    </section>
+
+    <section class="grid" aria-label="Site sections">
+      <a class="tile" href="/projects/">
+        <h2>Projects</h2>
+        <p class="muted">Apps, prototypes, dashboards, open-source.</p>
+      </a>
+
+      <a class="tile" href="/articles/">
+        <h2>Articles</h2>
+        <p class="muted">Longform writeups, maps, methods, opinions.</p>
+      </a>
+
+      <a class="tile" href="/videos/">
+        <h2>Videos</h2>
+        <p class="muted">Talks, demos, tutorials, interviews.</p>
+      </a>
+
+      <a class="tile" href="/repos/">
+        <h2>Repos</h2>
+        <p class="muted">Curated code + datasets.</p>
+      </a>
+    </section>
+
+    <!-- ============================================================
+         Timeline — Career story (first person narrative)
+         ============================================================ -->
+    <section class="timeline" aria-label="Career story timeline">
+      <div class="section-head">
+        <h2>My Path</h2>
+        <p class="timeline-lead">
+          I didn’t take the straight road into geospatial. I came to it through consulting, a career
+          reinvention, a global pandemic, a book I almost published, and a nonprofit I couldn’t not start.
+          Here’s the story — and the moments that shaped how I build.
+        </p>
+      </div>
+
+      <ol class="timeline-list">
+
+        <!-- 1. CONSULTING / RESEARCH (AMMAN) -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2012 – 2015</span>
+              <span class="timeline-pill">Where it started</span>
+            </div>
+            <h3 class="timeline-title">Consulting &amp; research, Amman</h3>
+            <p class="timeline-narrative">
+              My career began far from code. I worked in management consulting and technology market research in
+              Amman, Jordan — feasibility studies, quality systems, and TMT research for governments and
+              multinationals. I learned how large institutions actually work: their processes, their politics,
+              and the gap between how things are supposed to run and how they really do. That understanding still
+              shapes everything I build today.
+            </p>
+            <!-- Optional media: AIRC x Ecologik interview clip where you discuss early career -->
+            <!--
+            <div class="timeline-media">
+              <img src="/images/timeline/aircxecologik.jpg" alt="AIRC x Ecologik interview" />
+            </div>
+            -->
+          </article>
+        </li>
+
+        <!-- 2. CAREER TRANSITION / SELF-TAUGHT R -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2018 – 2019</span>
+              <span class="timeline-pill">The pivot</span>
+            </div>
+            <h3 class="timeline-title">Teaching myself to code</h3>
+            <!-- Optional inline logo: the Georgetown coffee shop -->
+            <!-- <img class="timeline-logo" src="/images/timeline/cafe-logo.png" alt="Georgetown coffee shop" /> -->
+            <p class="timeline-narrative">
+              After relocating to the United States, I made the decision that changed everything: I taught
+              myself to program. It started in a Georgetown coffee shop in Washington, DC, with the R language,
+              a laptop, and a lot of stubbornness. No bootcamp, no CS degree — just curiosity and a conviction
+              that the future belonged to people who could work fluently with data.
+            </p>
+          </article>
+        </li>
+
+        <!-- 3. UCSD BUSINESS INTELLIGENCE -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2019 – 2020</span>
+              <span class="timeline-pill">Foundations</span>
+            </div>
+            <h3 class="timeline-title">Business Intelligence at UC San Diego</h3>
+            <p class="timeline-narrative">
+              I enrolled in the Business Intelligence program at UC San Diego to formalize what I’d been teaching
+              myself — relational databases, statistics, and the discipline of turning raw data into decisions.
+              It was meant to be a bridge into IT service management. Life had other plans.
+            </p>
+          </article>
+        </li>
+
+        <!-- 4. SERVICENOW + COVID -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2020</span>
+              <span class="timeline-pill">The plot twist</span>
+            </div>
+            <h3 class="timeline-title">ServiceNow certified — then the world closed</h3>
+            <p class="timeline-narrative">
+              I completed my ServiceNow training and earned my CSA and ITSM certifications, ready to step into
+              enterprise IT. Then COVID-19 hit. The pathway I’d planned disappeared overnight, and like millions
+              of others I found myself out of work and locked down at home. It turned out to be one of the most
+              productive periods of my life.
+            </p>
+            <!-- Optional media: ServiceNow CSA / CIS-ITSM certificates -->
+            <!--
+            <div class="timeline-media">
+              <img src="/images/timeline/servicenow-certs.png" alt="ServiceNow CSA and CIS-ITSM certifications" />
+            </div>
+            -->
+          </article>
+        </li>
+
+        <!-- 5. FIRST PROJECT — TEXT ANALYSIS -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2020</span>
+              <span class="timeline-pill">First build</span>
+            </div>
+            <h3 class="timeline-title">My first real project</h3>
+            <p class="timeline-narrative">
+              Stuck at home, I went all in. My first real project was a bag-of-words text analysis — I learned
+              the technique, replicated it, and produced a research-grade paper I was genuinely proud of. It was
+              rough around the edges, but it was mine, and it proved to me I could actually do this.
+            </p>
+            <!-- Optional media: course page screenshot / the PDF cover -->
+            <!--
+            <div class="timeline-media">
+              <img src="/images/timeline/first-paper.png" alt="First text-analysis paper" />
+            </div>
+            -->
+          </article>
+        </li>
+
+        <!-- 6. MENTOR + DATACAMP + BLOOMA -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2020 – 2021</span>
+              <span class="timeline-pill">The breakthrough</span>
+            </div>
+            <h3 class="timeline-title">A mentor, a thousand hours, and a first AI role</h3>
+            <p class="timeline-narrative">
+              Then I met a mentor — a postdoc AI researcher — who took me under his wing. I spent the lockdown
+              devouring Python, data science, and machine learning on DataCamp, course after course. That
+              mentorship led to my first industry role: an AI/NLP internship where I built a production natural
+              language processing pipeline. I was officially a practitioner.
+            </p>
+            <!-- Optional media: DataCamp completion stats / course certificates grid -->
+            <!--
+            <div class="timeline-media">
+              <img src="/images/timeline/datacamp.png" alt="DataCamp course completions" />
+            </div>
+            -->
+          </article>
+        </li>
+
+        <!-- 7. GEORGETOWN BOOK WRITING -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2021</span>
+              <span class="timeline-pill">The deep dive</span>
+            </div>
+            <h3 class="timeline-title">Writing a book on AI at Georgetown</h3>
+            <p class="timeline-narrative">
+              In 2021 I joined a book-writing program at Georgetown with Eric Koester. I chose to write about
+              artificial intelligence — and threw myself in, interviewing more than 40 AI pioneers, researchers,
+              and leaders. I got well past the halfway mark toward publication. The research transformed how I
+              understood where technology and society were heading.
+            </p>
+          </article>
+        </li>
+
+        <!-- 8. FOUNDING AIRC -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2021</span>
+              <span class="timeline-pill">The mission</span>
+            </div>
+            <h3 class="timeline-title">Founding AI Research Corps</h3>
+            <p class="timeline-narrative">
+              One story from my research stuck with me: in 2017, China watched AlphaGo defeat the world’s best
+              Go player and declared a national AI strategy. The U.S. responded in 2018. I realized I was
+              watching a civilizational shift — and that public institutions were being left behind, unable to
+              keep pace with technology increasingly built on open source.
+            </p>
+            <p class="timeline-narrative">
+              So I paused the book and founded AI Research Corps, a 501(c)(3) nonprofit dedicated to closing that
+              gap: bringing AI, open data, and modern geospatial tools to the public-sector institutions that
+              need them most.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="https://airesearchcorps.org" target="_blank" rel="noreferrer">AI Research Corps</a>
+            </div>
+            <!-- Optional media: 501(c)(3) incorporation / determination -->
+            <!--
+            <div class="timeline-media">
+              <img src="/images/timeline/airc-501c3.png" alt="AI Research Corps incorporation" />
+            </div>
+            -->
+          </article>
+        </li>
+
+        <!-- 9. GIS AT UCSD -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2022 – 2023</span>
+              <span class="timeline-pill">Finding my field</span>
+            </div>
+            <h3 class="timeline-title">Geographic Information Systems</h3>
+            <p class="timeline-narrative">
+              After business intelligence, IT service management, data science, machine learning, NLP, and
+              writing — I found the discipline that tied it all together: GIS. I spent a year and a half at UC
+              San Diego immersed in geospatial science, and it was some of the most exciting learning of my life.
+              Maps, spatial data, and location intelligence became the lens that made everything else make sense.
+            </p>
+          </article>
+        </li>
+
+        <!-- 10. CITY OF SAN DIEGO -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2023 – 2026</span>
+              <span class="timeline-pill">Into the field</span>
+            </div>
+            <h3 class="timeline-title">GIS &amp; data lead, City of San Diego</h3>
+            <p class="timeline-narrative">
+              Soon after graduating, I became the GIS and data lead for one of the largest municipal operations
+              on the West Coast — 225,000+ properties, a million-plus assets, 700+ routes. I finally got to do
+              the thing I’d spent years preparing for: building real geospatial systems that move a city. I built
+              RouteView, automated routing and reporting workflows, integrated enterprise platforms, and served
+              as a technical lead on major policy transformations.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">Open RouteView</a>
+              <a class="chip-link" href="/projects/">More projects</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- 11. 2024 PRESENTATION -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2024</span>
+              <span class="timeline-pill">Sharing the work</span>
+            </div>
+            <h3 class="timeline-title">GIS Day 2024</h3>
+            <p class="timeline-narrative">
+              I started sharing what I was building with the wider community — presenting at GIS Day 2024 on how
+              geospatial technology transforms government operations.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="https://www.youtube.com/watch?v=idNEOk3xzw8" target="_blank" rel="noreferrer">Watch the talk</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- 12. 2025 PRESENTATION -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2025</span>
+              <span class="timeline-pill">Giving back</span>
+            </div>
+            <h3 class="timeline-title">Solid waste GIS — ASPRS / SDSU</h3>
+            <p class="timeline-narrative">
+              I presented to the ASPRS student chapter at San Diego State University on solid-waste GIS and the
+              operational intelligence work I’d been doing — sharing how spatial data drives real decisions in a
+              large municipal operation.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="https://www.youtube.com/watch?v=w4CSijizYbs" target="_blank" rel="noreferrer">Watch the talk</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- 13. 2026 ARTICLE + PRESENTATION -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2026</span>
+              <span class="timeline-pill">Teaching</span>
+            </div>
+            <h3 class="timeline-title">Geospatial data science, in the open</h3>
+            <p class="timeline-narrative">
+              I published a long-form, interactive geospatial data science article — a map-driven case study you
+              can scroll through — and kept presenting on cloud-native geospatial work and where the field is
+              heading.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="/articles/geospatial-data-science/">Read the article</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- 14. 2026 OPENTRASH -->
+        <li class="timeline-item">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">2026</span>
+              <span class="timeline-pill">Open source</span>
+            </div>
+            <h3 class="timeline-title">opentrash — bringing the tools into the open</h3>
+            <p class="timeline-narrative">
+              I began publishing <strong>opentrash</strong>, an open-source, cloud-native Python package for
+              residential waste-collection analytics — taking the kind of tooling I’d built inside government
+              and putting it in the open, where anyone can use and build on it.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="chip-link" href="/repos/">Repos</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- 15. NOW / WHAT'S NEXT -->
+        <li class="timeline-item is-now">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <span class="timeline-date">Now</span>
+              <span class="timeline-pill now">What’s next</span>
+            </div>
+            <h3 class="timeline-title">Cloud-native open geospatial data</h3>
+            <p class="timeline-narrative">
+              Today I’m building cloud-native open geospatial data infrastructure — a registry that indexes
+              26,000+ datasets using STAC, GeoParquet, and DuckDB Spatial — and contributing to the OGC and the
+              cloud-native geospatial community. The mission that started in a coffee shop continues: make
+              powerful geospatial tools open, interoperable, and within reach for everyone.
+            </p>
+            <div class="timeline-links" aria-label="Related links">
+              <a class="chip-link" href="/projects/">Explore the work</a>
+              <a class="chip-link" href="#contact">Get in touch</a>
+            </div>
+          </article>
+        </li>
+
+      </ol>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p class="muted">
+        Best way: GitHub + LinkedIn.
+      </p>
+
+      <div class="contact-actions">
+        <a class="button ghost" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="button ghost" href="https://www.linkedin.com/in/moyassin1" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
+  </footer>
+
+  <script>(function(){var y=document.getElementById("y");if(y)y.textContent=new Date().getFullYear();})();</script>
+</body>
+</html>

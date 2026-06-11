@@ -1,211 +1,997 @@
-<!-- /index.html -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mohamad Yassin</title>
-  <meta name="description" content="GIS • Routing • Geospatial Data Science — portfolio, projects, articles, and demos." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mohamad Yassin</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Geospatial • Data Science • Open Source — cloud-native geospatial apps, decision tools, and open data." />
+<style>
+/* ============ BASE (original theme) ============ */
+:root{
+  --bg:#0b1020; --panel:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
+  --border: rgba(148,163,184,.25);
+}
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; background:var(--bg); color:var(--text);
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+a:focus-visible,.button:focus-visible{ outline:2px solid rgba(226,232,240,.55); outline-offset:2px; border-radius:12px; }
 
-  <link rel="stylesheet" href="/assets/site.css" />
+.nav{ position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between;
+  padding:12px 18px; background:rgba(15,23,42,.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+.brand{ font-weight:800; letter-spacing:.3px; }
+.links{ display:flex; gap:14px; align-items:center; }
+.links a{ color:var(--muted); padding-bottom:2px; transition:color .15s ease; }
+.links a:hover{ color:var(--text); }
+.cta{ padding:7px 10px; border:1px solid var(--border); border-radius:999px; }
+
+.container{ max-width:1100px; margin:0 auto; padding:22px 18px 44px; }
+
+.hero{ display:grid; grid-template-columns:1.2fr .8fr; gap:18px; align-items:start; }
+.muted{ color:var(--muted); }
+.hero-actions{ display:flex; gap:10px; margin:14px 0; }
+.hero-title{ margin:0; line-height:1.05; font-size:40px; font-weight:800; }
+.hero-line{ display:block; white-space:nowrap; }
+.dot{ margin-left:.15em; }
+
+.button{ display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:12px;
+  background:rgba(226,232,240,.12); border:1px solid var(--border); transition:background .15s ease; }
+.button:hover{ background:rgba(226,232,240,.18); }
+.ghost{ background:transparent; }
+
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chips span{ font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 10px; border-radius:999px; }
+
+.card{ border:1px solid var(--border); border-radius:16px; background:rgba(15,23,42,.55); padding:12px; }
+.card-title{ font-weight:700; margin-bottom:8px; }
+.card-item{ display:block; padding:10px; border-radius:12px; transition:background .15s ease; }
+.card-item:hover{ background:rgba(226,232,240,.08); }
+.kicker{ font-size:12px; color:var(--muted); }
+.name{ font-weight:700; margin-top:2px; }
+.desc{ color:var(--muted); font-size:13px; margin-top:4px; }
+
+.grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+.tile{ border:1px solid var(--border); border-radius:16px; background:rgba(15,23,42,.35); padding:14px;
+  transition:background .15s ease, transform .15s ease; }
+.tile:hover{ background:rgba(15,23,42,.55); transform:translateY(-1px); }
+.tile h2{ margin:0 0 6px; font-size:16px; }
+
+.contact{ margin-top:26px; border-top:1px solid var(--border); padding-top:18px; }
+.contact-actions{ display:flex; gap:10px; margin-top:10px; }
+.footer{ border-top:1px solid var(--border); padding:14px 18px; text-align:center; }
+
+@media (max-width:920px){ .hero{ grid-template-columns:1fr; } .grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .grid{ grid-template-columns:1fr; } .links{ gap:10px; } }
+
+/* ============ CAREER TIMELINE (center spine) ============ */
+.a1{ --acc:#34d399; } .a2{ --acc:#2dd4bf; } .a3{ --acc:#fbbf24; }
+.a4{ --acc:#a78bfa; } .a5{ --acc:#f472b6; } .a6{ --acc:#38bdf8; } .a7{ --acc:#60a5fa; }
+
+.path{ margin-top:26px; border-top:1px solid var(--border); padding-top:20px; }
+.path-head{ text-align:center; margin:0 auto 6px; }
+.path-head h2{ margin:0 0 6px; font-size:24px; }
+.path-head p{ color:var(--muted); font-size:14px; margin:0; }
+
+.tl{ position:relative; margin-top:26px; padding:8px 0 26px; }
+.tl::before{
+  content:""; position:absolute; left:50%; top:0; bottom:0; width:3px; margin-left:-1.5px; border-radius:3px;
+  background:linear-gradient(to bottom,
+    #34d399 0%, #2dd4bf 16%, #fbbf24 33%, #a78bfa 48%, #f472b6 60%, #38bdf8 78%, #60a5fa 100%);
+  opacity:.55;
+}
+.tl-chapter{ position:relative; z-index:3; display:flex; justify-content:center; margin:32px 0 10px; }
+.tl-chapter span{
+  background:var(--bg); border:1px solid color-mix(in srgb, var(--acc) 55%, transparent);
+  color:color-mix(in srgb, var(--acc) 80%, #fff); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  font-weight:800; padding:7px 16px; border-radius:999px; box-shadow:0 0 0 8px var(--bg);
+}
+.tl-item{ position:relative; display:grid; grid-template-columns:1fr 96px 1fr; margin:6px 0 18px; }
+.tl-badge{
+  grid-column:2; grid-row:1; justify-self:center; align-self:start; margin-top:6px; z-index:2;
+  width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+  font-size:21px; background:var(--panel);
+  border:1.5px solid color-mix(in srgb, var(--acc) 65%, transparent);
+  box-shadow:0 0 0 7px var(--bg), 0 0 22px color-mix(in srgb, var(--acc) 35%, transparent);
+}
+.tl-item.minor .tl-badge{
+  width:30px; height:30px; border-radius:10px; font-size:14px; margin-top:8px;
+  border-color:color-mix(in srgb, var(--acc) 40%, transparent); box-shadow:0 0 0 6px var(--bg);
+}
+.tl-item.now .tl-badge{ border-color:color-mix(in srgb, var(--acc) 85%, transparent); animation:pulse 2.6s ease-in-out infinite; }
+@keyframes pulse{
+  0%,100%{ box-shadow:0 0 0 7px var(--bg), 0 0 22px color-mix(in srgb, var(--acc) 40%, transparent); }
+  50%{ box-shadow:0 0 0 7px var(--bg), 0 0 38px color-mix(in srgb, var(--acc) 70%, transparent); }
+}
+.tl-card{
+  grid-row:1; max-width:480px; position:relative;
+  border:1px solid var(--border); border-radius:16px; background:rgba(15,23,42,.45);
+  padding:14px 16px 13px; box-shadow:0 12px 32px rgba(0,0,0,.24);
+  transition:transform .16s ease, border-color .16s ease, background .16s ease;
+}
+.tl-card:hover{ transform:translateY(-2px); background:rgba(15,23,42,.62);
+  border-color:color-mix(in srgb, var(--acc) 35%, var(--border)); }
+.tl-item.left  .tl-card{ grid-column:1; justify-self:end;   text-align:right; }
+.tl-item.right .tl-card{ grid-column:3; justify-self:start; text-align:left; }
+.tl-card::after{ content:""; position:absolute; top:26px; width:30px; height:2px;
+  background:color-mix(in srgb, var(--acc) 45%, transparent); }
+.tl-item.left  .tl-card::after{ right:-31px; }
+.tl-item.right .tl-card::after{ left:-31px; }
+.tl-item.minor .tl-card{ max-width:400px; padding:11px 14px 10px;
+  background:rgba(15,23,42,.3); box-shadow:0 8px 20px rgba(0,0,0,.18); }
+
+.tl-year{ font-size:24px; font-weight:800; letter-spacing:.3px; line-height:1; color:var(--acc); margin:0 0 2px; }
+.tl-item.minor .tl-year{ font-size:17px; }
+.tl-kick{ font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--muted); margin:0 0 7px; }
+.tl-title{ margin:0 0 6px; font-size:16.5px; line-height:1.3; }
+.tl-item.minor .tl-title{ font-size:14px; }
+.tl-text{ margin:0; color:#c7d0dd; font-size:13.5px; line-height:1.65; }
+.tl-item.minor .tl-text{ font-size:12.5px; color:#aebacb; }
+
+.tl-links{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.tl-item.left .tl-links{ justify-content:flex-end; }
+.chip-link{ font-size:12px; color:var(--muted); border:1px solid var(--border); padding:6px 10px;
+  border-radius:999px; background:rgba(226,232,240,.05); transition:all .15s ease; }
+.chip-link:hover{ background:rgba(226,232,240,.10); color:var(--text); transform:translateY(-1px); }
+
+.tl-media{ margin-top:10px; border-radius:12px; overflow:hidden; border:1px solid var(--border);
+  background:rgba(226,232,240,.04); }
+.tl-video{ aspect-ratio:16/9; } .tl-video iframe{ width:100%; height:100%; border:0; display:block; }
+.tl-slot{ margin-top:10px; border:1.5px dashed color-mix(in srgb, var(--acc) 35%, transparent); border-radius:12px;
+  padding:10px 13px; display:flex; align-items:center; gap:9px; color:var(--muted); font-size:12px;
+  background:rgba(226,232,240,.03); }
+.tl-item.left .tl-slot{ flex-direction:row-reverse; }
+
+@media (max-width:860px){
+  .tl::before{ left:22px; margin-left:0; }
+  .tl-chapter{ justify-content:flex-start; padding-left:50px; }
+  .tl-item{ grid-template-columns:46px 1fr; gap:10px; }
+  .tl-badge{ grid-column:1; }
+  .tl-item .tl-card, .tl-item.left .tl-card, .tl-item.right .tl-card{
+    grid-column:2; justify-self:stretch; max-width:none; text-align:left; }
+  .tl-card::after{ display:none; }
+  .tl-item.left .tl-links{ justify-content:flex-start; }
+  .tl-item.left .tl-slot{ flex-direction:row; }
+}
+
+/* ============ VOLUNTEER RAIL (compact left rail) ============ */
+.rail-section{ margin-top:30px; border-top:1px solid var(--border); padding-top:20px; }
+.rail-head{ text-align:center; margin-bottom:14px; }
+.rail-head h2{ margin:0 0 6px; font-size:21px; }
+.rail-head p{ color:var(--muted); font-size:13.5px; margin:0; }
+.rail{ position:relative; max-width:760px; margin:18px auto 0; padding-left:44px; }
+.rail::before{ content:""; position:absolute; left:15px; top:6px; bottom:6px; width:2px; border-radius:2px;
+  background:linear-gradient(to bottom, rgba(52,211,153,.5), rgba(52,211,153,.12)); }
+.rail-item{ position:relative; margin:0 0 14px; }
+.rail-dot{ position:absolute; left:-37px; top:14px; width:26px; height:26px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center; font-size:13px; background:var(--panel);
+  border:1px solid rgba(52,211,153,.4); box-shadow:0 0 0 5px var(--bg); }
+.rail-card{ border:1px solid var(--border); border-radius:14px; background:rgba(15,23,42,.32);
+  padding:11px 14px; transition:background .15s ease; }
+.rail-card:hover{ background:rgba(15,23,42,.55); }
+.rail-top{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+.rail-date{ font-size:12px; font-weight:800; color:#6ee7b7; letter-spacing:.3px; }
+.rail-title{ font-size:14px; font-weight:700; }
+.rail-text{ color:#aebacb; font-size:12.5px; line-height:1.6; margin:4px 0 0; }
+
+/* ============ CERTIFICATIONS GRID ============ */
+.cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px; }
+.cert-card{ border:1px solid var(--border); border-radius:14px; background:rgba(15,23,42,.32); padding:13px 14px; }
+.cert-year{ font-size:13px; font-weight:800; color:#93c5fd; letter-spacing:.3px; margin:0 0 4px; }
+.cert-title{ font-size:14px; font-weight:700; margin:0 0 5px; }
+.cert-text{ color:#aebacb; font-size:12.5px; line-height:1.6; margin:0; }
+@media (max-width:860px){ .cert-grid{ grid-template-columns:1fr 1fr; } .rail{ padding-left:40px; } }
+@media (max-width:560px){ .cert-grid{ grid-template-columns:1fr; } }
+
+/* ============ COURSE LIST MODAL ============ */
+.cert-card.clickable{ cursor:pointer; }
+.cert-card.clickable:hover{ background:rgba(15,23,42,.6); border-color:rgba(147,197,253,.45); }
+.cert-more{ display:inline-block; margin-top:7px; font-size:12px; font-weight:700; color:#93c5fd; }
+
+.modal{ border:1px solid var(--border); border-radius:16px; background:#0f172a; color:var(--text);
+  padding:0; max-width:720px; width:92vw; max-height:84vh; box-shadow:0 30px 90px rgba(0,0,0,.5); }
+.modal::backdrop{ background:rgba(2,6,16,.72); backdrop-filter:blur(3px); }
+.modal-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  padding:14px 18px; border-bottom:1px solid var(--border); position:sticky; top:0; background:#0f172a; z-index:1; }
+.modal-title{ font-weight:800; font-size:16px; }
+.modal-sub{ color:var(--muted); font-size:12.5px; margin-top:3px; }
+.modal-close{ background:transparent; border:1px solid var(--border); color:var(--muted);
+  border-radius:10px; padding:6px 11px; cursor:pointer; font-size:13px; flex-shrink:0; }
+.modal-close:hover{ color:var(--text); background:rgba(226,232,240,.08); }
+.modal-body{ padding:14px 18px 18px; overflow:auto; }
+.mgroup{ margin-bottom:16px; }
+.mgroup h4{ margin:0 0 8px; font-size:11.5px; letter-spacing:.15em; text-transform:uppercase; color:#93c5fd; }
+.mlist{ display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; margin:0; padding:0; list-style:none; }
+.mlist li{ font-size:13px; color:#c7d0dd; padding:6px 10px; border:1px solid rgba(148,163,184,.16);
+  border-radius:9px; background:rgba(226,232,240,.03); }
+@media (max-width:560px){ .mlist{ grid-template-columns:1fr; } }
+
+/* ============ BRAND LOGO ============ */
+.brand{ display:flex; align-items:center; gap:9px; }
+.brand-logo{ width:26px; height:26px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+
+/* ============ COLLAPSIBLE CHAPTERS ============ */
+.tl-chapter span{ cursor:pointer; user-select:none; }
+.tl-chapter .yr{ color:var(--muted); font-weight:600; letter-spacing:.05em; margin-left:9px; }
+.tl-chapter .caret{ display:inline-block; margin-left:9px; transition:transform .18s ease; }
+.tl-chapter.closed .caret{ transform:rotate(-90deg); }
+.tl-item.hidden{ display:none; }
+.tl-controls{ display:flex; justify-content:center; gap:8px; margin-top:12px; }
+button.chip-link{ font:inherit; font-size:12px; cursor:pointer; }
+
+/* ============ MEDIA POPUP ============ */
+.modal.media{ max-width:960px; }
+
+/* ============ FEATURED CAPSULES ============ */
+.card .card-item{ display:block; border:1px solid var(--border); border-radius:14px;
+  padding:11px 13px; margin-top:10px; background:rgba(148,163,184,.05);
+  transition:background .15s ease, border-color .15s ease, transform .15s ease; }
+.card .card-item:hover{ background:rgba(148,163,184,.10); border-color:rgba(147,197,253,.35); transform:translateY(-1px); }
+.media-body{ padding:14px; display:grid; place-items:center; }
+.media-body img{ max-width:100%; max-height:72vh; border-radius:10px; }
+.media-frame{ width:min(86vw,900px); aspect-ratio:16/9; border:0; border-radius:10px; background:#000; }
+.pdf-frame{ width:min(86vw,900px); height:74vh; border:0; border-radius:10px; background:#fff; }
+</style>
 </head>
 
 <body>
-  <header class="nav">
-    <a class="brand" href="/">Mohamad Yassin</a>
+<header class="nav">
+  <a class="brand" href="/"><img class="brand-logo" src="/assets/img/mo.png" alt="" onerror="this.style.display='none'">Mohamad Yassin</a>
+  <nav class="links" aria-label="Primary navigation">
+    <a href="/portfolio/">Portfolio</a>
+    <a href="/articles/">Articles</a>
+    <a href="/videos/">Videos</a>
+    <a href="/repos/">Repos</a>
+    <a class="cta" href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <nav class="links" aria-label="Primary navigation">
-      <a href="/projects/">Projects</a>
-      <a href="/articles/">Articles</a>
-      <a href="/videos/">Videos</a>
-      <a href="/repos/">Repos</a>
-      <a class="cta" href="#contact">Contact</a>
-    </nav>
-  </header>
+<main class="container">
 
-  <main class="container">
-    <section class="hero">
-      <div>
-        <h1 class="hero-title">
-          <span class="hero-line">Geospatial <span class="dot">•</span></span>
-          <span class="hero-line">Data Science <span class="dot">•</span></span>
-          <span class="hero-line">Route Optimization <span class="dot">•</span></span>
-        </h1>
-
-        <p class="muted">
-          I build decision tools: routing, operational analytics, open-source, cloud-native geospatial apps,
-          and research-driven prototypes.
-        </p>
-
-        <div class="hero-actions">
-          <a class="button" href="/projects/">View projects</a>
-          <a class="button ghost" href="/articles/">Read articles</a>
-        </div>
-
-        <div class="chips" aria-label="Skill tags">
-          <span>MapLibre</span>
-          <span>Python</span>
-          <span>GeoParquet</span>
-          <span>DuckDB</span>
-          <span>Streamlit</span>
-          <span>Optimization</span>
-        </div>
-      </div>
-
-      <aside class="card" aria-label="Featured work">
-        <div class="card-title">Featured</div>
-
-        <a class="card-item" href="/articles/geospatial-data-science/">
-          <div class="kicker">Article</div>
-          <div class="name">Geospatial Data Science (MapLibre Story)</div>
-          <div class="desc">Interactive map + scrollytelling, GitHub-hosted datasets.</div>
-        </a>
-
-        <a class="card-item" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">
-          <div class="kicker">App</div>
-          <div class="name">RouteView</div>
-          <div class="desc">Map-first operational viewer (GitHub Pages).</div>
-        </a>
-
-        <a class="card-item" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">
-          <div class="kicker">GitHub</div>
-          <div class="name">Open-source repos</div>
-          <div class="desc">Code, demos, and data releases.</div>
-        </a>
-      </aside>
-    </section>
-
-    <section class="grid" aria-label="Site sections">
-      <a class="tile" href="/projects/">
-        <h2>Projects</h2>
-        <p class="muted">Apps, prototypes, dashboards, open-source.</p>
-      </a>
-
-      <a class="tile" href="/articles/">
-        <h2>Articles</h2>
-        <p class="muted">Longform writeups, maps, methods, opinions.</p>
-      </a>
-
-      <a class="tile" href="/videos/">
-        <h2>Videos</h2>
-        <p class="muted">Talks, demos, tutorials, interviews.</p>
-      </a>
-
-      <a class="tile" href="/repos/">
-        <h2>Repos</h2>
-        <p class="muted">Curated code + datasets.</p>
-      </a>
-    </section>
-
-    <!-- ============================================================
-         Timeline (main page scroll section)
-         ============================================================ -->
-    <section class="timeline" aria-label="Milestones timeline">
-      <div class="section-head">
-        <h2>Milestones</h2>
-        <p class="muted">
-          A few milestones across GIS, routing, and geospatial data science — click to open projects, articles, and demos.
-        </p>
-      </div>
-
-      <ol class="timeline-list">
-        <li class="timeline-item">
-          <div class="timeline-marker" aria-hidden="true"></div>
-
-          <article class="timeline-card">
-            <div class="timeline-top">
-              <span class="timeline-date">2026</span>
-              <span class="timeline-pill">Ops tooling</span>
-            </div>
-
-            <h3 class="timeline-title">
-              <a href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">
-                RouteView — operational map viewer
-              </a>
-            </h3>
-
-            <p class="muted">
-              Map-first viewer for route validation + weekly audits (GitHub Pages).
-            </p>
-
-            <div class="timeline-links" aria-label="Related links">
-              <a class="chip-link" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">Open app</a>
-              <a class="chip-link" href="/projects/">More projects</a>
-            </div>
-          </article>
-        </li>
-
-        <li class="timeline-item">
-          <div class="timeline-marker" aria-hidden="true"></div>
-
-          <article class="timeline-card">
-            <div class="timeline-top">
-              <span class="timeline-date">2025</span>
-              <span class="timeline-pill">Writing</span>
-            </div>
-
-            <h3 class="timeline-title">
-              <a href="/articles/geospatial-data-science/">
-                Geospatial Data Science (MapLibre Story)
-              </a>
-            </h3>
-
-            <p class="muted">
-              Interactive scrollytelling + GitHub-hosted datasets.
-            </p>
-
-            <div class="timeline-links" aria-label="Related links">
-              <a class="chip-link" href="/articles/geospatial-data-science/">Read</a>
-              <a class="chip-link" href="/articles/">All articles</a>
-            </div>
-          </article>
-        </li>
-
-        <li class="timeline-item">
-          <div class="timeline-marker" aria-hidden="true"></div>
-
-          <article class="timeline-card">
-            <div class="timeline-top">
-              <span class="timeline-date">2024</span>
-              <span class="timeline-pill">Open-source</span>
-            </div>
-
-            <h3 class="timeline-title">
-              <a href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">
-                Shipping prototypes + datasets
-              </a>
-            </h3>
-
-            <p class="muted">
-              GeoParquet, DuckDB pipelines, MapLibre demos, and utility tools.
-            </p>
-
-            <div class="timeline-links" aria-label="Related links">
-              <a class="chip-link" href="/repos/">Curated repos</a>
-              <a class="chip-link" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </article>
-        </li>
-      </ol>
-    </section>
-
-    <section id="contact" class="contact">
-      <h2>Contact</h2>
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        <span class="hero-line">Geospatial <span class="dot">•</span></span>
+        <span class="hero-line">Data Science <span class="dot">•</span></span>
+        <span class="hero-line">Open Source <span class="dot">•</span></span>
+      </h1>
       <p class="muted">
-        Best way: GitHub + LinkedIn.
+        I build cloud-native geospatial systems and decision tools — open data infrastructure,
+        operational analytics, and research-driven prototypes for the public good.
       </p>
-
-      <div class="contact-actions">
-        <a class="button ghost" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="button ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <div class="hero-actions">
+        <a class="button" href="/portfolio/">View portfolio</a>
+        <a class="button ghost" href="/articles/">Read articles</a>
       </div>
-    </section>
-  </main>
+      <div class="chips" aria-label="Skill tags">
+        <span>Python</span><span>PostGIS</span><span>DuckDB</span>
+        <span>GeoParquet</span><span>STAC</span><span>MapLibre</span><span>QGIS</span>
+      </div>
+    </div>
 
-  <footer class="footer">
-    <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
-  </footer>
+    <aside class="card" aria-label="Featured work">
+      <div class="card-title">Featured</div>
+      <a class="card-item" href="https://opentrash.app/" target="_blank" rel="noreferrer">
+        <div class="kicker">Open-source package</div>
+        <div class="name">opentrash</div>
+        <div class="desc">Cloud-native Python for residential waste-collection analytics.</div>
+      </a>
+      <a class="card-item" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">
+        <div class="kicker">App</div>
+        <div class="name">RouteView</div>
+        <div class="desc">MapLibre operational viewer — telematics + field data + GIS.</div>
+      </a>
+      <a class="card-item" href="https://youtu.be/QTQCfywuUJY" target="_blank" rel="noreferrer">
+        <div class="kicker">Talk</div>
+        <div class="name">Geospatial Data Science on a Budget — ASPRS @ SDSU</div>
+        <div class="desc">Cloud-native geospatial without the enterprise price tag.</div>
+      </a>
+    </aside>
+  </section>
 
-  <script src="/assets/site.js"></script>
+  <section class="grid" aria-label="Site sections">
+    <a class="tile" href="/portfolio/"><h2>Portfolio</h2><p class="muted">Apps, packages, dashboards, open-source.</p></a>
+    <a class="tile" href="/articles/"><h2>Articles</h2><p class="muted">Stories, methods, research, opinions.</p></a>
+    <a class="tile" href="/videos/"><h2>Videos</h2><p class="muted">Talks, demos, tutorials, interviews.</p></a>
+    <a class="tile" href="/repos/"><h2>Repos</h2><p class="muted">Curated code + datasets.</p></a>
+  </section>
+
+  <!-- ============================================================
+       CAREER TIMELINE — HOW TO EDIT
+       ------------------------------------------------------------
+       STRUCTURE
+         Chapter badge:   <div class="tl-chapter aN"><span>Label</span></div>
+         Timeline item:   <div class="tl-item major|minor|now left|right aN"> ... </div>
+           - major = big icon badge | minor = small badge | now = pulsing badge
+           - left/right = which side the card sits on (alternate them)
+           - aN = accent color: a1 green, a2 teal, a3 amber, a4 violet,
+                  a5 rose, a6 sky, a7 blue
+       ITEM TEMPLATE (copy, paste, edit)
+         <div class="tl-item minor right a6">
+           <div class="tl-badge" aria-hidden="true">🎤</div>
+           <article class="tl-card">
+             <p class="tl-year">2025</p>
+             <p class="tl-kick">OPTIONAL KICKER</p>
+             <h3 class="tl-title">Title</h3>
+             <p class="tl-text">One to three short sentences.</p>
+             <div class="tl-links"><a class="chip-link" href="URL">Label</a></div>
+           </article>
+         </div>
+       MEDIA (inline)
+         Image:   <div class="tl-media"><img src="/assets/img/timeline/file.jpg" alt=""></div>
+         Video:   <div class="tl-media tl-video"><iframe src="https://www.youtube-nocookie.com/embed/VIDEOID" title="" loading="lazy" allowfullscreen></iframe></div>
+         Placeholder: <div class="tl-slot"><span>📄</span> Media slot — description</div>
+           NOTE: no slots are shown on the live page — add one ONLY while gathering media, then
+           replace it with a chip-link (popup) or tl-media (inline embed) and delete the slot.
+       COMPONENT STRUCTURE (copy/paste to add milestones)
+         Chapter:        .tl-chapter.aN > span (label + .yr + .caret)
+         Milestone:      .tl-item (major|minor|now) (left|right) .aN > .tl-badge + .tl-card
+         Card parts:     .tl-year, .tl-kick (optional), .tl-title, .tl-text
+         Sub-components: .tl-links (chips: links / popups), .tl-media (inline), .tl-slot (temporary)
+         Rail item:      .rail-item > .rail-dot + .rail-card (.rail-top > .rail-date + .rail-title, .rail-text, .tl-links)
+       MEDIA (popup — click to open, like the course list)
+         Photo: <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/file.jpg" data-title="Caption">📷 View photo</a>
+         Video: <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/VIDEOID" data-title="Caption">▶ Watch</a>
+         PDF:   <a class="chip-link" href="#" data-media="pdf" data-src="/assets/docs/file.pdf" data-title="Caption">📄 Open PDF</a>
+       FILE CONVENTIONS
+         Photos → /assets/img/timeline/   PDFs → /assets/docs/   Logo/favicon → /assets/img/mo.jpg
+       ============================================================ -->
+  <section class="path" aria-label="Career timeline">
+    <div class="path-head">
+      <h2>Career Timeline</h2>
+      <p>The story so far.</p>
+      <div class="tl-controls">
+        <button class="chip-link" type="button" id="tlExpand">Expand all</button>
+        <button class="chip-link" type="button" id="tlCollapse">Collapse all</button>
+      </div>
+    </div>
+
+    <div class="tl">
+
+      <div class="tl-chapter a1"><span>Origins<span class="yr">2005–2015</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item minor right a1">
+        <div class="tl-badge" aria-hidden="true">🎓</div>
+        <article class="tl-card">
+          <p class="tl-year">2005–2011</p>
+          <h3 class="tl-title">B.A., Business Administration</h3>
+          <p class="tl-text">University of Jordan — the business foundation everything else was built on.</p>
+        </article>
+      </div>
+
+      <div class="tl-item major left a1">
+        <div class="tl-badge" aria-hidden="true">🏛️</div>
+        <article class="tl-card">
+          <p class="tl-year">2012–2015</p>
+          <p class="tl-kick">Amman, Jordan</p>
+          <h3 class="tl-title">Consulting &amp; research</h3>
+          <p class="tl-text">Management consulting — feasibility studies and ISO 9000 quality-management
+             reviews — then Technology, Media and Telecoms market research across MENA, publishing 2 custom
+             reports and hundreds of syndicated research notes. I learned how big institutions really work.</p>
+        </article>
+      </div>
+
+      <div class="tl-chapter a2"><span>The Reinvention<span class="yr">2018–2020</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major right a2">
+        <div class="tl-badge" aria-hidden="true">☕</div>
+        <article class="tl-card">
+          <p class="tl-year">2018–2019</p>
+          <p class="tl-kick">Washington, DC</p>
+          <h3 class="tl-title">Teaching myself to code</h3>
+          <p class="tl-text">A laptop, the R language, and a corner table at Compass Coffee in Georgetown.
+             No bootcamp, no CS degree — just conviction that the future belonged to the data-fluent.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/compass-coffee-2019.jpg" data-title="My desk at Compass Coffee, Georgetown — HarvardX R course (June 2019)">📷 The actual desk</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor left a2">
+        <div class="tl-badge" aria-hidden="true">📜</div>
+        <article class="tl-card">
+          <p class="tl-year">2019–2020</p>
+          <h3 class="tl-title">Business Intelligence @ UC San Diego</h3>
+          <p class="tl-text">Databases, statistics, decisions from data — meant as a bridge into IT
+             service management.</p>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a2">
+        <div class="tl-badge" aria-hidden="true">⚙️</div>
+        <article class="tl-card">
+          <p class="tl-year">2020</p>
+          <h3 class="tl-title">ServiceNow CSA + CIS-ITSM</h3>
+          <p class="tl-text">Certified and ready to step into enterprise IT.</p>
+        </article>
+      </div>
+
+      <div class="tl-chapter a3"><span>The Trial<span class="yr">2020–2021</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major left a3">
+        <div class="tl-badge" aria-hidden="true">⚡</div>
+        <article class="tl-card">
+          <p class="tl-year">2020</p>
+          <p class="tl-kick">Lockdown</p>
+          <h3 class="tl-title">Then the world closed</h3>
+          <p class="tl-text">Days after certifying, COVID-19 erased the plan — and the job market with it.
+             Lockdown became a productive stretch.</p>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a3">
+        <div class="tl-badge" aria-hidden="true">📄</div>
+        <article class="tl-card">
+          <p class="tl-year">2020</p>
+          <h3 class="tl-title">Building a chatbot</h3>
+          <p class="tl-text">An end-to-end chatbot build, written up as a 26-page technical report
+             (September 2020). Proof I could do this.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-media="pdf" data-src="/assets/docs/chatbot-2020.pdf" data-title="Building a Chatbot — technical report (September 21, 2020)">📄 Read the report</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor left a3">
+        <div class="tl-badge" aria-hidden="true">🤝</div>
+        <article class="tl-card">
+          <p class="tl-year">2020–2021</p>
+          <h3 class="tl-title">A mentor + a thousand hours</h3>
+          <p class="tl-text">Hundreds of course hours later, I shipped a production NLP pipeline in my
+             first AI role.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-open="sprintModal">See all 32 credentials →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-chapter a4"><span>The Deep Dive<span class="yr">2021</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major right a4">
+        <div class="tl-badge" aria-hidden="true">📖</div>
+        <article class="tl-card">
+          <p class="tl-year">2021</p>
+          <h3 class="tl-title">Writing a book on AI</h3>
+          <p class="tl-text">In Eric Koester’s book-writing program I wrote a book on AI — 40+ interviews
+             with pioneers, past the halfway mark to publication. I put the manuscript on pause to go
+             deep on the technical side — fully intending to return to it.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="https://erickoester.com/" target="_blank" rel="noreferrer">Eric Koester</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-chapter a5"><span>The Mission<span class="yr">2021</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major left a5">
+        <div class="tl-badge" aria-hidden="true">🚀</div>
+        <article class="tl-card">
+          <p class="tl-year">2021</p>
+          <p class="tl-kick">501(c)(3)</p>
+          <h3 class="tl-title">Founding AI Research Corps</h3>
+          <p class="tl-text">2017: AlphaGo falls and China declares a national AI strategy; the U.S. answers
+             in 2018. Civilizational stakes — and public institutions falling behind. I founded AIRC to
+             close that gap with AI, open data, and modern geospatial tools.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="https://airesearchcorps.org" target="_blank" rel="noreferrer">AIRC — current site</a>
+            <a class="chip-link" href="https://airesearchcorp.org" target="_blank" rel="noreferrer">Original site (2021)</a>
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/7MFvTMtv8fc" data-title="AIRC founding presentation (2021)">▶ Founding presentation</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/optimist-ai-talk.jpg" data-title="Community talk on national AI policy — Optimist Club of Point Loma">📷 AI policy talk</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a5">
+        <div class="tl-badge" aria-hidden="true">🧑‍🏫</div>
+        <article class="tl-card">
+          <p class="tl-year">2021–Present</p>
+          <h3 class="tl-title">Mentoring the next generation</h3>
+          <p class="tl-text">Through AIRC I mentor researchers and teach hands-on GIS — from QGIS trainings
+             for high-school apprentices to fieldwork with research students.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/SSWI1qkzzY4" data-title="QGIS Training — High School Apprenticeship I">▶ QGIS Training I</a>
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/aeR8MCSEwCE" data-title="QGIS Training — High School Apprenticeship II">▶ QGIS Training II</a>
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/Fuh7PWc7Pz4" data-title="With Ecologik research students">▶ Research students</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/gisday-students-2024.jpg" data-title="GIS Day 2024 at Cabrillo National Monument — students with their ArcGIS licenses (AIRC × Ecologik)">📷 GIS Day students (2024)</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/gisday24-poster" data-title="Geospatial Awareness Week 2024 — event poster (AIRC × Ecologik, Cabrillo NM)">🪧 2024 poster</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/gisday25-poster.jpg" data-title="Geospatial Awareness Week 2025 — event poster (AIRC × Ecologik)">🪧 2025 poster</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-chapter a6"><span>The Field<span class="yr">2022–2026</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major right a6">
+        <div class="tl-badge" aria-hidden="true">🗺️</div>
+        <article class="tl-card">
+          <p class="tl-year">2022–2023</p>
+          <p class="tl-kick">UC San Diego</p>
+          <h3 class="tl-title">Geographic Information Systems (GIS)</h3>
+          <p class="tl-text">After BI, ITSM, ML, NLP, and writing — GIS tied it all together. A year and a
+             half of exciting learning. Spatial became the lens.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/esri-uc-2022.jpg" data-title="My first Esri User Conference — NASA Earth Science booth (July 2022)">📷 First Esri UC (2022)</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item major left a6">
+        <div class="tl-badge" aria-hidden="true">♻️</div>
+        <article class="tl-card">
+          <p class="tl-year">2023–2026</p>
+          <p class="tl-kick">City of San Diego</p>
+          <h3 class="tl-title">GIS &amp; data lead</h3>
+          <p class="tl-text">Spatial lead for one of the West Coast’s largest municipal operations —
+             225K+ properties, 1M+ assets, 700+ routes. Built RouteView, automated routing, integrated
+             enterprise systems, led citywide technical efforts.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="https://airesearchcorps.org/RouteView/" target="_blank" rel="noreferrer">Open RouteView</a>
+            <a class="chip-link" href="#" data-media="pdf" data-src="/assets/docs/panda-press-2026.pdf" data-title="PandA Press — Employee Spotlight (April 2026)">📰 Employee spotlight</a>
+            <a class="chip-link" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a6">
+        <div class="tl-badge" aria-hidden="true">🎤</div>
+        <article class="tl-card">
+          <p class="tl-year">2024</p>
+          <h3 class="tl-title">GIS Day 2024</h3>
+          <p class="tl-text">How geospatial transforms government operations.</p>
+          <div class="tl-media tl-video">
+            <iframe src="https://www.youtube-nocookie.com/embed/idNEOk3xzw8" title="GIS Day 2024 talk"
+              loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor left a6">
+        <div class="tl-badge" aria-hidden="true">🎤</div>
+        <article class="tl-card">
+          <p class="tl-year">2025</p>
+          <h3 class="tl-title">Solid-Waste GIS</h3>
+          <p class="tl-text">Spatial data + operational intelligence in a 700-route municipal operation.</p>
+          <div class="tl-media tl-video">
+            <iframe src="https://www.youtube-nocookie.com/embed/w4CSijizYbs" title="Solid Waste GIS talk"
+              loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a6">
+        <div class="tl-badge" aria-hidden="true">🌐</div>
+        <article class="tl-card">
+          <p class="tl-year">2025</p>
+          <h3 class="tl-title">GIS Day 2025 — AIRC × Ecologik</h3>
+          <p class="tl-text">Organized a GIS Day event featuring a GeoAI professor — bringing the geospatial
+             community together through AIRC × Ecologik.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/VJAmxOyGm1s" data-title="GIS Day 2025 — AIRC × Ecologik">▶ Watch the event</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/gisday25-poster.jpg" data-title="Geospatial Awareness Week 2025 — event poster (AIRC × Ecologik)">🪧 2025 poster</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor left a6">
+        <div class="tl-badge" aria-hidden="true">🎤</div>
+        <article class="tl-card">
+          <p class="tl-year">2026</p>
+          <h3 class="tl-title">Geospatial Data Science on a Budget — ASPRS @ SDSU</h3>
+          <p class="tl-text">Cloud-native geospatial without the enterprise price tag.</p>
+          <div class="tl-media tl-video">
+            <iframe src="https://www.youtube-nocookie.com/embed/QTQCfywuUJY" title="Geospatial Data Science on a Budget"
+              loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item minor right a6">
+        <div class="tl-badge" aria-hidden="true">✍️</div>
+        <article class="tl-card">
+          <p class="tl-year">2026</p>
+          <h3 class="tl-title">Geospatial data science, in the open</h3>
+          <p class="tl-text">A story map I first published in 2022, rebuilt with open-source tools —
+             MapLibre, fully serverless, on this site.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="/articles/geospatial-data-science/">Read the article</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-chapter a7"><span>The Open Road<span class="yr">2026–</span><span class="caret">▾</span></span></div>
+
+      <div class="tl-item major right a7">
+        <div class="tl-badge" aria-hidden="true">📦</div>
+        <article class="tl-card">
+          <p class="tl-year">2026</p>
+          <p class="tl-kick">Open source</p>
+          <h3 class="tl-title">opentrash</h3>
+          <p class="tl-text">An open-source, cloud-native Python package for waste-collection analytics —
+             published in the open.</p>
+          <div class="tl-links">
+            <a class="chip-link" href="https://opentrash.app/" target="_blank" rel="noreferrer">opentrash.app</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-item now left a7">
+        <div class="tl-badge" aria-hidden="true">🛰️</div>
+        <article class="tl-card">
+          <p class="tl-year">Now</p>
+          <p class="tl-kick">What’s next</p>
+          <h3 class="tl-title">Cloud-native open geospatial data</h3>
+          <p class="tl-text">Building an open registry indexing 26,000+ datasets on STAC, GeoParquet, and
+             DuckDB Spatial — and implementing OGC and cloud-native geospatial standards. The mission
+             that started in a coffee shop continues...</p>
+          <div class="tl-links">
+            <a class="chip-link" href="https://airesearchcorps.org" target="_blank" rel="noreferrer">Explore the work (in progress)</a>
+            <a class="chip-link" href="#contact">Get in touch</a>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VOLUNTEERING RAIL — compact. Same edit pattern:
+       copy a .rail-item, change emoji/date/title/text.
+       ============================================================ -->
+  <section class="rail-section" aria-label="Volunteering">
+    <div class="rail-head">
+      <h2>Volunteering &amp; Community</h2>
+      <p>The other half of the story — mountains, deserts, tidepools, and radios.</p>
+    </div>
+
+    <div class="rail">
+      <div class="rail-item">
+        <div class="rail-dot">🔥</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2017</span><span class="rail-title">Disaster Response — 211 San Diego</span></div>
+          <p class="rail-text">Part of a 400-volunteer Lilac Fire response — 1,900+ collective hours at the 2-1-1
+             call center supporting fire victims and firefighters.</p>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🏛️</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2019 · 2021–Present</span><span class="rail-title">National Park Service — National Mall → Cabrillo National Monument</span></div>
+          <p class="rail-text">Started in Washington, DC, interpreting the FDR and Jefferson memorials — continued in
+             San Diego at Cabrillo: habitat restoration (Weed Warrior), greenhouse work, TPERP tidepool
+             protection, and terrestrial bird surveys.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/nps-mall-2019.jpg" data-title="Volunteer interpreter — National Mall, Washington, DC (2019)">📷 National Mall</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/cabrillo-weeding-2021.jpg" data-title="Invasive plant removal — Cabrillo National Monument (2021)">📷 Habitat restoration</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/cabrillo-birds-2022..jpg" data-title="Terrestrial bird survey — Cabrillo National Monument (2022)">📷 Bird survey</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🎙️</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2019–2022</span><span class="rail-title">IFC Toastmasters — VP Public Relations, Treasurer</span></div>
+          <p class="rail-text">Leadership team for one of Area 24’s largest clubs — built the PR campaign and ran club finances.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/toastmasters-2019.jpg" data-title="Toastmasters Leadership Institute — San Diego (2019)">📷 Leadership training</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🏺</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2021–Present</span><span class="rail-title">Volunteer Archaeology Technician — California State Parks</span></div>
+          <p class="rail-text">Winters in the Colorado Desert with the State Parks archaeologist — surveying and protecting
+             cultural resources thousands of years old.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="pdf" data-src="/assets/docs/cdas-bulletin-2022.pdf" data-title="CDAS Bulletin (April 2022) — flintknapping &amp; ground stone workshops">📰 CDAS Bulletin feature</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/archday-2024.jpg" data-title="Archaeology Day — Anza-Borrego Desert State Park (2024), representing CDAS">📷 Archaeology Day</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/arch-survey-2.jpeg.jpg" data-title="Site survey crew — Anza-Borrego Desert State Park (location undisclosed)">📷 Survey crew</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🗼</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2022–Present</span><span class="rail-title">Volunteer Fire Lookout — Forest Fire Lookout Association</span></div>
+          <p class="rail-text">Summers staffing a historic lookout tower on Palomar Mountain — scanning the backcountry for smoke.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="video" data-src="https://www.youtube-nocookie.com/embed/a8JKg42rqCI" data-title="From the lookout tower — Palomar Mountain (2023)">▶ Watch from the tower</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/lookout-engine-2023.jpg" data-title="On duty at Boucher Hill — with the Forest Service engine crew (Sep 2023)">📷 Engine crew visit</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/lookout-shasta-2022.jpg" data-title="On duty at High Point — traveling Forest Service crew from Shasta (Nov 2022)">📷 Shasta crew</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/lookout-rincon-2022.jpg" data-title="Boucher Hill — hosting a national Native American group with Rincon leaders (Oct 2022)">📷 Rincon visit</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/lookout-palomar-2025.jpg" data-title="High Point Lookout — with the Palomar station crew (Oct 2025)">📷 Palomar crew</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/smokey-ffla-2022.jpg" data-title="Staffing the FFLA booth with Smokey — Arch in the Park (Oct 2022)">📷 With Smokey 🐻</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/ffla-applefest-2025.jpg" data-title="Staffing the FFLA booth — Palomar Apple Festival (2025)">📷 Apple Fest booth</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🏅</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">2024–Present</span><span class="rail-title">Cartography Judge — ICA-IMIA Excellence Awards</span></div>
+          <p class="rail-text">Judging the international Recognition of Excellence in Cartography at the Esri User
+             Conference on behalf of CaGIS, the U.S. representative to the International Cartographic Association.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/ica-judges-2025.jpg" data-title="2025 ICA-IMIA judges — Aileen, Alexander, Bethany, and Mohamad (Esri UC)">📷 2025 judges</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-item">
+        <div class="rail-dot">🌐</div>
+        <div class="rail-card">
+          <div class="rail-top"><span class="rail-date">Ongoing</span><span class="rail-title">Professional communities</span></div>
+          <p class="rail-text">OGC (Developer) · Cloud-Native Geospatial Forum · CaGIS · ASPRS · NACIS · USGIF ·
+             Optimist International · San Diego amateur radio emergency service.</p>
+          <div class="tl-links" style="margin-top:8px;">
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/asprs-booth-2023.jpg" data-title="Volunteering at the ASPRS booth — Esri UC (2023)">📷 ASPRS booth</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/ares-noblecanyon-2023.jpg" data-title="ARES radio operations — Noble Canyon 50K, Penny Pines aid station (Sep 2023)">📻 Noble Canyon 50K</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/ares-abc50-2023.jpg" data-title="ARES race support — ABC 50, frozen morning at the aid station (Dec 2023)">📻 ABC 50 (frozen!)</a>
+            <a class="chip-link" href="#" data-media="image" data-src="/assets/img/timeline/optimist-flags.jpg" data-title="Clearing flag holes on Rosecrans St after a winter storm — Optimist Club flag program, Point Loma">📷 Flag program</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CERTIFICATIONS — grouped by era. Copy a .cert-card to add.
+       ============================================================ -->
+  <section class="rail-section" aria-label="Certifications and training">
+    <div class="rail-head">
+      <h2>Certifications &amp; Training</h2>
+      <p>The paper trail of a self-taught path.</p>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card">
+        <p class="cert-year">2019</p>
+        <p class="cert-title">HarvardX — Data Science</p>
+        <p class="cert-text">R Basics and Data Visualization — where the self-teaching got serious.</p>
+      </div>
+      <div class="cert-card clickable" id="sprintOpen" role="button" tabindex="0"
+           aria-haspopup="dialog" aria-controls="sprintModal">
+        <p class="cert-year">2020</p>
+        <p class="cert-title">The Lockdown Sprint — 30+ courses</p>
+        <p class="cert-text">DataCamp tracks across Python, statistics, machine learning, deep learning
+           (TensorFlow, Keras, PyTorch), and NLP — completed during COVID lockdown.</p>
+        <span class="cert-more">View all 32 credentials →</span>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2020</p>
+        <p class="cert-title">ServiceNow — CSA + CIS-ITSM</p>
+        <p class="cert-text">Certified System Administrator and Implementation Specialist (ITSM), plus four
+           micro-certifications.</p>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2020</p>
+        <p class="cert-title">UC San Diego — Business Intelligence</p>
+        <p class="cert-text">Professional certificate: databases, statistics, and analytics foundations.</p>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2021</p>
+        <p class="cert-title">UT Austin — Linear Algebra</p>
+        <p class="cert-text">Foundations to Frontiers — the math under the machine learning.</p>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2022</p>
+        <p class="cert-title">FCC + Red Cross</p>
+        <p class="cert-text">Amateur Radio Technician license; Emergency Medical Responder, BLS, and lifeguarding.</p>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2023</p>
+        <p class="cert-title">UC San Diego — GIS</p>
+        <p class="cert-text">Professional certificate — 1.5 years of formal geospatial science.</p>
+      </div>
+      <div class="cert-card clickable" data-media="image" data-src="/assets/img/timeline/drone-grad-2023.jpg" data-title="Drone pilot class graduation — Grossmont College (Dec 2023)" role="button" tabindex="0">
+        <p class="cert-year">2023</p>
+        <p class="cert-title">FAA — Part 107 Remote Pilot</p>
+        <p class="cert-text">Licensed small unmanned aircraft (drone) pilot.</p>
+        <span class="cert-more">View photo →</span>
+      </div>
+      <div class="cert-card">
+        <p class="cert-year">2024–2025</p>
+        <p class="cert-title">City of San Diego academies</p>
+        <p class="cert-text">Public Service Management Certificate, Procurement Academy, and Employee
+           Mentoring Academy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p class="muted">Best way: GitHub + LinkedIn.</p>
+    <div class="contact-actions">
+      <a class="button ghost" href="https://github.com/mohamadyassin" target="_blank" rel="noreferrer">GitHub</a>
+      <a class="button ghost" href="https://www.linkedin.com/in/moyassin1" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="muted">© <span id="y"></span> Mohamad Yassin</span>
+</footer>
+
+<!-- ============ LOCKDOWN SPRINT MODAL ============ -->
+<dialog class="modal" id="sprintModal" aria-labelledby="sprintTitle">
+  <div class="modal-head">
+    <div>
+      <div class="modal-title" id="sprintTitle">The Lockdown Sprint — May to November 2020</div>
+      <div class="modal-sub">27 courses + 5 career tracks, completed on DataCamp during COVID-19 lockdown.</div>
+    </div>
+    <button class="modal-close" type="button" onclick="document.getElementById('sprintModal').close()">Close ✕</button>
+  </div>
+  <div class="modal-body">
+
+    <div class="mgroup">
+      <h4>Career Tracks</h4>
+      <ul class="mlist">
+        <li>Python Programming Track</li>
+        <li>Data Manipulation with Python Track</li>
+        <li>Statistics Fundamentals with Python Track</li>
+        <li>Machine Learning Fundamentals with Python Track</li>
+        <li>Deep Learning in Python Track</li>
+      </ul>
+    </div>
+
+    <div class="mgroup">
+      <h4>Python &amp; Data</h4>
+      <ul class="mlist">
+        <li>Introduction to Python</li>
+        <li>Intermediate Python</li>
+        <li>Python Data Science Toolbox</li>
+        <li>Data Manipulation with pandas</li>
+        <li>Merging DataFrames with pandas</li>
+        <li>Analyzing Police Activity with pandas</li>
+        <li>Introduction to Databases in Python</li>
+      </ul>
+    </div>
+
+    <div class="mgroup">
+      <h4>Statistics</h4>
+      <ul class="mlist">
+        <li>Statistical Thinking in Python (Part 1)</li>
+        <li>Statistical Thinking in Python (Part 2)</li>
+        <li>Linear Modeling in Python</li>
+        <li>Statistical Simulation in Python</li>
+        <li>Case Studies in Statistical Thinking</li>
+      </ul>
+    </div>
+
+    <div class="mgroup">
+      <h4>Machine Learning</h4>
+      <ul class="mlist">
+        <li>Supervised Learning with scikit-learn</li>
+        <li>Unsupervised Learning in Python</li>
+        <li>Linear Classifiers in Python</li>
+        <li>Machine Learning with Tree-Based Models in Python</li>
+        <li>Case Study: School Budgeting with Machine Learning</li>
+      </ul>
+    </div>
+
+    <div class="mgroup">
+      <h4>Deep Learning</h4>
+      <ul class="mlist">
+        <li>Introduction to Deep Learning in Python</li>
+        <li>Introduction to TensorFlow in Python</li>
+        <li>Introduction to Deep Learning with Keras</li>
+        <li>Advanced Deep Learning with Keras</li>
+        <li>Introduction to Deep Learning with PyTorch</li>
+      </ul>
+    </div>
+
+    <div class="mgroup">
+      <h4>Natural Language Processing</h4>
+      <ul class="mlist">
+        <li>Introduction to NLP in Python</li>
+        <li>Sentiment Analysis in Python</li>
+        <li>Building Chatbots in Python</li>
+        <li>Advanced NLP with spaCy</li>
+        <li>Text Mining with Bag-of-Words in R</li>
+      </ul>
+    </div>
+
+  </div>
+</dialog>
+
+<script>(function(){var y=document.getElementById("y");if(y)y.textContent=new Date().getFullYear();})();</script>
+<script>
+(function(){
+  var m = document.getElementById('sprintModal');
+  if(!m) return;
+  function open(e){ if(e) e.preventDefault(); m.showModal(); }
+  var btn = document.getElementById('sprintOpen');
+  if(btn){
+    btn.addEventListener('click', open);
+    btn.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
+    });
+  }
+  document.querySelectorAll('[data-open="sprintModal"]').forEach(function(el){
+    el.addEventListener('click', open);
+  });
+  m.addEventListener('click', function(e){ if(e.target === m) m.close(); });
+})();
+</script>
+
+<!-- ============ UNIVERSAL MEDIA POPUP ============ -->
+<dialog class="modal media" id="mediaModal" aria-label="Media viewer">
+  <div class="modal-head">
+    <div class="modal-title"></div>
+    <button class="modal-close" type="button" onclick="document.getElementById('mediaModal').close()">Close ✕</button>
+  </div>
+  <div class="media-body"></div>
+</dialog>
+
+<script>
+/* Collapsible chapters (file-tree style) */
+(function(){
+  var chapters = document.querySelectorAll('.tl-chapter');
+  if(!chapters.length) return;
+  chapters.forEach(function(ch){
+    var span = ch.querySelector('span');
+    function items(){
+      var arr = [], n = ch.nextElementSibling;
+      while(n && !n.classList.contains('tl-chapter')){
+        if(n.classList.contains('tl-item')) arr.push(n);
+        n = n.nextElementSibling;
+      }
+      return arr;
+    }
+    function set(open){
+      ch.classList.toggle('closed', !open);
+      items().forEach(function(i){ i.classList.toggle('hidden', !open); });
+      span.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    span.setAttribute('role','button');
+    span.setAttribute('tabindex','0');
+    span.setAttribute('aria-expanded','true');
+    span.addEventListener('click', function(){ set(ch.classList.contains('closed')); });
+    span.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); set(ch.classList.contains('closed')); }
+    });
+    ch._set = set;
+  });
+  var ex = document.getElementById('tlExpand'), co = document.getElementById('tlCollapse');
+  if(ex) ex.addEventListener('click', function(){ chapters.forEach(function(c){ c._set(true); }); });
+  if(co) co.addEventListener('click', function(){ chapters.forEach(function(c){ c._set(false); }); });
+})();
+
+/* Universal media popup: [data-media="image|video|pdf"] + data-src + data-title */
+(function(){
+  var mm = document.getElementById('mediaModal');
+  if(!mm) return;
+  var body = mm.querySelector('.media-body');
+  var title = mm.querySelector('.modal-title');
+  function openMedia(el){
+    var t = el.getAttribute('data-media'), src = el.getAttribute('data-src');
+    title.textContent = el.getAttribute('data-title') || '';
+    if(t === 'image'){
+      body.innerHTML = '<img src="' + src + '" alt="">';
+    } else if(t === 'video'){
+      body.innerHTML = '<iframe class="media-frame" src="' + src + '" title="" loading="lazy" ' +
+        'allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';
+    } else if(t === 'pdf'){
+      body.innerHTML = '<iframe class="pdf-frame" src="' + src + '"></iframe>';
+    }
+    mm.showModal();
+  }
+  document.querySelectorAll('[data-media]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openMedia(el); });
+  });
+  mm.addEventListener('close', function(){ body.innerHTML = ''; });   /* stops video playback */
+  mm.addEventListener('click', function(e){ if(e.target === mm) mm.close(); });
+})();
+</script>
 </body>
 </html>
