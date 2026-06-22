@@ -146,16 +146,16 @@ figcaption{font-family:var(--mono);font-size:12px;color:var(--haze);line-height:
 .note .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);display:block;margin-bottom:7px}
 .note p{font-size:15.5px;line-height:1.72;margin:0 0 12px}.note p:last-child{margin-bottom:0}
 
-/* CLICK-TO-PLAY VIDEO CARD — poster + play button; opens the in-page viewer (never jumps to YouTube).
-   Markup: <a class="vidcard [vert]" data-media="video" data-orient="vert|wide"
-              data-src="https://www.youtube-nocookie.com/embed/ID" data-title="..." href="#">
-             <img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" onerror="this.style.display='none'">
-             <span class="play">&#9658;</span><span class="vlabel">Play clip</span></a>  */
+/* INLINE VIDEO EMBED — plays in place like the home page (.tl-media.tl-video). No file hosting; YouTube embed.
+   Markup: <div class="vidembed[ vert]"><iframe src="https://www.youtube-nocookie.com/embed/ID" title="..." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div> */
+.vidembed{margin:18px 0 9px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.vidembed iframe{width:100%;height:100%;border:0;display:block}
+.vidembed.vert{aspect-ratio:9/16;max-width:340px;margin-left:auto;margin-right:auto}
 .vidcard{position:relative;display:block;width:100%;aspect-ratio:16/9;margin:20px 0 9px;border-radius:11px;overflow:hidden;border:1px solid var(--line);background:#0f1620;box-shadow:0 18px 50px rgba(0,0,0,.45);cursor:pointer;text-decoration:none}
 .vidcard.vert{aspect-ratio:9/16;max-width:320px;margin-left:auto;margin-right:auto}
 .vidrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 4px;align-items:start}
 .vidrow figure{margin:0}
-.vidrow .vidcard.vert{max-width:240px;margin:0 auto 8px}
+.vidrow .vidembed.vert{max-width:100%;margin:0}
 .laternote{margin:16px 0 2px;padding:10px 14px;border:1px dashed color-mix(in srgb,var(--haze) 42%,transparent);border-radius:10px;background:rgba(159,177,196,.045);color:var(--haze);font-family:var(--mono);font-size:12px;line-height:1.55}
 .laternote strong{color:var(--paper)}
 .vidcard img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .2s ease,transform .35s ease}
@@ -236,7 +236,7 @@ dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
   .entry .tick{text-align:left;padding:0 0 6px 22px}
   .entry .body{padding-left:22px}
   .vidrow{grid-template-columns:1fr}
-  .vidrow .vidcard.vert{max-width:280px}
+  .vidrow .vidembed.vert{max-width:100%}
 }
 </style>
 </head>
@@ -500,11 +500,8 @@ dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
             <figure>
               <!-- CLICK-TO-PLAY card → in-page viewer. DEFAULT = self-hosted MP4 (data-src). Poster = YouTube thumb (just an image).
                    To use the YouTube embed instead, add data-type="yt" and point data-src at youtube-nocookie.com/embed/ID. -->
-              <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/HkLtibHLmb8" data-yt="https://www.youtube.com/shorts/HkLtibHLmb8" data-title="10:01 &mdash; A golden eagle working the updraft along the escarpment, High Point Lookout." href="#" role="button" tabindex="0" aria-label="Play the golden-eagle clip">
-                <img src="https://i.ytimg.com/vi/HkLtibHLmb8/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/HkLtibHLmb8/hqdefault.jpg'">
-                <span class="play">&#9658;</span><span class="vlabel">Play clip &middot; 0:40</span>
-              </a>
-              <figcaption>10:01 &mdash; A golden eagle working the updraft along the escarpment. <em>Tap to play in a viewer.</em></figcaption>
+              <div class="vidembed vert"><iframe src="https://www.youtube-nocookie.com/embed/HkLtibHLmb8" title="10:01 &mdash; A golden eagle working the updraft along the escarpment, High Point Lookout." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+              <figcaption>10:01 &mdash; A golden eagle working the updraft along the escarpment.</figcaption>
             </figure>
             <div class="note">
               <span class="lbl">Field note &middot; The golden eagle</span>
@@ -549,11 +546,8 @@ dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
             <p>A clatter starts up around the tower &mdash; a whole family band of <strong>acorn woodpeckers</strong>, red-capped and clown-faced, working their way up the legs to the water I keep out on the catwalk. Through fire season the lookouts set water at the tower, and a steady parade of birds climbs up for it; acorn woodpeckers live in tight cooperative family groups, which is why they turn up all at once, jostling and squabbling at the dish.<sup class="cite"><a href="#s7">7</a></sup> On a long solo watch, the company is welcome.</p>
             <figure>
               <!-- CLICK-TO-PLAY card → in-page viewer. DEFAULT = self-hosted MP4 (data-src). Poster = YouTube thumb. -->
-              <a class="vidcard" data-media="video" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/tbJKSzbM9tI" data-yt="https://youtu.be/tbJKSzbM9tI" data-title="13:47 &mdash; A family band of acorn woodpeckers comes up to drink at High Point Lookout." href="#" role="button" tabindex="0" aria-label="Play the acorn-woodpecker clip">
-                <img src="https://i.ytimg.com/vi/tbJKSzbM9tI/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
-                <span class="play">&#9658;</span><span class="vlabel">Play clip</span>
-              </a>
-              <figcaption>13:47 &mdash; The band comes up to drink from the water kept at the tower. <em>Tap to play in a viewer.</em></figcaption>
+              <div class="vidembed"><iframe src="https://www.youtube-nocookie.com/embed/tbJKSzbM9tI" title="13:47 &mdash; A family band of acorn woodpeckers comes up to drink at High Point Lookout." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+              <figcaption>13:47 &mdash; The band comes up to drink from the water kept at the tower.</figcaption>
             </figure>
           </div>
         </article>
@@ -705,11 +699,8 @@ dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
             <p>By half past six the marine layer has filled the whole western basin &mdash; the coast gone under a floor of silver cloud, the summit riding clear above it. Then the sky does the thing I climbed up here for. After the sun is down the west keeps burning: a deep band of orange and rose stacked over the cloud, a thin green line low on the horizon where the last light bends, and an airplane crossing it all as if we were both up at altitude. For two minutes the tower stops feeling like a building and starts feeling like a cockpit at the edge of the world.</p>
             <figure>
               <!-- self-hosted MP4 (default). Poster = YouTube thumb; data-yt is the fallback link. -->
-              <a class="vidcard" data-media="video" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/Yw2b-8h9p8g" data-yt="https://youtu.be/Yw2b-8h9p8g" data-title="18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon." href="#" role="button" tabindex="0" aria-label="Play the after-sunset clip">
-                <img src="https://i.ytimg.com/vi/Yw2b-8h9p8g/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
-                <span class="play">&#9658;</span><span class="vlabel">Play clip &middot; 2:00</span>
-              </a>
-              <figcaption>18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon. <em>Tap to play in a viewer.</em></figcaption>
+              <div class="vidembed"><iframe src="https://www.youtube-nocookie.com/embed/Yw2b-8h9p8g" title="18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+              <figcaption>18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon.</figcaption>
             </figure>
           </div>
         </article>
@@ -761,18 +752,12 @@ dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
             <p>And for a long time, you weren&rsquo;t alone for it. <strong>Charlie</strong> ran the Palomar station &mdash; the friendliest firehouse cat you could ask for, who met you in the lot the moment you rolled in and supervised the paperwork like it was his.</p>
             <div class="vidrow">
               <figure>
-                <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/DczluVxqenc" data-yt="https://youtube.com/shorts/DczluVxqenc" data-title="Back at the station &mdash; Charlie&rsquo;s welcome." href="#" role="button" tabindex="0" aria-label="Play the Charlie greeting clip">
-                  <img src="https://i.ytimg.com/vi/DczluVxqenc/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DczluVxqenc/hqdefault.jpg'">
-                  <span class="play">&#9658;</span><span class="vlabel">Play &middot; 0:38</span>
-                </a>
-                <figcaption>Rolling back in &mdash; Charlie&rsquo;s welcome. <em>Tap to play.</em></figcaption>
+                <div class="vidembed vert"><iframe src="https://www.youtube-nocookie.com/embed/DczluVxqenc" title="Back at the station &mdash; Charlie&rsquo;s welcome." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                <figcaption>Rolling back in &mdash; Charlie&rsquo;s welcome.</figcaption>
               </figure>
               <figure>
-                <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/CPV_gpUIXs0" data-yt="https://youtube.com/shorts/CPV_gpUIXs0" data-title="The last radio call &mdash; out of service, Charlie supervising." href="#" role="button" tabindex="0" aria-label="Play the out-of-service clip">
-                  <img src="https://i.ytimg.com/vi/CPV_gpUIXs0/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/CPV_gpUIXs0/hqdefault.jpg'">
-                  <span class="play">&#9658;</span><span class="vlabel">Play &middot; 0:19</span>
-                </a>
-                <figcaption>The last call &mdash; out of service, Charlie supervising. <em>Tap to play.</em></figcaption>
+                <div class="vidembed vert"><iframe src="https://www.youtube-nocookie.com/embed/CPV_gpUIXs0" title="The last radio call &mdash; out of service, Charlie supervising." loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                <figcaption>The last call &mdash; out of service, Charlie supervising.</figcaption>
               </figure>
             </div>
             <div class="note">
