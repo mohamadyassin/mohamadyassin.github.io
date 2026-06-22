@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Day in the Life of a High Point Firelookout — Mohamad Yassin</title>
+<meta name="description" content="One autumn shift atop High Point Fire Lookout, Cleveland National Forest — the history, the duties, and the day, told by the hour.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Public+Sans:ital,wght@0,400;0,500;0,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME TOKENS — change colors / fonts here once, everywhere updates.
+   ============================================================ */
+:root{
+  --ink:#0d1218;--ink-2:#131c26;--paper:#e8e2d4;--haze:#9fb1c4;--ember:#e8a34d;--pine:#6f9c7a;
+  --line:rgba(159,177,196,.16);--body:#cdd6e0;
+  --disp:'Fraunces',Georgia,serif;--sans:'Public Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;
+  --measure:39rem;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--body);font-family:var(--sans);font-size:18px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(120% 60% at 50% -10%,rgba(159,177,196,.10),transparent 60%);background-repeat:no-repeat}
+img{max-width:100%;display:block}a{color:var(--ember);text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:4px}
+sup.cite{font-family:var(--mono);font-size:.62em;font-weight:500;vertical-align:super;line-height:0}sup.cite a{color:var(--ember)}
+button{font-family:inherit}
+
+.nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:13px 20px;background:rgba(13,18,24,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--disp);font-weight:600;color:var(--paper);font-size:18px}
+.links{display:flex;gap:16px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em}
+.links a{color:var(--haze)}.links a.active{color:var(--ember)}.links .cta{border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+@media(max-width:640px){.links a:not(.cta):not(.active){display:none}}
+
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-img{position:absolute;inset:0;background-image:url('./img/20251011_173842.jpg');background-size:cover;background-position:center 42%}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,18,24,.30),rgba(13,18,24,.18) 40%,rgba(13,18,24,.86) 88%,var(--ink) 100%)}
+.hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%;padding:0 22px 52px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin:0 0 14px}
+.hero h1{font-family:var(--disp);font-weight:600;color:#fff;line-height:1.04;font-size:clamp(36px,6.2vw,68px);margin:0 0 14px;max-width:14ch;text-wrap:balance}
+.hero-sub{font-family:var(--disp);font-style:italic;color:var(--paper);font-size:clamp(17px,2.2vw,23px);line-height:1.45;margin:0 0 18px;max-width:36ch}
+.hero-meta{font-family:var(--mono);font-size:12.5px;color:var(--haze);display:flex;gap:14px;flex-wrap:wrap}.hero-meta .dot{opacity:.5}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:212px minmax(0,1fr);gap:38px;align-items:start}
+@media(max-width:920px){.shell{grid-template-columns:1fr;gap:0}}
+
+.toc{position:sticky;top:70px;padding-top:30px;font-family:var(--mono)}
+.toc .toc-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--haze);margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.toc .toc-h:hover{color:var(--paper)}
+.toc .toc-toggle{display:inline;color:var(--haze);font-size:12px;transition:transform .25s ease}
+.toc.collapsed .toc-toggle{transform:rotate(-90deg)}
+.toc.collapsed nav{display:none}
+.toc nav{display:flex;flex-direction:column;gap:2px;border-left:1px solid var(--line);padding-left:2px;max-height:calc(100vh - 120px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--haze) 30%,transparent) transparent;overscroll-behavior:contain}
+.toc nav::-webkit-scrollbar{width:6px}
+.toc nav::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--haze) 26%,transparent);border-radius:3px}
+.toc nav::-webkit-scrollbar-track{background:transparent}
+.toc a{font-size:12.5px;color:var(--haze);padding:3px 12px;border-left:2px solid transparent;margin-left:-1px;line-height:1.3}
+.toc a:hover{color:var(--paper);text-decoration:none}
+.toc a.sec{color:var(--body)}
+.toc a.sec .d{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sd,var(--haze));margin-right:7px;vertical-align:middle}
+.toc a.mom{font-size:11.5px;padding-left:26px;color:var(--haze);opacity:.8}
+.toc a.active{color:var(--paper);border-left-color:var(--ember)}
+.toc a.soon{color:rgba(159,177,196,.4);pointer-events:none}
+.toc a.soon::after{content:" · soon";font-size:9.5px;letter-spacing:.1em}
+.toc .s1{--sd:#93b1c9}.toc .s2{--sd:#a8c0a4}.toc .s3{--sd:#e8a34d}.toc .s4{--sd:#9aa6d6}
+
+.content{padding-bottom:80px;min-width:0}
+.lede{max-width:46rem;margin:54px auto 8px;text-align:center}
+.lede p{font-family:var(--disp);font-style:italic;font-size:clamp(19px,2.4vw,25px);line-height:1.7;color:var(--paper);margin:0}
+.lede .rule{width:54px;height:1px;background:var(--ember);margin:30px auto 0;opacity:.7}
+
+.primer{max-width:42rem;margin:44px auto 0;border-top:1px solid var(--line);padding-top:32px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--pine);margin:0 0 10px}
+.primer h2{font-family:var(--disp);font-weight:600;color:var(--paper);font-size:clamp(26px,4vw,38px);line-height:1.1;margin:0 0 18px}
+.primer h3{font-family:var(--disp);font-weight:600;color:var(--paper);font-size:21px;margin:30px 0 8px}
+.primer p{margin:0 0 16px}
+.dropcap::first-letter{font-family:var(--disp);font-weight:600;float:left;font-size:3.2em;line-height:.82;padding:6px 10px 0 0;color:var(--ember)}
+
+.manual{margin:24px 0;border:1px solid var(--line);border-left:2px solid var(--ember);border-radius:0 10px 10px 0;background:linear-gradient(90deg,rgba(232,163,77,.055),rgba(19,28,38,.5) 70%);padding:16px 20px}
+.manual .stamp{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}
+.manual p{font-family:var(--disp);font-size:16px;line-height:1.62;margin:0 0 10px;color:var(--paper)}
+.manual figure{margin:6px 0 4px}.manual figure img{border:1px solid var(--line);border-radius:8px;background:#0f1620}
+.manual figcaption{font-family:var(--mono);font-size:11px;color:var(--haze);margin-top:7px}
+.manual .src{font-family:var(--mono);font-size:11.5px;color:var(--haze);margin-top:8px}
+
+.network{margin:30px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--ink-2)}
+.network .nhead{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.network .nhead h3{font-family:var(--disp);font-weight:600;font-size:18px;margin:0;color:var(--paper)}.network .nhead .tag{font-family:var(--mono);font-size:11px;color:var(--haze)}
+.netmap{background:radial-gradient(120% 100% at 30% 20%,rgba(111,156,122,.10),transparent 60%),repeating-linear-gradient(58deg,rgba(159,177,196,.05),rgba(159,177,196,.05) 1px,transparent 1px,transparent 16px),#0f1620;min-height:140px;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+.netmap p{font-family:var(--mono);font-size:12px;color:var(--haze);line-height:1.65;margin:0;max-width:30rem}
+.legend{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px;border-top:1px solid var(--line)}
+.legend span{font-family:var(--mono);font-size:11.5px;color:var(--haze);border:1px solid var(--line);border-radius:999px;padding:4px 10px}.legend span.hp{color:var(--ember);border-color:rgba(232,163,77,.5)}
+
+.showcase{margin:30px 0 6px}
+.showcase .img{border-radius:13px;overflow:hidden;border:1px solid var(--line);background:#0f1620;box-shadow:0 22px 60px rgba(0,0,0,.45);cursor:zoom-in}
+.showcase .img img{width:100%;height:auto;display:block}
+.showcase figcaption{font-family:var(--mono);font-size:12px;color:var(--haze);margin-top:9px;line-height:1.6}
+
+.log-top{max-width:42rem;margin:56px auto 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.log-top .lt{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--haze)}.log-top .lt b{color:var(--ember);font-weight:500}
+.log-ctrl{display:flex;gap:8px;font-family:var(--mono)}
+.log-ctrl button{font-size:11.5px;letter-spacing:.05em;color:var(--haze);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.log-ctrl button:hover{color:var(--paper);border-color:rgba(232,232,212,.3)}
+
+.act{max-width:42rem;margin:0 auto;--seg:var(--haze)}
+.act.s1{--seg:#93b1c9}.act.s2{--seg:#a8c0a4}.act.s3{--seg:#e8a34d}.act.s4{--seg:#9aa6d6}
+.act-head{display:flex;align-items:center;gap:12px;width:100%;padding:16px 4px 14px;margin-top:18px;background:transparent;border:0;border-top:1px solid var(--line);cursor:pointer;text-align:left}
+.act-head .dot{width:9px;height:9px;border-radius:50%;background:var(--seg);flex:none;box-shadow:0 0 12px color-mix(in srgb,var(--seg) 45%,transparent)}
+.act-head .t{font-family:var(--disp);font-weight:600;color:var(--paper);font-size:clamp(20px,2.6vw,26px);line-height:1.1;flex:1}
+.act-head .rng{font-family:var(--mono);font-size:11.5px;color:var(--haze);letter-spacing:.04em}
+.act-head .chev{font-family:var(--mono);color:var(--seg);font-size:14px;transition:transform .25s ease;flex:none}
+.act.collapsed .act-head .chev{transform:rotate(-90deg)}
+.act-head:hover .t{color:#fff}
+.entries{overflow:hidden;transition:max-height .35s ease,opacity .3s ease}
+.act.collapsed .entries{max-height:0!important;opacity:0}
+
+.entries-inner{position:relative;padding:6px 0 8px}
+.entries-inner::before{content:"";position:absolute;left:80px;top:14px;bottom:16px;width:1px;background:linear-gradient(180deg,color-mix(in srgb,var(--seg) 65%,transparent),color-mix(in srgb,var(--seg) 18%,transparent))}
+.entry{position:relative;display:grid;grid-template-columns:80px 1fr;margin:30px 0 0}
+.entry:first-child{margin-top:10px}
+.entry::before{content:"";position:absolute;left:76px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1.5px solid color-mix(in srgb,var(--seg) 55%,var(--haze));z-index:2}
+.entry.lit::before{border-color:var(--seg);box-shadow:0 0 0 4px color-mix(in srgb,var(--seg) 12%,transparent),0 0 14px color-mix(in srgb,var(--seg) 35%,transparent)}
+/* pre/post-shift LINE EXTENSION (no service milestone) — hollow, muted dot */
+.entry.ext::before{width:7px;height:7px;left:77px;top:9px;background:var(--ink);border-color:color-mix(in srgb,var(--seg) 35%,var(--haze));box-shadow:none}
+.entry.ext .tick time{opacity:.75}
+.entry .tick{text-align:right;padding:3px 18px 0 0}
+.entry .tick time{font-family:var(--mono);font-size:13px;color:var(--haze)}
+.entry.lit .tick time{color:var(--seg)}
+.entry .body{padding-left:24px;min-width:0}
+.entry .body h3{font-family:var(--disp);font-weight:600;color:var(--paper);font-size:clamp(21px,2.8vw,27px);line-height:1.18;margin:0 0 12px}
+.entry .body p{margin:0 0 15px}.entry .body p .lead-cap{font-family:var(--disp);font-size:1.1em;color:var(--paper)}
+
+/* LINE ORIGIN — the pre-dawn approach. The spine BEGINS here (fades in); no milestone.
+   The first logged point on the line is 07:20 at the station. */
+.leadin{max-width:42rem;margin:8px auto 0;--seg:#93b1c9}
+.leadin .entries-inner::before{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--seg) 58%,transparent) 32%)}
+.entry.origin::before{display:none}            /* no dot — the line simply starts */
+.entry.origin .tick time{opacity:.72;color:var(--haze)}
+
+figure.plate{margin:20px 0 18px;position:relative}
+.plate .img{border-radius:11px;overflow:hidden;border:1px solid var(--line);background:#0f1620;box-shadow:0 18px 50px rgba(0,0,0,.45);cursor:zoom-in;position:relative}
+.plate .img img{width:100%;height:auto;display:block;transition:transform .5s ease}.plate .img:hover img{transform:scale(1.02)}
+.plate .open{position:absolute;right:11px;bottom:11px;font-family:var(--mono);font-size:11.5px;color:var(--paper);background:rgba(13,18,24,.74);border:1px solid rgba(232,232,212,.22);border-radius:999px;padding:5px 11px;backdrop-filter:blur(6px)}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--haze);line-height:1.6;margin-top:9px}
+
+.note{border-left:2px solid var(--pine);background:linear-gradient(90deg,rgba(111,156,122,.07),transparent 80%);padding:14px 18px;margin:20px 0;border-radius:0 10px 10px 0}
+.note .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);display:block;margin-bottom:7px}
+.note p{font-size:15.5px;line-height:1.72;margin:0 0 12px}.note p:last-child{margin-bottom:0}
+
+/* CLICK-TO-PLAY VIDEO CARD — poster + play button; opens the in-page viewer (never jumps to YouTube).
+   Markup: <a class="vidcard [vert]" data-media="video" data-orient="vert|wide"
+              data-src="https://www.youtube-nocookie.com/embed/ID" data-title="..." href="#">
+             <img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" onerror="this.style.display='none'">
+             <span class="play">&#9658;</span><span class="vlabel">Play clip</span></a>  */
+.vidcard{position:relative;display:block;width:100%;aspect-ratio:16/9;margin:20px 0 9px;border-radius:11px;overflow:hidden;border:1px solid var(--line);background:#0f1620;box-shadow:0 18px 50px rgba(0,0,0,.45);cursor:pointer;text-decoration:none}
+.vidcard.vert{aspect-ratio:9/16;max-width:320px;margin-left:auto;margin-right:auto}
+.vidrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 4px;align-items:start}
+.vidrow figure{margin:0}
+.vidrow .vidcard.vert{max-width:240px;margin:0 auto 8px}
+.laternote{margin:16px 0 2px;padding:10px 14px;border:1px dashed color-mix(in srgb,var(--haze) 42%,transparent);border-radius:10px;background:rgba(159,177,196,.045);color:var(--haze);font-family:var(--mono);font-size:12px;line-height:1.55}
+.laternote strong{color:var(--paper)}
+.vidcard img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .2s ease,transform .35s ease}
+.vidcard:hover img,.vidcard:focus-visible img{opacity:.8;transform:scale(1.03)}
+.vidcard .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(13,18,24,.55);border:1.5px solid var(--ember);color:var(--ember);font-size:21px;padding-left:4px;transition:background .2s ease,transform .2s ease}
+.vidcard:hover .play,.vidcard:focus-visible .play{background:rgba(232,163,77,.2);transform:translate(-50%,-50%) scale(1.08)}
+.vidcard .vlabel{position:absolute;left:12px;bottom:11px;font-family:IBM Plex Mono,monospace;font-size:11.5px;color:var(--paper);background:rgba(13,18,24,.62);padding:2px 8px;border-radius:6px;letter-spacing:.3px}
+
+/* MEDIA VIEWER MODAL — iframe injected only on click (valid origin → no YouTube Error 153) */
+.mediamodal{border:1px solid var(--line);border-radius:16px;background:#0f1620;color:var(--paper);padding:0;max-width:940px;width:92vw}
+.mediamodal::backdrop{background:rgba(5,8,12,.8);backdrop-filter:blur(3px)}
+.mediamodal .mhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px 15px;border-bottom:1px solid var(--line)}
+.mediamodal .mtitle{font-family:Public Sans,sans-serif;font-size:13px;color:var(--haze);line-height:1.5}
+.mediamodal .mclose{background:transparent;border:1px solid var(--line);color:var(--haze);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:13px;white-space:nowrap}
+.mediamodal .mclose:hover{color:var(--paper);background:rgba(159,177,196,.12)}
+.mediamodal .mbody{padding:14px;display:grid;place-items:center}
+.mediamodal .mbody iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.mediamodal .mbody iframe.vert{aspect-ratio:9/16;max-width:min(340px,74vh)}
+.mediamodal .mbody video{width:100%;aspect-ratio:16/9;border-radius:10px;background:#000;max-height:74vh}
+.mediamodal .mbody video.vert{aspect-ratio:9/16;width:auto;height:min(74vh,560px)}
+.mediamodal .ytlink{display:block;margin-top:9px;text-align:center;font-size:12px;color:var(--haze);opacity:.85}
+.mediamodal .ytlink:hover{color:var(--ember)}
+.mediamodal .mbody img{max-width:100%;max-height:74vh;border-radius:10px}
+.mediamodal .mbody iframe.pdf{aspect-ratio:auto;width:100%;height:78vh;border-radius:10px}
+
+/* RESOURCE PILLS — clickable learning / reference links (open media viewer or a new tab) */
+.reslead{margin:12px 0 4px;line-height:2.1}
+.reslink{display:inline-flex;align-items:center;gap:7px;margin:0 8px 6px 0;padding:6px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(232,163,77,.06);color:var(--paper);font-family:IBM Plex Mono,monospace;font-size:12.5px;text-decoration:none;cursor:pointer;transition:border-color .2s ease,background .2s ease,color .2s ease}
+.reslink:hover,.reslink:focus-visible{border-color:var(--ember);background:rgba(232,163,77,.14);color:var(--ember)}
+.reslink .ic{font-size:12px;opacity:.9}
+
+/* 17:00 GIS CENTERPIECE — purview strip + MapLibre hillshade */
+.purview{margin:22px 0 6px}
+.purview svg{width:100%;height:auto;display:block}
+.mapfig{margin:18px 0 6px}
+#hillshade-map{height:440px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0d1218;box-shadow:0 18px 50px rgba(0,0,0,.45);position:relative}
+.map-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--haze);font-size:13.5px;line-height:1.6}
+.mapfig .src{display:block;margin-top:4px;font-size:11.5px;color:var(--haze);opacity:.7}
+.mk{display:flex;flex-direction:column;align-items:center;cursor:default}
+.mk .pin{width:9px;height:9px;border-radius:50%;background:var(--haze);border:1.5px solid var(--ink)}
+.mk.hp .pin{width:0;height:0;background:none;border:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:13px solid var(--ember);border-radius:0}
+.mk b{margin-top:4px;font-family:var(--body-font,'Public Sans',sans-serif);font-size:11px;font-weight:600;color:var(--paper);background:rgba(13,18,24,.72);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.mk.hp b{color:var(--ember)}
+
+.upcoming{max-width:42rem;margin:6px auto 0}
+.upcoming .tease{font-family:var(--mono);font-size:12px;color:var(--haze);opacity:.7;padding:0 4px 8px 33px}
+
+.sources{max-width:42rem;margin:46px auto 0;border-top:1px solid var(--line);padding:26px 0 0}
+.sources h3{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--haze);margin:0 0 14px}
+.sources ol{margin:0;padding-left:20px}.sources li{font-size:13.5px;color:var(--haze);line-height:1.6;margin-bottom:10px}.sources li a{color:var(--ember);word-break:break-word}
+.sources .ver{font-family:var(--mono);font-size:11.5px;color:var(--pine)}
+
+.foot{border-top:1px solid var(--line);padding:26px 22px 40px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--haze)}.foot .draft{color:var(--ember);opacity:.85}
+
+dialog.gallery{border:0;padding:0;background:transparent;max-width:96vw;max-height:96vh;color:var(--paper)}
+dialog.gallery::backdrop{background:rgba(7,10,14,.92);backdrop-filter:blur(3px)}
+.g-wrap{display:flex;flex-direction:column;gap:10px;align-items:center}.g-stage{position:relative;display:flex;align-items:center;justify-content:center}
+.g-stage img{max-width:92vw;max-height:78vh;border-radius:10px;border:1px solid rgba(232,232,212,.16);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(232,232,212,.25);background:rgba(13,18,24,.7);color:var(--paper);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.g-nav:hover{border-color:var(--ember);color:var(--ember)}.g-prev{left:-6px}.g-next{right:-6px}
+.g-bar{display:flex;align-items:center;justify-content:space-between;width:100%;gap:14px;font-family:var(--mono);font-size:12.5px;color:var(--haze);padding:0 4px}.g-cap{flex:1;min-width:0}.g-count{white-space:nowrap}
+.g-close{font-family:var(--mono);font-size:12.5px;color:var(--paper);background:transparent;border:1px solid rgba(232,232,212,.25);border-radius:999px;padding:5px 12px;cursor:pointer}.g-close:hover{border-color:var(--ember);color:var(--ember)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.entries{transition:none}.plate .img img{transition:none}}
+
+@media(max-width:920px){
+  .toc{position:static;top:auto;padding-top:24px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:6px}
+  .toc .toc-h{cursor:pointer}.toc .toc-toggle{display:inline;color:var(--ember)}
+  .toc nav{border-left:0;padding-left:0;max-height:62vh}
+  .toc a{padding-left:0}.toc a.mom{padding-left:18px}
+}
+@media(max-width:560px){
+  body{font-size:17px}
+  .entries-inner::before{left:6px}
+  .entry{grid-template-columns:1fr;margin-top:26px}
+  .entry::before,.entry.ext::before{left:2px;top:6px}
+  .entry .tick{text-align:left;padding:0 0 6px 22px}
+  .entry .body{padding-left:22px}
+  .vidrow{grid-template-columns:1fr}
+  .vidrow .vidcard.vert{max-width:280px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     HIGH POINT ARTICLE — EDITING GUIDE  (for humans & bots)
+     Self-contained: one index.html + an ./img/ folder of photos.
+     Local preview: from repo root run `python3 -m http.server 8000`,
+     open http://localhost:8000/articles/high-point-fire-lookout/
+
+     • THEME ........ colors & fonts are CSS variables in :root (top of <style>).
+     • SECTIONS ..... each day-part is <section class="act sN" id="sec-…">.
+                      class s1..s4 sets its subtle color (see .act.sN in CSS).
+                      To add one: copy a whole <section class="act sN">…</section>,
+                      then add matching links in the side-nav <aside class="toc">.
+     • TIMELINE ENTRY  copy any <article class="entry" id="e-HHMM">…</article>
+                      inside a section's <div class="entries-inner">.
+                      Add class "lit"  → focal/in-service moment (glowing dot).
+                      Add class "ext"  → pre/post-shift LINE EXTENSION (hollow dot,
+                                         no service milestone — e.g. the ride, the
+                                         station bookends before/after the tower).
+     • LINE ORIGIN .. the pre-dawn approach lives in <div class="leadin"> ABOVE
+                      section 1; its entry uses class "origin" (no dot — the spine
+                      simply begins). The first logged point is 07:20 at the station.
+     • PHOTOS ....... drop files in ./img/. Single image: <figure class="plate"
+                      data-gallery="KEY">. Multi-photo: list KEY in GAL={} (script, bottom).
+                      Big intro photo: <figure class="showcase" data-gallery="KEY">.
+     • PHOTO → VIDEO  replace a <figure> with a 16:9 YouTube <iframe> to embed video.
+     • FIELD NOTE ... teaching aside = copy a <div class="note">…</div>.
+     • SOURCE CARD .. primary-source quote = copy a <div class="manual">…</div>.
+     • CITATIONS .... <sup class="cite"><a href="#sN">N</a></sup> → entry in <section class="sources">.
+     NOTE: in/out-of-service are TOWER milestones; the station + ride are line
+     extensions (class "ext"). Times before 08:20 are approximate — adjust <time>.
+     ================================================================ -->
+
+<header class="nav">
+  <a class="brand" href="/">Mohamad Yassin</a>
+  <nav class="links" aria-label="Primary"><a href="/projects/">Projects</a><a href="/articles/" class="active">Articles</a><a href="/videos/">Videos</a><a href="/repos/">Repos</a><a class="cta" href="/#contact">Contact</a></nav>
+</header>
+
+<header class="hero">
+  <div class="hero-img" role="img" aria-label="A motorcycle parked below High Point Lookout in low evening light"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Logbook &middot; Cleveland National Forest</p>
+    <h1>A Day in the Life of a High Point Firelookout</h1>
+    <p class="hero-sub">Hillshades and sunset atop the tallest fire-lookout tower in the Forest Service&rsquo;s California inventory.</p>
+    <p class="hero-meta"><span>October 11, 2025</span><span class="dot">&bull;</span><span>High Point Lookout</span><span class="dot">&bull;</span><span>Palomar Mountain</span></p>
+  </div>
+</header>
+
+<div class="shell">
+
+  <aside class="toc" id="toc">
+    <div class="toc-h">Contents <span class="toc-toggle">&#9662;</span></div>
+    <nav aria-label="Article contents">
+      <a class="sec" href="#primer"><span class="d" style="--sd:var(--pine)"></span>Before the day</a>
+      <a class="mom" href="#e-0400">04:00 &middot; Before the ride</a>
+      <a class="sec s1" href="#sec-service"><span class="d"></span>Going in service with CNF</a>
+      <a class="mom" href="#e-0720">~07:20 &middot; Checking in</a>
+      <a class="mom" href="#e-0820">08:20 &middot; In service</a>
+      <a class="mom" href="#e-0849">08:49 &middot; The haul</a>
+      <a class="mom" href="#e-0853">08:53 &middot; The cabinet</a>
+      <a class="sec s2" href="#sec-watch"><span class="d"></span>The watch</a>
+      <a class="mom" href="#e-0930">09:30 &middot; Glassing</a>
+      <a class="mom" href="#e-1001">10:01 &middot; Golden eagle</a>
+      <a class="mom" href="#e-1105">11:05 &middot; The cap lets go</a>
+      <a class="mom" href="#e-1220">12:20 &middot; Cabinet down</a>
+      <a class="mom" href="#e-1347">13:47 &middot; The oak-keepers</a>
+      <a class="mom" href="#e-1457">14:57 &middot; Water down</a>
+      <a class="mom" href="#e-1502">15:02 &middot; The crew comes up</a>
+      <a class="mom" href="#e-1533">15:33 &middot; The register</a>
+      <a class="sec s3" href="#sec-light"><span class="d"></span>The long light</a>
+      <a class="mom" href="#e-1635">16:35 &middot; Early dinner</a>
+      <a class="mom" href="#e-1700">17:00 &middot; The hillshade hour</a>
+      <a class="mom" href="#e-1728">17:28 &middot; The observatory</a>
+      <a class="mom" href="#e-1738">17:38 &middot; Last of the daylight</a>
+      <a class="sec s4" href="#sec-dark"><span class="d"></span>After dark</a>
+      <a class="mom" href="#e-1819">18:19 &middot; Squaring away</a>
+      <a class="mom" href="#e-1851">18:51 &middot; The glow</a>
+      <a class="mom" href="#e-1928">19:28 &middot; A light on the trail</a>
+      <a class="mom" href="#e-0701">07:01 &middot; Out of service</a>
+      <a class="mom" href="#e-station">07:55 &middot; Back at the station</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+    <div class="lede reveal">
+      <p>There is a kind of mountain that keeps its own time. You leave the valley by one clock and arrive on the summit running by another &mdash; one told in light, in wind, in the slow drift of a cloud. What follows is the log of a single day at High Point, kept the way the tower keeps it: by the hour, in the present tense, because on a lookout the present tense is the whole of the job.</p>
+      <div class="rule"></div>
+    </div>
+
+    <!-- ===================== PRIMER ===================== -->
+    <section class="primer reveal" id="primer">
+      <p class="kicker">Before the day begins</p>
+      <h2>Who keeps a fire lookout?</h2>
+      <p class="dropcap">A fire lookout is a trained observer who holds one high, fixed station and finds wildfire the oldest way there is &mdash; by the first thread of smoke &mdash; then fixes its bearing and reports it before it grows. The role is older than the two-way radio, and by mid-century it was standardized across agencies: the Forest Service and the National Park Service each issued field manuals for it.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s4">4</a></sup> The work asks for a particular temperament &mdash; the 1966 Forest Service handbook lists good eyesight, the steadiness to live in isolation for long stretches, fluency with map, radio and fire-finder, and the ability to think clearly and coolly in an emergency.<sup class="cite"><a href="#s4">4</a></sup></p>
+
+      <h3>The instrument and the tower</h3>
+      <p>The lookout&rsquo;s defining tool is the <strong>Osborne Fire Finder</strong>: a sighted brass alidade riding a circular azimuth ring over a map disk, designed by a Forest Service forester in the early 1900s to read a fire&rsquo;s direction to the minute. The bearings are even built into the cab. High Point&rsquo;s hand-lettered &ldquo;180&deg; S&rdquo; marks south &mdash; because the fire-finder is oriented so its zero rides on the <em>south</em> side of the ring, letting the lookout read the azimuth on the near side without walking around the instrument and losing seconds.<sup class="cite"><a href="#s4">4</a></sup> The towers were standardized too: the 1938 USDA <em>Standard Lookout Plans</em> set Service-wide steel and timber designs from 30 to 120 feet &mdash; the type system that gives High Point its CL-30 cab on an L-1600 tower.<sup class="cite"><a href="#s5">5</a></sup></p>
+
+      <div class="manual">
+        <div class="stamp"><span>From the field manual</span><span>USFS &middot; 1966</span></div>
+        <figure>
+          <img src="./img/handbook-fig08-firefinder.jpg" alt="Labeled cutaway of the Osborne Fire Finder showing the rotating sight ring, azimuth graduations, and map disk">
+          <figcaption>The Osborne Fire Finder &mdash; sights, rotating sight ring, azimuth graduations, and the base map the lookout sights across. (Handbook Fig. 8)</figcaption>
+        </figure>
+        <p>To take a fire, the lookout lines the front-sight hair and rear-sight slot on the smoke, then reads the azimuth off the vernier &mdash; degrees and minutes &mdash; and the vertical angle off the sliding rear sight. Two towers&rsquo; crossed bearings fix a fire on the map.</p>
+        <p class="src">USFS, <em>Fireman&rsquo;s Handbook</em>, &sect;34.11 (1966); NPS, <em>Handbook for Fire Lookouts</em> (1958).</p>
+      </div>
+
+      <h3>High Point Fire Lookout</h3>
+      <p>The first tower here went up in 1935, an Aermotor steel structure raised by the Civilian Conservation Corps for the Forest Service; the current all-steel tower replaced it in 1964 &mdash; a 13&times;13-foot cab on a 67-foot frame, the tallest lookout tower remaining in the Forest Service&rsquo;s California inventory.<sup class="cite"><a href="#s2">2</a></sup> The Cleveland National Forest last paid a staffer to sit it in 1992; vandals stripped the interior in 2005, and it was restored &mdash; new glass, cabinets, flooring &mdash; in 2009.<sup class="cite"><a href="#s2">2</a></sup></p>
+
+      <figure class="showcase reveal" data-gallery="y1935">
+        <div class="img"><img src="./img/highpoint-1935-aermotor.jpg" alt="Black-and-white photo of High Point's original 1935 Aermotor steel lookout tower" loading="lazy"><span class="open">&#9658; 2 photos</span></div>
+        <figcaption>High Point&rsquo;s first tower &mdash; an Aermotor steel lookout, 1935. <em>Courtesy Brad Eells / FFLA-SDRC.</em></figcaption>
+      </figure>
+
+      <p>That same restoration year, volunteers of the <strong>Forest Fire Lookout Association</strong>, San Diego&ndash;Riverside Chapter, began staffing it again for fixed-point fire detection, and have held 100% fire-season coverage every year since 2013.<sup class="cite"><a href="#s2">2</a></sup> It&rsquo;s a living tradition, not a relic: even as camera networks spread across the ranges, the Forest Service is clear that they <em>enhance</em> human lookouts rather than replace them.<sup class="cite"><a href="#s6">6</a></sup> The day below is one of those volunteer shifts.</p>
+
+      <div class="network">
+        <div class="nhead"><h3>The lookout network &mdash; San Diego &amp; Riverside</h3><span class="tag">USFS open data &middot; FFLA-SDRC</span></div>
+        <div class="netmap"><p>&#9744; <strong>Coming in a later update:</strong> an interactive map of High Point and its neighboring fixed-point lookouts, loaded from <strong>USFS open datasets</strong> and the FFLA-SDRC tower index.</p></div>
+        <div class="legend"><span class="hp">&#9650; High Point</span><span>Boucher Hill</span><span>Cuyamaca Peak</span><span>Hot Springs Mtn</span><span>Los Pinos</span><span>Red Mountain</span><span>Santiago Peak</span><span>+ more</span></div>
+      </div>
+
+      <figure class="showcase reveal" data-gallery="tower">
+        <div class="img"><img src="./img/highpoint-tower-ridge.jpg" alt="High Point Lookout tower today, standing above the bare parking flat with the ridgeline beyond" loading="lazy"></div>
+        <figcaption>High Point Lookout on Oct. 11, 2025 &mdash; above the parking flat on Palomar Mountain, where the day begins.</figcaption>
+      </figure>
+    </section>
+
+    <div class="log-top reveal">
+      <div class="lt">THE SHIFT &middot; <b>OCT 11, 2025</b> &middot; M. YASSIN, FFLA-SDRC</div>
+      <div class="log-ctrl"><button id="expandAll" type="button">Expand all</button><button id="collapseAll" type="button">Collapse all</button></div>
+    </div>
+
+    <!-- ===================== LINE ORIGIN — the pre-dawn approach (spine starts here; no milestone) ===================== -->
+    <div class="leadin reveal">
+      <div class="entries-inner">
+
+        <!-- LINE ORIGIN — class "origin": no dot, the line simply begins -->
+        <article class="entry origin reveal" id="e-0400">
+          <div class="tick"><time datetime="2025-10-11T04:00">04:00</time></div>
+          <div class="body">
+            <h3>Before the ride.</h3>
+            <p><span class="lead-cap">Four o&rsquo;clock in San Diego, and the day is already a checklist.</span> The dawn prayer near five, then the load-out &mdash; and the load-out <em>is</em> the mission. High Point is off the grid: no running water, no power but a trickle held back for the radios. Whatever the tower needs for a day and a night rides up with me. Water first, and extra &mdash; enough to drink, enough to top off someone who&rsquo;s run dry on the climb, enough to leave the place exactly as I found it. A backup of the essentials, in case the road or the weather turns.</p>
+            <p>And tucked in the kit, my own handheld ham radio. From a summit like Palomar there&rsquo;s clean line-of-sight to more than one repeater, and a peak this high is the kind of place an operator keys up just to put it on the air. Bike loaded, balanced, checked &mdash; and I roll out into the dark: roughly sixty to ninety minutes of empty pre-dawn highway from most of San Diego County before the road tips up and starts to climb the back of Palomar.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ===================== SECTION 1 — "Going in service with CNF" begins at the station, 07:20 ===================== -->
+    <section class="act s1" id="sec-service">
+      <button class="act-head" type="button" aria-expanded="true"><span class="dot"></span><span class="t">Going in service with CNF</span><span class="rng">07:20&ndash;09:00</span><span class="chev">&#9662;</span></button>
+      <div class="entries"><div class="entries-inner">
+
+        <!-- ENTRY — station check-in: first CNF radio contact (line extension, ext) -->
+        <article class="entry ext reveal" id="e-0720">
+          <div class="tick"><time datetime="2025-10-11T07:20">~07:20</time></div>
+          <div class="body">
+            <h3>Checking in with dispatch.</h3>
+            <p>About two miles below the summit I pull into the Palomar station. Before anyone climbs into a lookout, the forest has to know it will be manned &mdash; so I get on the radio to Cleveland dispatch, give my call sign, and report that I&rsquo;m on my way up to staff High Point for the day. The board by the door makes it official: date, name, the bike I rode in on. This is the first half of a two-step handshake; the second comes at the top, when the tower itself goes <em>in service</em>.</p>
+            <figure class="plate" data-gallery="checkin">
+              <div class="img"><img src="./img/20240928_071904.jpg" alt="Forest Service shield and the High Point staff check-in board at the Palomar station" loading="lazy"><span class="open">&#9658; 2 photos</span></div>
+              <figcaption>Checking in at the Palomar station &mdash; the High Point staff board, date and rider logged. <em>(Photos from a previous shift, Sept 28, 2024.)</em></figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY — arrival + the gate + going IN SERVICE (focal milestone, class "lit") -->
+        <article class="entry lit reveal" id="e-0820">
+          <div class="tick"><time datetime="2025-10-11T08:20">08:20</time></div>
+          <div class="body">
+            <h3>Arrival, and in service.</h3>
+            <p><span class="lead-cap">From the station the pavement quits.</span> The way up is a 4&times;4-only climb of locked gates and private road threading the Caltech observatory land toward the top of the mountain. The last of it drops me at the neck of the tower, where the gate people on the mountain just call the <em>jurassic gate</em> waits &mdash; a massive steel slab on two tight switchbacks, a couple hundred feet below the cab, swung open by hand and locked again behind. Then the dirt lot, a little after eight-twenty. Gear off, helmet on the mirror.</p>
+            <figure class="plate" data-gallery="gate">
+              <div class="img"><img src="./img/jurassic-gate.jpg" alt="A heavy steel access gate on a steep switchback just below the High Point tower" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>The jurassic gate &mdash; a couple hundred feet below the cab, opened by hand and locked behind.</figcaption>
+            </figure>
+            <p>The tower stands above me closed and quiet, and now the real work of <em>going in service</em> begins. You bring a lookout to life from the top down: unlock and climb, switch on the radio, take the first weather, and call Cleveland dispatch to put High Point officially on watch. The fire-finder gets its own waking-up &mdash; leveled, its sight-hairs checked for plumb, re-oriented on a landmark whose bearing is posted in the cab, so every azimuth called in all day is true.<sup class="cite"><a href="#s4">4</a></sup></p>
+            <div class="note">
+              <span class="lbl">Field note &middot; A federal tower, run by volunteers</span>
+              <p>High Point is staffed under a partnership between the <strong>U.S. Forest Service</strong> and the <strong>Forest Fire Lookout Association</strong> (FFLA), San Diego&ndash;Riverside Chapter. Volunteers train to standard, sit the tower on the Forest&rsquo;s official detection schedule, and report weather and smoke straight to USFS dispatch &mdash; the same fixed-point role a paid lookout once filled here, now carried by the chapter that has covered every fire season since 2013.<sup class="cite"><a href="#s2">2</a></sup></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY -->
+        <article class="entry reveal" id="e-0849">
+          <div class="tick"><time datetime="2025-10-11T08:49">08:49</time></div>
+          <div class="body">
+            <h3>The haul.</h3>
+            <p>Going in-service is done &mdash; the tower&rsquo;s on watch &mdash; but my kit for the night is still at the base. So I send the blue basket down the pulley line first, then climb down the stairs after it. From the top rail the ground is a long way off &mdash; a water tank, a scatter of solar panels, the switchback road folding away south &mdash; and the basket drops through all of it on a single black rope. At the base I load the duffel and see to the fuel sticks, then haul the whole load back up as I climb.</p>
+            <figure class="plate" data-gallery="haul">
+              <div class="img"><img src="./img/20251011_084909.jpg" alt="Looking straight down the tower: pulley rope, blue basket, water tank and solar array far below" loading="lazy"><span class="open">&#9658; 3 photos</span></div>
+              <figcaption>08:49 &mdash; Down the pulley line. The basket drops the full height of the tower on one rope.</figcaption>
+            </figure>
+            <div class="note">
+              <span class="lbl">Field note &middot; The fuel sticks</span>
+              <p>A set of standardized wooden dowels is left out in the weather and weighed; because the dry weight is known, the extra is water, and the reading is a direct measure of how dry &mdash; how ready to burn &mdash; the forest is. It is one of the oldest fire-danger instruments there is, and it still feeds the number lookouts have always reported: the fire-danger rating, the modern descendant of the hand-computed <em>Burning Index</em> the older manuals describe.<sup class="cite"><a href="#s1">1</a></sup></p>
+            </div>
+            <figure class="plate" data-gallery="cabinet">
+              <div class="img"><img src="./img/20251011_122025.jpg" alt="Inside the cabinet: the zero-to-fifty fuel-moisture scale and the wooden fuel sticks" loading="lazy"><span class="open">&#9658; 1 photo</span></div>
+              <figcaption>The cabinet interior &mdash; fuel sticks and the 0&ndash;50 moisture scale.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY -->
+        <article class="entry reveal" id="e-0853">
+          <div class="tick"><time datetime="2025-10-11T08:53">08:53</time></div>
+          <div class="body">
+            <h3>The cabinet gives way.</h3>
+            <p>When I open the fuel-stick cabinet, the trouble is in the door itself: the lock and the top hinge have both overloaded and torn loose from the wood. One good Santa Ana gust and the whole door comes off the mountain. I try a field fix &mdash; shifting the hinge, biting down what screws will still hold &mdash; but it won&rsquo;t take. After I talk it over with the tower leader, we make the call: pull the cabinet, bag it, and set it in the base storage for off-site repair. By midday it&rsquo;s down and stowed, waiting on a ride to the shop.</p>
+            <figure class="plate" data-gallery="hinge">
+              <div class="img"><img src="./img/20251011_085308.jpg" alt="The split cabinet hinge, torn out of the wood" loading="lazy"><span class="open">&#9658; 1 photo</span></div>
+              <figcaption>08:53 &mdash; The top hinge, pulled clean out of the split wood.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+      </div></div>
+    </section>
+
+    <!-- ===================== SECTION 2 — color via class s2 ===================== -->
+    <section class="act s2" id="sec-watch">
+      <button class="act-head" type="button" aria-expanded="true"><span class="dot"></span><span class="t">The watch</span><span class="rng">09:30&ndash;15:33</span><span class="chev">&#9662;</span></button>
+      <div class="entries"><div class="entries-inner">
+
+        <article class="entry reveal" id="e-0930">
+          <div class="tick"><time datetime="2025-10-11T09:30">09:30</time></div>
+          <div class="body">
+            <h3>Glassing.</h3>
+            <p>&ldquo;Glassing&rdquo; is the word for it: working the horizon slow with the eyes and the binoculars, ridge by ridge. The manuals split it in two &mdash; a continuous, unfocused <em>general observation</em> of the whole country, and the <em>intensive check</em>: the seen area broken into roughly 45-degree sectors and searched clockwise, nearest ground first, four to six minutes a pass.<sup class="cite"><a href="#s4">4</a></sup> The bearings are written into the cab &mdash; that &ldquo;180&deg; S&rdquo; on the beam is the fire-finder&rsquo;s south.</p>
+            <p>Two minutes in, something to the north catches me and the pulse jumps. The handbook has a name for exactly this: a <strong>false smoke</strong> &mdash; fog or a cloud puff mistaken for the real thing &mdash; and a rule, <em>when in doubt, report it as a fire</em>.<sup class="cite"><a href="#s4">4</a></sup> But this one resolves. It&rsquo;s San Jacinto Peak &mdash; ten thousand eight hundred feet of it, some thirty-three miles off to the north-northeast<!-- VERIFIED: San Jacinto Pk 10,834 ft; azimuth 16.1° / 32.5 mi from High Point (computed) -->, wearing a single smooth lens of cloud parked dead over the summit like a lid. It doesn&rsquo;t drift. It just sits there, the mountain&rsquo;s own private weather, while the sky around it stays open and blue.</p>
+            <figure class="plate" data-gallery="glassing">
+              <div class="img"><img src="./img/20251011_092914.jpg" alt="A high peak on the horizon capped by a single smooth lenticular cloud" loading="lazy"><span class="open">&#9658; 3 photos</span></div>
+              <figcaption>09:30 &mdash; A lenticular cap sits motionless over the high peak to the north.</figcaption>
+            </figure>
+            <p class="reslead"><a class="reslink" data-media="pdf" data-src="./img/FiremansHandbook_p5.pdf" data-title="Fireman&rsquo;s Handbook &mdash; the lookout observation method, the page I work from." href="#" role="button" tabindex="0"><span class="ic">&#128196;</span> See the handbook page on glassing</a></p>
+            <div class="note">
+              <span class="lbl">Field note &middot; Reading the fire weather</span>
+              <p>For a lookout the sky is an instrument. The old manuals teach cloud types precisely because they forecast fire&rsquo;s drivers &mdash; lightning, sudden wind, rain &mdash; and flag <em>altocumulus castellatus</em>, those little turreted clouds, as a sign of an unstable atmosphere primed for thunderstorms.<sup class="cite"><a href="#s1">1</a></sup> Thunderstorms mean dry lightning, and dry lightning means ignitions.</p>
+              <p>Southern California runs three seasons a lookout learns to read: late-summer <strong>monsoon</strong> moisture surging up from the southeast with dry lightning and flash flood; the soaking <strong>winter storms</strong>; and the autumn <strong>Santa Ana winds</strong> &mdash; dry offshore gusts that drop the humidity through the floor and drive the worst fires.<sup class="cite"><a href="#s3">3</a></sup> So the morning weather isn&rsquo;t a courtesy; it&rsquo;s data, rolled into the fire-danger rating and up to the National Weather Service.</p>
+              <p>And the saucer over San Jacinto? A <strong>lenticular</strong> &mdash; altocumulus standing lenticularis. Moist air lifts over the peak and cools at the crest, condensing on the upwind side and evaporating downwind as fast as it flows through, so the cloud holds still while the wind pours through it. A false smoke, and a free read on the wind aloft.<sup class="cite"><a href="#s3">3</a></sup></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY 10:01 — golden eagle (no still; a wonder, not a service milestone) -->
+        <article class="entry reveal" id="e-1001">
+          <div class="tick"><time datetime="2025-10-11T10:01">10:01</time></div>
+          <div class="body">
+            <h3>A golden eagle.</h3>
+            <p>Just after ten, a big dark shape peels off the ridge below the catwalk and rides the slope&rsquo;s morning thermal &mdash; long plank wings held in a shallow V, a wash of bronze across the nape when it banks into the sun. A <strong>golden eagle</strong>, working the updraft along the escarpment without a single wingbeat. This time the camera was ready: forty seconds of it riding the ridge before it slid over the shoulder of the mountain and was gone.</p>
+            <figure>
+              <!-- CLICK-TO-PLAY card → in-page viewer. DEFAULT = self-hosted MP4 (data-src). Poster = YouTube thumb (just an image).
+                   To use the YouTube embed instead, add data-type="yt" and point data-src at youtube-nocookie.com/embed/ID. -->
+              <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/HkLtibHLmb8" data-yt="https://www.youtube.com/shorts/HkLtibHLmb8" data-title="10:01 &mdash; A golden eagle working the updraft along the escarpment, High Point Lookout." href="#" role="button" tabindex="0" aria-label="Play the golden-eagle clip">
+                <img src="https://i.ytimg.com/vi/HkLtibHLmb8/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/HkLtibHLmb8/hqdefault.jpg'">
+                <span class="play">&#9658;</span><span class="vlabel">Play clip &middot; 0:40</span>
+              </a>
+              <figcaption>10:01 &mdash; A golden eagle working the updraft along the escarpment. <em>Tap to play in a viewer.</em></figcaption>
+            </figure>
+            <div class="note">
+              <span class="lbl">Field note &middot; The golden eagle</span>
+              <p>One of the largest raptors in North America &mdash; a wingspan past seven feet &mdash; and built for exactly this country. It can ride a ridge updraft for an hour barely moving a feather, then fold into a stoop that tops a hundred and fifty miles an hour. The name is literal: the lance-shaped feathers across the back of the head and neck catch the light gold, which is precisely what gave this one away as it banked.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY 11:05 — the lenticulars multiply (callback to the 09:30 lenticular) -->
+        <article class="entry reveal" id="e-1105">
+          <div class="tick"><time datetime="2025-10-11T11:05">11:05</time></div>
+          <div class="body">
+            <h3>The cap lets go.</h3>
+            <p>By late morning the cap has let go. At dawn a single smooth lens sat hard over San Jacinto, covering the summit outright; now it has drifted a little east of the peak and gone soft &mdash; spreading wider and slowly burning off as the sun warms the air, the clean <em>altocumulus standing lenticularis</em> loosening into flatter, stranger plates. Fun-looking shapes by this point, nothing more &mdash; but shape and motion aloft are half a lookout&rsquo;s weather, and putting the right name to what&rsquo;s overhead is part of the watch.<sup class="cite"><a href="#s3">3</a></sup></p>
+            <figure class="plate" data-gallery="lenses">
+              <div class="img"><img src="./img/20251011_110531.jpg" alt="A lenticular cloud breaking up and spreading just east of a distant high peak" loading="lazy"><span class="open">&#9658; 2 photos</span></div>
+              <figcaption>11:05 &mdash; The dawn cap, drifted east of San Jacinto and softening as it burns off.</figcaption>
+            </figure>
+            <p>When I have to put a name to a cloud for a weather observation, I check it against the <strong>NOAA cloud chart</strong> &mdash; the field reference I keep for getting the right word into the report.</p>
+            <p class="reslead"><a class="reslink" data-media="pdf" data-src="./img/noaa-cloud-chart.pdf" data-title="NOAA Cloud Chart &mdash; the field reference for naming cloud types." href="#" role="button" tabindex="0"><span class="ic">&#128196;</span> Open the NOAA cloud chart</a></p>
+          </div>
+        </article>
+
+        <!-- ENTRY 12:20 — fuel-stick cabinet removed &amp; stowed (CLOSES the 08:53 hinge thread) -->
+        <article class="entry reveal" id="e-1220">
+          <div class="tick"><time datetime="2025-10-11T12:20">12:20</time></div>
+          <div class="body">
+            <h3>The cabinet comes down.</h3>
+            <p>Midday closes the thread that opened at 08:53. With the tower leader&rsquo;s sign-off, the failed fuel-stick cabinet comes off its mount &mdash; unbolted, carried down into the sun, and set in the base storeroom to wait for a ride to the shop.</p>
+            <figure class="plate" data-gallery="cabinet-out">
+              <div class="img"><img src="./img/20251011_122518.jpg" alt="The fuel-stick cabinet taken off the pole and laid on the bench in the sun" loading="lazy"><span class="open">&#9658; 3 photos</span></div>
+              <figcaption>12:20 &mdash; Off the wall: open with the failed hinge, off the pole into the sun, then stowed for off-site repair.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY 13:47 — acorn woodpecker family (VIDEO). To change clip: swap the YouTube ID in BOTH the iframe src and the figcaption link. -->
+        <article class="entry reveal" id="e-1347">
+          <div class="tick"><time datetime="2025-10-11T13:47">13:47</time></div>
+          <div class="body">
+            <h3>The oak-keepers.</h3>
+            <p>A clatter starts up around the tower &mdash; a whole family band of <strong>acorn woodpeckers</strong>, red-capped and clown-faced, working their way up the legs to the water I keep out on the catwalk. Through fire season the lookouts set water at the tower, and a steady parade of birds climbs up for it; acorn woodpeckers live in tight cooperative family groups, which is why they turn up all at once, jostling and squabbling at the dish.<sup class="cite"><a href="#s7">7</a></sup> On a long solo watch, the company is welcome.</p>
+            <figure>
+              <!-- CLICK-TO-PLAY card → in-page viewer. DEFAULT = self-hosted MP4 (data-src). Poster = YouTube thumb. -->
+              <a class="vidcard" data-media="video" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/tbJKSzbM9tI" data-yt="https://youtu.be/tbJKSzbM9tI" data-title="13:47 &mdash; A family band of acorn woodpeckers comes up to drink at High Point Lookout." href="#" role="button" tabindex="0" aria-label="Play the acorn-woodpecker clip">
+                <img src="https://i.ytimg.com/vi/tbJKSzbM9tI/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+                <span class="play">&#9658;</span><span class="vlabel">Play clip</span>
+              </a>
+              <figcaption>13:47 &mdash; The band comes up to drink from the water kept at the tower. <em>Tap to play in a viewer.</em></figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY 14:57 — water to a biker (payoff of the 04:00 reserve) + the backcountry-aid lesson -->
+        <article class="entry reveal" id="e-1457">
+          <div class="tick"><time datetime="2025-10-11T14:57">14:57</time></div>
+          <div class="body">
+            <h3>Water down.</h3>
+            <p>Mid-afternoon a biker tops out at the gate, run dry on the long climb in the heat &mdash; and the extra water loaded at the tower finds its purpose. I send some down; they head back to the trail topped off, steadier than they came.</p>
+            <figure class="plate" data-gallery="biker">
+              <div class="img"><img src="./img/20251011_145706.jpg" alt="A biker at the gate below the tower in the afternoon heat" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>14:57 &mdash; A biker, run low on water at the top of the climb.</figcaption>
+            </figure>
+            <div class="note">
+              <span class="lbl">Field note &middot; The tower as a backstop</span>
+              <p>A staffed lookout is one of the few fixed, reliable points in a lot of empty country. Out here someone can run out of water, lose the trail, or turn an ankle miles from a road or a cell signal &mdash; and the tower is a known place with water, a little food to spare, shade, and a radio that reaches dispatch when nothing else will. Finding fire is the headline duty; being a hand for the backcountry is the quiet one that comes with the post.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY 15:02 / 15:15 — the USFS crew at the marker, then up on the catwalk over their own ground -->
+        <article class="entry reveal" id="e-1502">
+          <div class="tick"><time datetime="2025-10-11T15:02">15:02</time></div>
+          <div class="body">
+            <h3>The crew comes up.</h3>
+            <p>Almost the same hour, the working forest arrives: a <strong>U.S. Forest Service</strong> crew from the Palomar district rolls up to the tower in a Polaris UTV. They sign in at the weathered <strong>6,140-foot</strong> summit marker, and I wave them up the stairs. From the catwalk they get the one thing a lookout has all day and a ground crew almost never does &mdash; their own district laid out below in a single bird&rsquo;s-eye sweep: the roads and stands and old burn scars they work all season, seen whole. For a few hours the volunteer watch and the paid crew share the same summit.<sup class="cite"><a href="#s2">2</a></sup></p>
+            <figure class="plate" data-gallery="crew">
+              <div class="img"><img src="./img/20251011_151531.jpg" alt="USFS crew on the High Point catwalk looking out over the district they work" loading="lazy"><span class="open">&#9658; 2 photos</span></div>
+              <figcaption>15:02 / 15:15 &mdash; At the 6,140-ft marker, then up on the catwalk, looking down on their own ground.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY 15:33 — the visitor register (brief / optional beat) -->
+        <article class="entry reveal" id="e-1533">
+          <div class="tick"><time datetime="2025-10-11T15:33">15:33</time></div>
+          <div class="body">
+            <h3>The register.</h3>
+            <p>Before they head down, the crew signs the visitor register &mdash; the cab&rsquo;s running ledger of who climbed and when. It is a short list. High Point is a restricted tower; in a given year almost no one signs it but agency people &mdash; fire and law enforcement &mdash; and the volunteers who keep it. So the book is less a guestbook than the tower&rsquo;s memory: a thin paper record of every watch kept and every rare visitor received, stacking up one line at a time.</p>
+            <figure class="plate" data-gallery="register">
+              <div class="img"><img src="./img/20251011_153304.jpg" alt="The High Point cab visitor register, open to the day's entries" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>15:33 &mdash; The visitor register &mdash; the cab&rsquo;s paper memory.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+      </div></div>
+    </section>
+
+    <!-- ===================== SECTION 3 — "The long light" (s3 = gold time-of-day cue) =====================
+         17:00 marquee VERIFIED CONFIG: High Point 33.3630898,-116.83669; ground ~6,140 ft.
+         Sun @17:00 PDT 2025-10-11 = az 250.3 / alt 15.1 (low WSW). Peaks: San Jacinto 16.1/32.5mi,
+         San Gorgonio 0.7/50.9mi, Toro 63.1/25.4mi. Map = MapLibre raster-dem (terrarium) hillshade,
+         illumination-direction 250. 3D oblique-terrain upgrade is a commented block in the map script (bottom). -->
+    <section class="act s3" id="sec-light">
+      <button class="act-head" type="button" aria-expanded="true"><span class="dot"></span><span class="t">The long light</span><span class="rng">16:35&ndash;17:38</span><span class="chev">&#9662;</span></button>
+      <div class="entries"><div class="entries-inner">
+
+        <!-- ENTRY 16:35 — mountain dinner -->
+        <article class="entry reveal" id="e-1635">
+          <div class="tick"><time datetime="2025-10-11T16:35">16:35</time></div>
+          <div class="body">
+            <h3>Early dinner.</h3>
+            <p>The light has gone long and gold &mdash; falafel out of a paper bag, the whole eastern back-country laid out under a sky that&rsquo;s started to warm at the edges: Mandall Hill, the run of ridges toward Julian, the far desert ranges going hazy-blue. There is no better dining room in San Diego County, and for an hour it is entirely mine.</p>
+            <p>I eat early on purpose. The shift ends with the light, and I&rsquo;d rather break now and spend the last good hour outside than eat at dusk &mdash; so the plan is simple: dinner, then down to lock the gate and walk the base while the country still has some sun on it, then back up to file the report and settle the tower in for the night.</p>
+            <figure class="plate" data-gallery="dinner">
+              <div class="img"><img src="./img/20251011_163532.jpg" alt="Dinner on the catwalk with the eastern back-country and far ridges in low gold light" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>16:35 &mdash; Dinner on the catwalk, the back-country toward Mandall Hill and Julian going gold.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY 17:00 — THE HILLSHADE HOUR (GIS centerpiece; lit = focal milestone) -->
+        <article class="entry lit reveal" id="e-1700">
+          <div class="tick"><time datetime="2025-10-11T17:00">17:00</time></div>
+          <div class="body">
+            <h3>The hillshade hour.</h3>
+            <p>The watch is all but over &mdash; and the best report a lookout can give is none at all: <strong>no fires on this day</strong>, thankfully. So the last of the light is mine. By five the sun is low in the west-southwest &mdash; <strong>azimuth 250&deg;, just fifteen degrees above the horizon</strong><!-- VERIFIED via astral, 17:00 PDT 2025-10-11 --> &mdash; and the haze has burned off. The light comes in almost level and rakes across the country, and every ridge and canyon that was flat and washed out at noon stands up in relief. A lookout&rsquo;s whole job is reading terrain; this is the hour the terrain reads back &mdash; and I want to be down in it.</p>
+            <p>But first, one last chore. I lock the <strong>Jurassic gate</strong> behind me, the tower secured for the night, and only then drop down off the summit to walk the base while the light still holds.</p>
+            <figure class="plate" data-gallery="gatedusk">
+              <div class="img"><img src="./img/20251011_171810.jpg" alt="The Jurassic gate locked, seen from above with the country beyond in low evening light" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>17:18 &mdash; Jurassic locked and secured for the night, the country opening out below.</figcaption>
+            </figure>
+
+          </div>
+        </article>
+
+        <!-- ENTRY 17:28 — Palomar Observatory + the dark-sky context -->
+        <article class="entry reveal" id="e-1728">
+          <div class="tick"><time datetime="2025-10-11T17:28">17:28</time></div>
+          <div class="body">
+            <h3>The observatory.</h3>
+            <p>From the base the other tenant of this mountain comes into view: <strong>Palomar Observatory</strong>, Caltech&rsquo;s, its white domes tucked snug into the ridgelines a few miles off. The big one houses the <strong>200-inch Hale Telescope</strong> &mdash; dedicated in 1948, and for decades afterward the largest telescope on Earth.<sup class="cite"><a href="#s8">8</a></sup> Behind it the marine layer has already crept inland from the coast and banked up against the far ridges, and the low sun fires the whole scene gold.</p>
+            <p>This is some of the darkest sky in Southern California &mdash; and that darkness is the reason the observatory is here, not the other way around. When Caltech went looking for a home for the 200-inch in the early 1930s, Palomar won out for its clear nights, steady air, and distance from the spreading lights of Los Angeles.<sup class="cite"><a href="#s8">8</a></sup> The dark came first; the telescope followed it. To keep it that way, San Diego County now shields its lighting for miles around, and after dusk even a flashlight at the tower gets rationed. The Hale needs the dark &mdash; and so, it turns out, does a good naked-eye look at the stars.</p>
+            <figure class="plate" data-gallery="observatory">
+              <div class="img"><img src="./img/20251011_172816.jpg" alt="Palomar Observatory domes tucked into the ridges at sunset, marine layer banked behind, sun breaking through" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>17:28 &mdash; The Hale dome settling into the ridges as the marine layer banks up behind, the last sun breaking through.</figcaption>
+            </figure>
+            <p class="reslead">
+              <a class="reslink" data-media="video" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/4miVqgNSRVY" data-yt="https://youtu.be/4miVqgNSRVY" data-title="A 1948 film on the building of Palomar Observatory and the 200-inch Hale Telescope." href="#" role="button" tabindex="0"><span class="ic">&#9654;</span> Watch: the 1948 Palomar film</a>
+              <a class="reslink" href="https://sites.astro.caltech.edu/palomar/" target="_blank" rel="noopener"><span class="ic">&#8599;</span> Palomar Observatory (Caltech)</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- ENTRY 17:38 — the panoramic series at the base (browse silently) + close of daylight -->
+        <article class="entry reveal" id="e-1738">
+          <div class="tick"><time datetime="2025-10-11T17:38">17:38</time></div>
+          <div class="body">
+            <h3>Last of the daylight.</h3>
+            <p>Then I just walk it &mdash; all the way around the base, the low sun working the land the way no map can. Ridge behind ridge behind ridge, every fold and drainage thrown into relief, the marine layer silver to the west and the desert ranges blue to the east. For a few minutes there is nothing to do but look. The panorama below is the hillshade hour made real, so I&rsquo;ll let it speak for itself.</p>
+            <figure class="plate" data-gallery="pano">
+              <div class="img"><img src="./img/20251011_173844.jpg" alt="The last of the daylight from the base of High Point, ridge behind ridge" loading="lazy"><span class="open">&#9658; 19 photos</span></div>
+              <figcaption>17:37 &mdash; The last light, all the way around &mdash; the country in full relief. <em>Browse the series.</em></figcaption>
+            </figure>
+            <p>And then it&rsquo;s gone. The sun drops behind the western ridges, the cold comes up off the ground, and the day hands itself over to a different kind of watch.</p>
+          </div>
+        </article>
+
+      </div></div>
+    </section>
+
+    <!-- ===================== SECTION 4 — "After dark" (s4 = indigo cue) =====================
+         18:19 shift report (HPWREN) → 18:51 after-sunset glow (VIDEO) → 19:28 astrophotographer (the turn)
+         → 07:01 next-day OOS at the tower (lit) → the ride out (ext) closes Voyage and Return. -->
+    <section class="act s4" id="sec-dark">
+      <button class="act-head" type="button" aria-expanded="true"><span class="dot"></span><span class="t">After dark</span><span class="rng">18:19&ndash;07:01</span><span class="chev">&#9662;</span></button>
+      <div class="entries"><div class="entries-inner">
+
+        <!-- ENTRY 18:19 — back up the tower; online shift report + HPWREN treasure -->
+        <article class="entry reveal" id="e-1819">
+          <div class="tick"><time datetime="2025-10-11T18:19">18:19</time></div>
+          <div class="body">
+            <h3>Squaring away.</h3>
+            <p>Back up the tower while there&rsquo;s still light to work by. I sweep the cab, square the gear for the night, and open the laptop to file the day&rsquo;s shift report online &mdash; the smoke checks, the weather, the cabinet that came down, the biker, the crew. It posts in seconds, which on a peak this remote still feels like a small miracle.</p>
+            <div class="note">
+              <span class="lbl">Field note &middot; A research network on the ridge</span>
+              <p>The signal that carries that report is no ordinary wifi. High Point rides <strong>HPWREN</strong> &mdash; UC San Diego&rsquo;s High Performance Wireless Research and Education Network, an NSF-born backbone that connects more than sixty remote fire stations and a regional web of wildfire cameras across San Diego, Riverside, and Imperial counties.<sup class="cite"><a href="#s9">9</a></sup> The same network hauls astronomical data down from Palomar Observatory, just up the ridge.<sup class="cite"><a href="#s9">9</a></sup> So the lookout, the fire-detection cameras, and the great telescope all ride one quiet research link off the same dark mountain.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY 18:51 — the after-sunset glow (VIDEO, self-hosted MP4 20251011_184916.mp4) -->
+        <article class="entry lit reveal" id="e-1851">
+          <div class="tick"><time datetime="2025-10-11T18:51">18:51</time></div>
+          <div class="body">
+            <h3>The glow.</h3>
+            <p>By half past six the marine layer has filled the whole western basin &mdash; the coast gone under a floor of silver cloud, the summit riding clear above it. Then the sky does the thing I climbed up here for. After the sun is down the west keeps burning: a deep band of orange and rose stacked over the cloud, a thin green line low on the horizon where the last light bends, and an airplane crossing it all as if we were both up at altitude. For two minutes the tower stops feeling like a building and starts feeling like a cockpit at the edge of the world.</p>
+            <figure>
+              <!-- self-hosted MP4 (default). Poster = YouTube thumb; data-yt is the fallback link. -->
+              <a class="vidcard" data-media="video" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/Yw2b-8h9p8g" data-yt="https://youtu.be/Yw2b-8h9p8g" data-title="18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon." href="#" role="button" tabindex="0" aria-label="Play the after-sunset clip">
+                <img src="https://i.ytimg.com/vi/Yw2b-8h9p8g/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+                <span class="play">&#9658;</span><span class="vlabel">Play clip &middot; 2:00</span>
+              </a>
+              <figcaption>18:51 &mdash; The after-sunset glow over the marine layer, an airplane tracking the horizon. <em>Tap to play in a viewer.</em></figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ENTRY 19:28 — the astrophotographer (the turn); from his phone note, adapted -->
+        <article class="entry lit reveal" id="e-1928">
+          <div class="tick"><time datetime="2025-10-11T19:28">19:28</time></div>
+          <div class="body">
+            <h3>A light on the trail.</h3>
+            <p>It is full dark when I catch it from the catwalk: a small light moving on the mountain below, way-finding up the trail. It stops at the neck of the last switchback, just beyond the Jurassic gate I locked hours ago, and settles in. A person. I go down to see what&rsquo;s going on.</p>
+            <p>He has a tripod and a camera. A photographer, he says &mdash; shooting a time-lapse. No, not camping; he&rsquo;ll be gone by ten. I ask him to go easy on the lights, because the observatory is right there and the dark is the whole point of this place. He says he&rsquo;ll switch to red. I ask if he&rsquo;s all right; he says yes, and asks me the same; I tell him I&rsquo;m fine, and that I&rsquo;m on duty up here. He didn&rsquo;t know the tower was manned. Good night, then. Good night.</p>
+            <p>Super weird &mdash; and I mean that fondly. I climb back up still wondering what time-lapse in the world he&rsquo;s framing from that exact spot in the dark. Then it lands: of course. He came up here for the same reason the telescope did.</p>
+            <div class="note">
+              <span class="lbl">Field note &middot; Why the dark is the draw</span>
+              <p>Caltech put the 200-inch Hale on this mountain in 1948 for one resource you can&rsquo;t manufacture: dark, steady sky.<sup class="cite"><a href="#s8">8</a></sup> It&rsquo;s the same thing a night photographer hikes up for. And the timing fits &mdash; the moon that night was a waning gibbous, about three-quarters lit, and a moon that old doesn&rsquo;t clear the eastern ridges until late in the evening,<!-- waning gibbous ~76%, 4 days past full Oct 7; rises ~late evening --> so from full dark until nearly ten the sky was genuinely moonless: the one window to shoot before the moonlight washes it all out. Red light is the etiquette that holds it together &mdash; it keeps a photographer&rsquo;s frames clean, protects the observatory&rsquo;s sky, and saves a lookout&rsquo;s night vision. Everyone on the mountain ends up guarding the same darkness.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ENTRY 07:01 (next morning) — out of service at the tower (lit milestone) -->
+        <article class="entry lit reveal" id="e-0701">
+          <div class="tick"><time datetime="2025-10-12T07:01">07:01</time></div>
+          <div class="body">
+            <h3>Out of service.</h3>
+            <p>The night passes the way nights pass up here: the photographer&rsquo;s light gone by ten, the moon up late and bright behind the cab, the stars thick between, the cold settling into the steel. I keep the watch and sleep light. By first light the marine layer is a white sea to the west, and the country comes back ridge by ridge.</p>
+            <p>The next morning I clean the cab, square the register, and walk it once more &mdash; everything left as I found it, which is the whole job. Then I key the radio: <strong>High Point, out of service</strong>, on my way down to the station. Dispatch copies. The watch is closed.</p>
+            <figure class="plate" data-gallery="radioout">
+              <div class="img"><img src="./img/20251012_070105.jpg" alt="The cleaned cab at first light, squared away and ready to radio out of service" loading="lazy"><span class="open">&#9658; photo</span></div>
+              <figcaption>07:01, the next morning &mdash; the cab squared away, ready to radio out of service.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- RETURN — the ride out of the forest (ext = line extension) -->
+        <article class="entry ext reveal" id="e-return">
+          <div class="tick"><time datetime="2025-10-12T07:40">07:40</time></div>
+          <div class="body">
+            <h3>Down off the mountain.</h3>
+            <p>The gate locked behind me, the tower shrinking in the mirror until the trees take it. A day and a night on the tallest tower left in the Forest Service&rsquo;s California inventory, and then the long ride back down toward the station to close it out properly.</p>
+          </div>
+        </article>
+
+        <!-- STATION — second half of the handshake + Charlie tribute (clips are from a 2024 shift) -->
+        <article class="entry ext reveal" id="e-station">
+          <div class="tick"><time datetime="2025-10-12T07:55">07:55</time></div>
+          <div class="body">
+            <h3>Back at the station.</h3>
+            <p>The second half of the handshake happens down here: I sign the board back in and key the radio one last time &mdash; off the mountain, out of the forest, <em>out of service</em>. The day is done.</p>
+            <p>And for a long time, you weren&rsquo;t alone for it. <strong>Charlie</strong> ran the Palomar station &mdash; the friendliest firehouse cat you could ask for, who met you in the lot the moment you rolled in and supervised the paperwork like it was his.</p>
+            <div class="vidrow">
+              <figure>
+                <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/DczluVxqenc" data-yt="https://youtube.com/shorts/DczluVxqenc" data-title="Back at the station &mdash; Charlie&rsquo;s welcome." href="#" role="button" tabindex="0" aria-label="Play the Charlie greeting clip">
+                  <img src="https://i.ytimg.com/vi/DczluVxqenc/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DczluVxqenc/hqdefault.jpg'">
+                  <span class="play">&#9658;</span><span class="vlabel">Play &middot; 0:38</span>
+                </a>
+                <figcaption>Rolling back in &mdash; Charlie&rsquo;s welcome. <em>Tap to play.</em></figcaption>
+              </figure>
+              <figure>
+                <a class="vidcard vert" data-media="video" data-orient="vert" data-type="yt" data-src="https://www.youtube-nocookie.com/embed/CPV_gpUIXs0" data-yt="https://youtube.com/shorts/CPV_gpUIXs0" data-title="The last radio call &mdash; out of service, Charlie supervising." href="#" role="button" tabindex="0" aria-label="Play the out-of-service clip">
+                  <img src="https://i.ytimg.com/vi/CPV_gpUIXs0/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/CPV_gpUIXs0/hqdefault.jpg'">
+                  <span class="play">&#9658;</span><span class="vlabel">Play &middot; 0:19</span>
+                </a>
+                <figcaption>The last call &mdash; out of service, Charlie supervising. <em>Tap to play.</em></figcaption>
+              </figure>
+            </div>
+            <div class="note">
+              <span class="lbl">Field note &middot; For Charlie</span>
+              <p>These two clips are from a 2024 shift, not this one &mdash; a small tribute. Charlie, the friendliest cat the Palomar station ever had, has since gone missing. The handshake is the same every time; for a good while, he was the best part of it.</p>
+            </div>
+          </div>
+        </article>
+
+      </div></div>
+    </section>
+
+    <!-- CLOSING FRAME — mirrors the opening lede; the "return changed" of Voyage and Return -->
+    <div class="lede reveal" style="margin-top:6px">
+      <div class="rule"></div>
+      <p>You go up to keep watch over the country, and somewhere between the long light and the dark it turns around &mdash; the country keeps a kind of watch over you. The cloud over San Jacinto, the eagle on the updraft, the biker at the gate, the stranger with his red light and his tripod, the moon coming up late over a sea of marine layer: a day told by the hour, on a mountain that keeps its own time. You come down a little quieter than you went up.</p>
+    </div>
+
+    <section class="sources reveal">
+      <h3>Sources</h3>
+      <ol>
+        <li id="s1">National Park Service, Division of Ranger Activities. <em>Handbook for Fire Lookouts</em> (1958). <a href="https://npshistory.com/publications/ranger/fire-lookouts-handbook.pdf" target="_blank" rel="noopener">npshistory.com</a>. Public domain.</li>
+        <li id="s2">Forest Fire Lookout Association, San Diego&ndash;Riverside Chapter. &ldquo;High Point Lookout&rdquo; &amp; &ldquo;Southern California Towers.&rdquo; <a href="https://www.ffla-sandiego.org/highpoint-lookout/" target="_blank" rel="noopener">ffla-sandiego.org</a>.</li>
+        <li id="s3">NOAA / National Weather Service &mdash; <em>Sky Watcher Cloud Chart</em> and San Diego (SGX) fire-weather references. <a href="https://www.weather.gov/os/brochures/cloudchart.pdf" target="_blank" rel="noopener">weather.gov</a>. <span class="ver">[SGX deep link to verify]</span></li>
+        <li id="s4">U.S. Forest Service. <em>Fireman&rsquo;s Handbook</em>, &sect;34.11 &mdash; Lookout Duties (June 1966). Public domain. <span class="ver">[FSH catalog link to verify]</span></li>
+        <li id="s5">U.S. Department of Agriculture, Forest Service. <em>Standard Lookout Plans</em> / Lookout Tower Handbook (1938). Public domain.</li>
+        <li id="s6">USDA Forest Service, Pacific Southwest Region. J. Hinrichs, &ldquo;Standing Watch &mdash; The Ongoing Tradition of Fire Lookouts&rdquo; (2023). <a href="https://www.fs.usda.gov/r05/newsroom/stories/standing-watch-ongoing-tradition-fire-lookouts" target="_blank" rel="noopener">fs.usda.gov</a>.</li>
+        <li id="s7">Cornell Lab of Ornithology. &ldquo;Acorn Woodpecker,&rdquo; <em>All About Birds</em>. <a href="https://www.allaboutbirds.org/guide/Acorn_Woodpecker" target="_blank" rel="noopener">allaboutbirds.org</a>.</li>
+        <li id="s8">Palomar Observatory, California Institute of Technology. <a href="https://sites.astro.caltech.edu/palomar/" target="_blank" rel="noopener">astro.caltech.edu/palomar</a>. Home of the 200-inch Hale Telescope (dedicated 1948).</li>
+        <li id="s9">High Performance Wireless Research and Education Network (HPWREN), UC San Diego &mdash; an NSF-funded wireless backbone serving remote fire stations, wildfire cameras, and research sites (incl. Palomar Observatory) across San Diego, Riverside &amp; Imperial counties. <a href="https://hpwren.ucsd.edu/" target="_blank" rel="noopener">hpwren.ucsd.edu</a>.</li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot"><span>&copy; <span id="y"></span> Mohamad Yassin</span> &nbsp;&middot;&nbsp; <span class="draft">Working draft &mdash; full day &amp; night, cited &middot; repo-ready (./img/)</span></footer>
+
+<dialog class="gallery" id="gallery" aria-label="Photo viewer">
+  <div class="g-wrap"><div class="g-stage"><button class="g-nav g-prev" type="button" aria-label="Previous">&#8249;</button><img id="gImg" src="" alt=""><button class="g-nav g-next" type="button" aria-label="Next">&#8250;</button></div>
+  <div class="g-bar"><span class="g-cap" id="gCap"></span><span class="g-count" id="gCount"></span><button class="g-close" id="gClose" type="button">Close &#10005;</button></div></div>
+</dialog>
+
+<!-- IN-PAGE MEDIA VIEWER — plays video/shows image on click; iframe injected only on open (stops on close) -->
+<dialog class="mediamodal" id="mediaModal" aria-label="Media viewer">
+  <div class="mhead"><span class="mtitle"></span><button class="mclose" type="button" onclick="document.getElementById('mediaModal').close()">Close &#10005;</button></div>
+  <div class="mbody"></div>
+</dialog>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+
+/* ---- GALLERIES: key -> [{src,cap}]. Reference via data-gallery="key" ---- */
+var GAL={
+  y1935:[{src:"./img/highpoint-1935-aermotor.jpg",cap:"High Point's first tower — Aermotor steel, 1935. Courtesy Brad Eells / FFLA-SDRC."},{src:"./img/highpoint-lookout-1935.jpg",cap:"The 1935 lookout, a second view. Courtesy Brad Eells / FFLA-SDRC."}],
+  tower:[{src:"./img/highpoint-tower-ridge.jpg",cap:"High Point Lookout on Oct. 11, 2025, above the parking flat — Palomar Mountain."}],
+  checkin:[{src:"./img/20240928_071904.jpg",cap:"Palomar station — the High Point staff check-in board. (Previous shift, Sept 28, 2024.)"},{src:"./img/20240928_072147.jpg",cap:"Suited up at the station — FFLA volunteer, radio on. (Sept 28, 2024.)"}],
+  gate:[{src:"./img/jurassic-gate.jpg",cap:"The jurassic gate, just below the cab — opened by hand, locked behind."}],
+  haul:[{src:"./img/20251011_084909.jpg",cap:"08:49 — Down the pulley line."},{src:"./img/20251011_084912.jpg",cap:"08:49 — The basket dropping the full height of the tower."},{src:"./img/20251011_085211.jpg",cap:"08:52 — The basket loaded at the base."}],
+  cabinet:[{src:"./img/20251011_122025.jpg",cap:"Cabinet interior — fuel sticks and the 0–50 scale."}],
+  hinge:[{src:"./img/20251011_085308.jpg",cap:"08:53 — The top hinge, torn out of the wood."}],
+  glassing:[{src:"./img/20251011_092914.jpg",cap:"09:30 — The lenticular cap over the summit."},{src:"./img/20251011_092911.jpg",cap:"09:30 — The cap up close, holding its lens shape."},{src:"./img/20251011_092902.jpg",cap:"09:30 — San Jacinto, capped and motionless (wide)."}],
+  lenses:[{src:"./img/20251011_110531.jpg",cap:"11:05 — The dawn cap, drifted east of San Jacinto and softening."},{src:"./img/20251011_110541.jpg",cap:"11:05 — Spreading and burning off as the air warms."}],
+  "cabinet-out":[{src:"./img/20251011_122025.jpg",cap:"12:20 — Open on its mount, the failed hinge hanging loose in the corner."},{src:"./img/20251011_122518.jpg",cap:"12:25 — Off the pole, laid out on the bench in the sun."},{src:"./img/20251011_160230.jpg",cap:"Stowed in the storeroom, waiting for a ride to the shop."}],
+  crew:[{src:"./img/20251011_151531.jpg",cap:"15:15 — On the catwalk, reading the country they work."},{src:"./img/20251011_150227.jpg",cap:"15:02 — The crew at the 6,140-ft summit sign."}],
+  register:[{src:"./img/20251011_153304.jpg",cap:"15:33 — The cab visitor register."}],
+  biker:[{src:"./img/20251011_145706.jpg",cap:"14:57 — A biker, run low on water at the top of the climb."}],
+  radioout:[{src:"./img/20251012_070105.jpg",cap:"07:01, next morning — the cab squared away, ready to radio out."}],
+  dinner:[{src:"./img/20251011_163532.jpg",cap:"16:35 — Early dinner on the catwalk, the back-country going gold."}],
+  gatedusk:[{src:"./img/20251011_171810.jpg",cap:"17:18 — Jurassic locked for the night, the country opening out below."}],
+  observatory:[{src:"./img/20251011_172816.jpg",cap:"17:28 — The Hale dome settling into the ridges, marine layer banked behind."}],
+  pano:[{src:"./img/20251011_173723.jpg",cap:"17:37 — The last light, all the way around the base."},{src:"./img/20251011_173725.jpg",cap:"17:37 — Ridge behind ridge, thrown into relief."},{src:"./img/20251011_173731.jpg",cap:"17:37 — The country in the raking light."},{src:"./img/20251011_173733.jpg",cap:"17:37 — Folds and drainages standing up."},{src:"./img/20251011_173735.jpg",cap:"17:37 — East toward the desert ranges, going blue."},{src:"./img/20251011_173741.jpg",cap:"17:37 — The long shadows of the hillshade hour."},{src:"./img/20251011_173743.jpg",cap:"17:37 — Layer on layer to the horizon."},{src:"./img/20251011_173757.jpg",cap:"17:37 — The marine layer silver to the west."},{src:"./img/20251011_173759.jpg",cap:"17:37 — The base of the tower in the last sun."},{src:"./img/20251011_173800.jpg",cap:"17:38 — Around the peak, the full purview."},{src:"./img/20251011_173804.jpg",cap:"17:38 — Relief and shadow across the back-country."},{src:"./img/20251011_173808.jpg",cap:"17:38 — The country reading back in the low light."},{src:"./img/20251011_173810.jpg",cap:"17:38 — Ridgelines stacked to the east."},{src:"./img/20251011_173819.jpg",cap:"17:38 — The last of the gold on the land."},{src:"./img/20251011_173823.jpg",cap:"17:38 — Toward Julian and the far ridges."},{src:"./img/20251011_173825.jpg",cap:"17:38 — The whole eastern back-country."},{src:"./img/20251011_173833.jpg",cap:"17:38 — The sun nearly behind the western ridges."},{src:"./img/20251011_173838.jpg",cap:"17:38 — The amber going deep."},{src:"./img/20251011_173840.jpg",cap:"17:38 — Last light on the steel and the land."}]
+};
+(function(){var dlg=document.getElementById('gallery'),img=document.getElementById('gImg'),cap=document.getElementById('gCap'),cnt=document.getElementById('gCount'),set=[],i=0,lf=null;
+function show(n){i=(n+set.length)%set.length;img.src=set[i].src;img.alt=set[i].cap;cap.textContent=set[i].cap;cnt.textContent=(i+1)+' / '+set.length;}
+function open(k,el){set=GAL[k]||[];if(!set.length)return;lf=el;show(0);dlg.showModal();document.getElementById('gClose').focus();}
+document.querySelectorAll('[data-gallery]').forEach(function(el){el.style.cursor='zoom-in';el.setAttribute('tabindex','0');el.addEventListener('click',function(){open(el.getAttribute('data-gallery'),el);});el.addEventListener('keydown',function(e){if(e.key==='Enter')open(el.getAttribute('data-gallery'),el);});});
+document.querySelector('.g-prev').addEventListener('click',function(){show(i-1);});document.querySelector('.g-next').addEventListener('click',function(){show(i+1);});
+document.getElementById('gClose').addEventListener('click',function(){dlg.close();});dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+dlg.addEventListener('close',function(){img.src='';if(lf)lf.focus();});document.addEventListener('keydown',function(e){if(!dlg.open)return;if(e.key==='ArrowLeft')show(i-1);else if(e.key==='ArrowRight')show(i+1);});})();
+
+function setOpen(sec,open){
+  sec.classList.toggle('collapsed',!open);
+  var btn=sec.querySelector('.act-head');if(btn)btn.setAttribute('aria-expanded',open?'true':'false');
+  var box=sec.querySelector('.entries');if(!box)return;
+  var inner=box.querySelector('.entries-inner');
+  if(open){
+    /* animate up to the measured height, then RELEASE the cap to 'none' so late-loading
+       images / reflow can never clip the section (this was the "missing sections" bug). */
+    box.style.maxHeight=inner.scrollHeight+'px';
+    var rel=function(){box.style.maxHeight='none';};
+    box.addEventListener('transitionend',rel,{once:true});
+    clearTimeout(box._t);box._t=setTimeout(rel,450);
+  } else {
+    if(box.style.maxHeight==='none'||box.style.maxHeight===''){box.style.maxHeight=inner.scrollHeight+'px';box.offsetHeight;}
+    clearTimeout(box._t);
+    requestAnimationFrame(function(){box.style.maxHeight='0px';});
+  }
+}
+document.querySelectorAll('.act > .act-head').forEach(function(btn){
+  var sec=btn.parentElement;if(!sec.querySelector('.entries'))return;
+  btn.addEventListener('click',function(){setOpen(sec,sec.classList.contains('collapsed'));});
+});
+/* open sections start fully expanded with NO height cap — never clipped */
+window.addEventListener('load',function(){document.querySelectorAll('.act').forEach(function(s){var b=s.querySelector('.entries');if(b&&!s.classList.contains('collapsed'))b.style.maxHeight='none';});});
+var ea=document.getElementById('expandAll'),ca=document.getElementById('collapseAll');
+if(ea)ea.addEventListener('click',function(){document.querySelectorAll('.act').forEach(function(s){if(s.querySelector('.entries'))setOpen(s,true);});});
+if(ca)ca.addEventListener('click',function(){document.querySelectorAll('.act').forEach(function(s){if(s.querySelector('.entries'))setOpen(s,false);});});
+
+(function(){var toc=document.getElementById('toc'),h=toc.querySelector('.toc-h');
+  if(!h)return;
+  if(window.matchMedia('(max-width:920px)').matches)toc.classList.add('collapsed'); /* tap to open on mobile */
+  h.addEventListener('click',function(){toc.classList.toggle('collapsed');});
+  /* keep the active item visible by scrolling ONLY the rail — never the page (that caused the jolt) */
+  window._tocReveal=function(a){
+    var nav=a&&a.closest('nav'); if(!nav||nav.scrollHeight<=nav.clientHeight)return;
+    var ar=a.getBoundingClientRect(), nr=nav.getBoundingClientRect();
+    if(ar.top<nr.top+4) nav.scrollTop-=(nr.top-ar.top)+10;
+    else if(ar.bottom>nr.bottom-4) nav.scrollTop+=(ar.bottom-nr.bottom)+10;
+  };
+})();
+
+(function(){var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  var items=links.map(function(a){var id=a.getAttribute('href').slice(1);return {a:a,el:id&&document.getElementById(id)};}).filter(function(x){return x.el;});
+  if(!items.length)return;
+  var ticking=false,last=null;
+  function spy(){
+    ticking=false;
+    var line=132,best=null,bestTop=-1e9;
+    for(var i=0;i<items.length;i++){var t=items[i].el.getBoundingClientRect().top;if(t<=line&&t>bestTop){bestTop=t;best=items[i];}}
+    if(!best)best=items[0];
+    if(best!==last){links.forEach(function(a){a.classList.remove('active');});best.a.classList.add('active');if(window._tocReveal)window._tocReveal(best.a);last=best;}
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(spy);}},{passive:true});
+  window.addEventListener('resize',function(){if(!ticking){ticking=true;requestAnimationFrame(spy);}});
+  spy();
+})();
+
+(function(){var els=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.08,rootMargin:'0px 0px -6% 0px'});els.forEach(function(e){io.observe(e);});})();
+/* ---- CLICK-TO-PLAY MEDIA VIEWER (video / image / pdf) -------------------
+   Opens an in-page <dialog>; media is injected only on click and torn down on
+   close (stops playback). Triggers: any element with data-media="video|image|pdf"
+   + data-src, plus optional data-title, data-orient="vert", data-yt (fallback
+   link), data-type="yt".
+   VIDEO modes:
+     • DEFAULT (self-hosted): data-src="./img/clip.mp4" -> native <video>, plays
+       everywhere (local + deployed), no YouTube, no "Error 153".
+     • data-type="yt": data-src="https://www.youtube-nocookie.com/embed/ID" ->
+       iframe; reliable once DEPLOYED to a real domain, flaky on local preview. */
+(function(){
+  var mm=document.getElementById('mediaModal');
+  if(!mm) return;
+  var body=mm.querySelector('.mbody'), title=mm.querySelector('.mtitle');
+  function openMedia(el){
+    var t=el.getAttribute('data-media'), src=el.getAttribute('data-src');
+    var vert=el.getAttribute('data-orient')==='vert'?'vert':'';
+    var yt=el.getAttribute('data-yt');
+    title.innerHTML=el.getAttribute('data-title')||'';
+    if(t==='video'){
+      var fb=yt?'<a class="ytlink" href="'+yt+'" target="_blank" rel="noopener">Trouble playing? Watch on YouTube &#8599;</a>':'';
+      if(el.getAttribute('data-type')==='yt'){
+        var sep=src.indexOf('?')>-1?'&':'?';
+        body.innerHTML='<iframe class="'+vert+'" src="'+src+sep+'rel=0&modestbranding=1" title="" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>'+fb;
+      } else {
+        body.innerHTML='<video class="'+vert+'" src="'+src+'" controls autoplay playsinline preload="metadata"></video>'+fb;
+      }
+    } else if(t==='image'){
+      body.innerHTML='<img src="'+src+'" alt="">';
+    } else if(t==='pdf'){
+      body.innerHTML='<iframe class="pdf" src="'+src+'" title="Document viewer"></iframe>';
+    }
+    mm.showModal();
+  }
+  document.querySelectorAll('[data-media]').forEach(function(el){
+    el.addEventListener('click',function(e){e.preventDefault();openMedia(el);});
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openMedia(el);}});
+  });
+  mm.addEventListener('click',function(e){if(e.target===mm)mm.close();});
+  mm.addEventListener('close',function(){body.innerHTML='';});
+})();
+</script>
+</body>
+</html>
